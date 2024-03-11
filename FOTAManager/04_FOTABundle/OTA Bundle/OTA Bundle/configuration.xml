@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OTAConfiguration>
+    <UpdateSettings>
+        <AutoDownload>true</AutoDownload>
+        <AutoInstall>false</AutoInstall>
+        <PreferredInstallTime>02:00</PreferredInstallTime>
+    </UpdateSettings>
+
+    <NetworkRequirements>
+        <WifiRequired>true</WifiRequired>
+        <MinimumBatteryLevel>50</MinimumBatteryLevel>
+    </NetworkRequirements>
+
+    <DeviceCompatibility>
+        <Models>
+            <Model>ModelA</Model>
+           
+        </Models>
+        <MinimumFirmwareVersion>1.1.0</MinimumFirmwareVersion>
+    </DeviceCompatibility>
+
+    <UpdateFiles>
+        <Firmware>
+            <Path>/path/to/firmware.bin</Path>
+            <Checksum type="SHA256">abcd1234efgh5678ijkl9101mnopqrst</Checksum>
+        </Firmware>
+        <Manifest>
+            <Path>/path/to/manifest.json</Path>
+        </Manifest>
+    </UpdateFiles>
+
+    <PostUpdateActions>
+        <Reboot>true</Reboot>
+        <ClearCache>false</ClearCache>
+    </PostUpdateActions>
+</OTAConfiguration>

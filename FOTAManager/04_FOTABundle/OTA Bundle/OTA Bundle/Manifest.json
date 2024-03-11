@@ -1,0 +1,39 @@
+{
+  "manifest": {
+    "updateId": "update-20240101",
+    "version": "1.2.3",
+    "date": "2024-01-01",
+    "description": "Firmware update for improved performance and bug fixes.",
+    "directories": {
+      "FirmwareImageFiles": {
+        "DirectoryName": "FirmwareImageFiles",
+        "files": [
+          {
+            "fileName": "DEMO_2.hex",
+            "fileSize": 1234567,
+            "checksum": "abcd1234efgh5678ijkl9101mnopqrst"
+          }
+        ]
+      },
+      "udsFlowConfig": {
+        "DirectoryName": "udsFlowConfig",
+        "files": [
+          {
+            "fileName": "udsTemp.xml",
+            "fileSize": 2345,
+            "checksum": "1234abcd5678efgh9101ijklqrstmnop"
+          }
+        ]
+      }
+    },
+    "compatibility": {
+      "models": ["ModelA", "ModelB", "ModelC"],
+      "minBatteryLevel": 20
+    },
+    "installation": {
+      "rebootRequired": true,
+      "estimatedTime": 300,
+      "instructions": "The device will reboot and start the update process. Do not turn off the device during the update."
+    }
+  }
+}
