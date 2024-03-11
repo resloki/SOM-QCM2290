@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/appbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="55dp"-->
+<!--        android:background="@color/AppBarColor">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="center"-->
+<!--            android:text="UDS Flasher"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="16dp" />-->
+<!--    </FrameLayout>-->
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="344dp"-->
+<!--                android:background="#F8F8F8"-->
+<!--                android:padding="16dp"-->
+<!--                tools:ignore="ExtraText">-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/hexLoaderinputText"-->
+<!--                    android:layout_width="218dp"-->
+<!--                    android:layout_height="58dp"-->
+<!--                    android:hint="Load Hex file"-->
+<!--                    android:inputType="text"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:textColor="#2B772B" />-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/xmlLoaderinputText"-->
+<!--                    android:layout_width="218dp"-->
+<!--                    android:layout_height="58dp"-->
+<!--                    android:layout_below="@+id/hexLoaderinputText"-->
+<!--                    android:layout_marginTop="13dp"-->
+<!--                    android:hint="Load XML File"-->
+<!--                    android:inputType="text"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:textColor="#2B772B" />-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/editTextDataBytesInput"-->
+<!--                    android:layout_width="303dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/xmlfileLoadBtn"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="67dp"-->
+<!--                    android:layout_toEndOf="@+id/editTextDlc"-->
+<!--                    android:hint="@string/TxInput"-->
+<!--                    android:inputType="text"-->
+<!--                    android:textColor="#2B772B" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/buttonSend"-->
+<!--                    android:layout_width="105dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/editTextDataBytesInput"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:layout_marginEnd="30dp"-->
+<!--                    android:background="#396C3B"-->
+<!--                    android:text="Send Message"-->
+<!--                    android:textColor="#FFFFFF" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/StartCommandUart"-->
+<!--                    android:layout_width="134dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/editTextDataBytesInput"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginTop="21dp"-->
+<!--                    android:layout_marginEnd="144dp"-->
+<!--                    android:background="#396C3B"-->
+<!--                    android:text="onStartCommand"-->
+<!--                    android:textColor="#FFFFFF" />-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/editTextDlc"-->
+<!--                    android:layout_width="91dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/xmlLoaderinputText"-->
+<!--                    android:layout_marginTop="69dp"-->
+<!--                    android:hint="DLC"-->
+<!--                    android:inputType="number"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:textColor="#2B772B" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/uartStart"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/editTextDataBytesInput"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:layout_marginEnd="288dp"-->
+<!--                    android:background="#396C3B"-->
+<!--                    android:text="@string/start_service"-->
+<!--                    android:textColor="#FFFFFF" />-->
+
+
+<!--                <Button-->
+<!--                    android:id="@+id/xmlfileLoadBtn"-->
+<!--                    android:layout_width="113dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/hexfileLoadBtn"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginTop="39dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:background="#396C3B"-->
+<!--                    android:text="Loadxml"-->
+<!--                    android:textColor="#FFFFFF" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/Flashbtn"-->
+<!--                    android:layout_width="113dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/hexfileLoadBtn"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginTop="109dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:background="#396C3B"-->
+<!--                    android:text="Flash"-->
+<!--                    android:textColor="#FFFFFF" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/hexfileLoadBtn"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginEnd="24dp"-->
+<!--                    android:background="#396C3B"-->
+<!--                    android:text="loadHexFile"-->
+<!--                    android:textColor="#FFFFFF" />-->
+<!--            </RelativeLayout>-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="381dp"-->
+<!--                android:background="#F8F8F8"-->
+<!--                android:padding="16dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="142dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:backgroundTint="#CC9999"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Reception Table"-->
+<!--                    android:textAlignment="center" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/ReceivedData"-->
+<!--                    android:layout_width="374dp"-->
+<!--                    android:layout_height="170dp"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:layout_marginEnd="21dp"-->
+<!--                    android:layout_marginBottom="92dp"-->
+<!--                    android:background="#DAE8DB"-->
+<!--                    android:text=" "-->
+<!--                    android:textColor="@color/black" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/rxButton"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentTop="true"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginTop="43dp"-->
+<!--                    android:layout_marginEnd="257dp"-->
+<!--                    android:text="Rx Btn" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/clearBtn"-->
+<!--                    android:layout_width="154dp"-->
+<!--                    android:layout_height="44dp"-->
+<!--                    android:layout_alignParentTop="true"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginTop="50dp"-->
+<!--                    android:layout_marginEnd="86dp"-->
+<!--                    android:text="Clear" />-->
+<!--            </RelativeLayout>-->
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
+</RelativeLayout>

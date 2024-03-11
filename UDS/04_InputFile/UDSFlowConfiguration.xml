@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServiceInfo>
+
+
+    <Service Name="DiagnosticSessionControl" SID="0x10">
+        <ProcessName>StartDefaultSession</ProcessName>
+        <RequestType>Functional</RequestType>
+        <Request>
+            <Session SubfunctionID="0x01" name="DefaultSession" SuppressPositiveResponse="false" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x02"/>
+                <Byte index="3" value="0x03"/>
+                <Byte index="4" value="0x03"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x01" name="DefaultSession" SuppressPositiveResponse="false" parameterRecord="false" />
+           <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response>
+        <GapTimeout>0</GapTimeout>
+    </Service>
+ 
+    <Service Name="DiagnosticSessionControl" SID="0x10">
+        <ProcessName>StartDefaultSession</ProcessName>
+        <RequestType>Functional</RequestType>
+        <Request>
+            <Session SubfunctionID="0x03" name="extendedsession" SuppressPositiveResponse="false" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x03" name="extendedsession" SuppressPositiveResponse="false" parameterRecord="false" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response>
+        <GapTimeout>0</GapTimeout>
+    </Service>
+ 
+    <Service Name="SecurityAccess" SID="0x27">
+        <ProcessName>Start Security Acces</ProcessName>
+        <RequestType>Physical</RequestType>
+        <Request>
+            <Session SubfunctionID="0x01" name="SecurityAccess" SuppressPositiveResponse="false" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x01" name="DefaultSession" SuppressPositiveResponse="false" parameterRecord="false" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response> 
+        <GapTimeout>0</GapTimeout>
+    </Service>
+ 
+    <Service Name="DiagnosticSessionControl" SID="0x10">
+        <ProcessName>StartDefaultSession</ProcessName>
+        <RequestType>Functional</RequestType>
+        <Request>
+            <Session SubfunctionID="0x02" name="DefaultSession" SuppressPositiveResponse="false" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x02" name="DefaultSession" SuppressPositiveResponse="false" parameterRecord="true" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response>
+        <GapTimeout>0</GapTimeout>
+    </Service>
+ 
+    <Service Name="TesterPresent " SID="0x3E">
+        <ProcessName>ECU reset</ProcessName>
+        <RequestType>Physical</RequestType>
+        <Request>
+            <Session SubfunctionID="0x00" name="TesterPresent" SuppressPositiveResponse="false" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x00" name="TesterPresent" SuppressPositiveResponse="false" parameterRecord="true" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response> 
+        <GapTimeout>0</GapTimeout>
+    </Service>
+ 
+    <Service Name="RoutineControl" SID="0x31">
+        <ProcessName>RoutineControl</ProcessName>
+        <RequestType>Physical</RequestType>
+        <Request>
+            <Session SubfunctionID="0x01" name="RoutineControl" SuppressPositiveResponse="false" />
+            <RoutineIdentifier>0xFF00</RoutineIdentifier>
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x01" name="RoutineControl" SuppressPositiveResponse="false" parameterRecord="true" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response> 
+        <GapTimeout>0</GapTimeout>
+    </Service>
+
+    <Service Name="RequestDownload" SID="0x34">
+        <ProcessName>RequestDownload</ProcessName>
+        <RequestType>Physical</RequestType>
+        <Request>
+            <Session SubfunctionID="0x01" name="RequestDownload" SuppressPositiveResponse="false" />
+             <FlashingFileInfo>
+                <path>D:\_Sloki\_Projects\RE Projects\udsClient\Hex_file\DEMO_2.hex</path>
+             </FlashingFileInfo>
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x01" name="RequestDownload" SuppressPositiveResponse="false" parameterRecord="true" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response> 
+        <GapTimeout>0</GapTimeout>
+    </Service>
+ 
+    <Service Name="TransferData" SID="0x36">
+        <ProcessName>RequestDownload</ProcessName>
+        <RequestType>Physical</RequestType>
+        <Request>
+            <Session SubfunctionID="0x00" name="TransferData" SuppressPositiveResponse="false" />
+             <FlashingFileInfo>
+                <path>D:\_Sloki\_Projects\RE Projects\udsClient\Hex_file\DEMO_3.hex</path>
+             </FlashingFileInfo>
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x00" name="TransferData" SuppressPositiveResponse="false" parameterRecord="true" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response> 
+        <GapTimeout>0</GapTimeout>
+    </Service>
+    
+    <Service Name="TransferData" SID="0x37">
+        <ProcessName>RequestDownload</ProcessName>
+        <RequestType>Physical</RequestType>
+        <Request>
+            <Session SubfunctionID="0x00" name="TransferData" SuppressPositiveResponse="false" />
+             <FlashingFileInfo>
+                <path>D:\_Sloki\_Projects\RE Projects\udsClient\Hex_file\DEMO_2.hex</path>
+             </FlashingFileInfo>
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x00" name="TransferData" SuppressPositiveResponse="false" parameterRecord="true" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response> 
+        <GapTimeout>0</GapTimeout>
+    </Service>
+
+
+    <Service Name="RoutineControl" SID="0x31">
+        <ProcessName>RoutineControl</ProcessName>
+        <RequestType>Physical</RequestType>
+        <Request>
+            <Session SubfunctionID="0x01" name="RoutineControl" SuppressPositiveResponse="false" />
+            <RoutineIdentifier>0xFF01</RoutineIdentifier>
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x01" name="RoutineControl" SuppressPositiveResponse="false" parameterRecord="true" />
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response> 
+        <GapTimeout>0</GapTimeout>
+    </Service>
+
+
+    <Service Name="ECU Reset" SID="0x11">
+        <ProcessName>ECU Reset</ProcessName>
+        <RequestType>Physical</RequestType>
+        <Request>
+            <Session SubfunctionID="0x03" name="RoutineControl" SuppressPositiveResponse="false" />
+            <RoutineIdentifier>0xFF00</RoutineIdentifier>
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00"/>
+                <Byte index="3" value="0x00"/> 
+                <Byte index="4" value="0x00"/>
+            </OptionalBytes>
+        </Request>
+        <Response>
+            <Session SubfunctionID="0x03" name="RoutineControl" SuppressPositiveResponse="false" parameterRecord="true" />
+            <RoutineIdentifier>0xFF00</RoutineIdentifier>
+            <OptionalBytes used="false" bufferlength="0x10">
+                <Byte index="2" value="0x00" />
+                 <Byte index="3" value="0x00" />
+                  <Byte index="4" value="0x00" />
+            </OptionalBytes>
+        </Response> 
+        <GapTimeout>0</GapTimeout>
+    </Service>
+
+
+ 
+</ServiceInfo>

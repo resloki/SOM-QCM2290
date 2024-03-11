@@ -1,0 +1,187 @@
+Conversion Warnings Log
+
+
+MSG_ID: 561 	MSG_TYPE: S 	MSG_NAME: MCU_Data3
+	SIG_NAME: B_Phase_Current_MCU, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+	SIG_NAME: Y_Phase_Current_MCU, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+	SIG_NAME: R_Phase_Current_MCU, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 341 	MSG_TYPE: S 	MSG_NAME: Traction_Control2
+	SIG_NAME: Regeneration_Command, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+	SIG_NAME: Rear_Brake_Status, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+	SIG_NAME: Front_Brake_Status, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 2011 	MSG_TYPE: S 	MSG_NAME: BCM_Diagnostic_Request
+	SIG_NAME: BCM_Diag_Request, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 2010 	MSG_TYPE: S 	MSG_NAME: BCM_Diagnostic_Response
+	SIG_NAME: BCM_Diag_Response, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1993 	MSG_TYPE: S 	MSG_NAME: ABS_Diag_Response
+	SIG_NAME: ABS_Diag_Response, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1992 	MSG_TYPE: S 	MSG_NAME: ABS_Diag_Request
+	SIG_NAME: ABS_Diag_Request, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 2008 	MSG_TYPE: S 	MSG_NAME: ESCL_Diagnostic_Response
+	SIG_NAME: ESCL_Diagnostic_Resp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 340 	MSG_TYPE: S 	MSG_NAME: ABS_Parameters
+	SIG_NAME: ABS_Faulty, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1055 	MSG_TYPE: S 	MSG_NAME: BMS_Fault_2
+	SIG_NAME: BMS_LowTempDrive_Error, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+	SIG_NAME: BMS_LowTempDrive_Warning, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1653 	MSG_TYPE: S 	MSG_NAME: BMS_Diagnostic_Response
+	SIG_NAME: BMS_Diag_Resp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1989 	MSG_TYPE: S 	MSG_NAME: OBC_Diagnostic_Response
+	SIG_NAME: OBC_Diag_Resp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1986 	MSG_TYPE: S 	MSG_NAME: MCU_Diagnostic_Response
+	SIG_NAME: MCU_Diagnostic_Resp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1799 	MSG_TYPE: S 	MSG_NAME: ICM_Error
+	SIG_NAME: High_Temp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 2006 	MSG_TYPE: S 	MSG_NAME: HU_Diagnostic_Response
+	SIG_NAME: HU_Diagnostic_Resp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1601 	MSG_TYPE: S 	MSG_NAME: ICM_HW_Version_Info
+	SIG_NAME: ICM_Hardware_Version, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1609 	MSG_TYPE: S 	MSG_NAME: LSC_HW_Version_Info
+	SIG_NAME: LSC_Hardware_Version, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1607 	MSG_TYPE: S 	MSG_NAME: RSC_HW_Version_Info
+	SIG_NAME: RSC_Hardware_Version, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1956 	MSG_TYPE: S 	MSG_NAME: LSC_Diagnostic_Response
+	SIG_NAME: LSC_Diagnostic_Resp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1954 	MSG_TYPE: S 	MSG_NAME: RSC_Diagnostic_Response
+	SIG_NAME: RSC_Diag_Resp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 372 	MSG_TYPE: S 	MSG_NAME: VCU_Data
+	SIG_NAME: ESCL_Power_Supply, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 2009 	MSG_TYPE: S 	MSG_NAME: ESCL_Diagnostic_Request
+	SIG_NAME: ESCL_Diag_Req, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1652 	MSG_TYPE: S 	MSG_NAME: BMS_Diagnostic_Request
+	SIG_NAME: BMS_Diag_Request, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1996 	MSG_TYPE: S 	MSG_NAME: OBC_Diagnostic_Request
+	SIG_NAME: OBC_Diag_Request, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1664 	MSG_TYPE: S 	MSG_NAME: OTA_Status
+	SIG_NAME: OTA_Status_Info, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 2029 	MSG_TYPE: S 	MSG_NAME: Func_Diagnostic_Request
+	SIG_NAME: Functional_Diag_Request, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1972 	MSG_TYPE: S 	MSG_NAME: MCU_Diagnostic_Request
+	SIG_NAME: MCU_Diag_Request, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 361 	MSG_TYPE: S 	MSG_NAME: Vehicle_Func
+	SIG_NAME: Hill_Hold_Command, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1807 	MSG_TYPE: S 	MSG_NAME: TimeStamp_Sync_Message
+	SIG_NAME: VCU_TimeStamp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 2007 	MSG_TYPE: S 	MSG_NAME: HU_Diagnostic_Request
+	SIG_NAME: HU_Diag_Req, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1955 	MSG_TYPE: S 	MSG_NAME: LSC_Diagnostic_Request
+	SIG_NAME: LSC_Diag_Req, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1953 	MSG_TYPE: S 	MSG_NAME: RSC_Diagnostic_Request
+	SIG_NAME: RSC_Diag_Req, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1294 	MSG_TYPE: S 	MSG_NAME: Charger_Fault_Info
+	SIG_NAME: DCDC_OP_Open_Circuit, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 833 	MSG_TYPE: S 	MSG_NAME: MCU_Fault_Data
+	SIG_NAME: Mcu_Flt_MOSFET_HighTemp, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 367 	MSG_TYPE: S 	MSG_NAME: BMS_PARAMETER_4
+	SIG_NAME: Pack_Internal_Resistance, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 298 	MSG_TYPE: S 	MSG_NAME: BMS_PARAMETER_1
+	SIG_NAME: Battery_Discharge_Inhibit, STATUS: Invalid Max or Min value., ACTION: Value Set to default
+
+MSG_ID: 1073741824 	MSG_TYPE: X 	MSG_NAME: VECTOR__INDEPENDENT_SIG_MSG
+	SIG_NAME: LV_supply_under_voltage, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: DCDC_Fault_Reserved3, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: DCDC_Fault_Reserved2, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: DCDC_Fault_Reserved4, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Discharge_Power_Limit, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Regen_Button_fault, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Voice_Assist_Button_fault, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: AUX_Light_Button_fault, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Right_Indicator_Button_fault, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: AUX_Light, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Right_Indicator, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: RSC_System_Error, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: RSC_Power_Status, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Regen_Max_Current, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Brake_Regen_Pencentage, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Coast_Regen_Percentage, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Forced_Regen_Percentage, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_KL30_high, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_fault_KL30_Fault, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Motor_rpm, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Reserved, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Motor_rpm, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Regen_Torque, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Live_Z_Pulse_Counter, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Live_PWM_Rotor_Angle, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Live_Position_Counter, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Position_Counter, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Motor_BEMF_Frequency, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Vehicle_Dir_flag, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_DC_Current_Sensor_STG, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_DC_bus_V_Sensor_STG, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_MOSFET_Temp_High, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_DC_Current_Sensor_STB, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_BuckConv_12V_STG, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_BuckConverter_12V_STB, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_BuckConv_5V_underV_Cutoff, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_BuckConv_5V_overV_Cutoff, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_Yphase_STG, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_Yphase_STB, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_Rphase_STG, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_Rpase_STB, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_Bphase_STG, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_Bphase_STB, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_BoardTemp_Sensor_STG, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_BoardTemp_Sensor_STB, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Flt_DC_bus_V_Sensor_STB, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Regen_Failure, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Motor_Over_temp_warning, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_overspeed_fault, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Over_temp_warning, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_dio_phase_cntrl_Status, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_fault_rotor_stall, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_fault_Board_temp_low, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_fault_Machine_temp_low, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_calibration_fail, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCUDC_bus_C_temp_sens_fail, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Motorphasedisconnect_Wphase, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Motorphasedisconnect_Vphase, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Motorphasedisconnect_Uphase, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: LV_supplyshortcircuit, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: LV_supplyOvercurrent, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Dc_bus_capacitor_Overtemp, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Motor_regen_break_fault, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Prechrge_fail, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: DCbus_HVIL_Fail, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: DCbus_reversepolarity, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: DCbus_shortcircuit, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Encoder_Disconnection, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MotorOV_protect_W_ph, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MotorOV_protect_V_ph, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MotorOV_protect_U_ph, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: Distance_Cuurent_Trip, STATUS: No error, ACTION: Signal Discarded
+	SIG_NAME: MCU_Power_Status, STATUS: No error, ACTION: Signal Discarded

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#232222"
+        android:padding="16dp">
+
+        <!-- Title TextView -->
+
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:text="Royal Enfield UART Service user Input Screen"
+            android:textColor="#3F6219"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="343dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleTextView"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:text="To continue,start the following services:"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+
+        <Button
+            android:id="@+id/hexfileLoadBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/grant_permission_button"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="8dp"
+            android:text="Load HEX File"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/selectedxmlfileName"
+            android:layout_width="209dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/titleTextView"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="171dp"
+            android:layout_marginTop="172dp"
+            android:gravity="center"
+            android:text="select xml file"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/xmlfileLoadBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hexfileLoadBtn"
+            android:layout_marginTop="16dp"
+            android:text="Load XML File"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/selectedHexfileName"
+            android:layout_width="201dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/titleTextView"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="103dp"
+            android:gravity="center"
+            android:text="select hex file"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18sp" />
+
+
+        <Button
+            android:id="@+id/submit_Request"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vdaservicestart"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="78dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="79dp"
+            android:text="Submit Request"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/grant_permission_button"
+            android:layout_width="372dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleTextView"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="42dp"
+            android:text="File access permission"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xmlfileLoadBtn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="8dp"
+            android:text="UART Service"
+            android:textColor="#7D407B"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/uartservicestart"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xmlfileLoadBtn"
+            android:layout_marginTop="47dp"
+            android:layout_marginEnd="33dp"
+            android:layout_toStartOf="@+id/uartservicestop"
+            android:text="start service"
+            android:textSize="18sp" />
+
+
+        <Button
+            android:id="@+id/uartservicestop"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/xmlfileLoadBtn"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="49dp"
+            android:layout_marginEnd="0dp"
+            android:text="stop service"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xmlfileLoadBtn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="106dp"
+            android:text="UDS service"
+            android:textColor="#7D407B"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/vdaservicestop"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/xmlfileLoadBtn"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="231dp"
+            android:text="stop service"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xmlfileLoadBtn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="197dp"
+            android:text="VDA service"
+            android:textColor="#7D407B"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/vdaservicestart"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xmlfileLoadBtn"
+            android:layout_marginTop="229dp"
+            android:layout_marginEnd="33dp"
+            android:layout_toStartOf="@+id/vdaservicestop"
+            android:text="start service"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/udsservicestart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xmlfileLoadBtn"
+            android:layout_marginTop="138dp"
+            android:layout_marginEnd="36dp"
+            android:layout_toStartOf="@+id/udsservicestop"
+            android:text="start service"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/udsservicestop"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/xmlfileLoadBtn"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="135dp"
+            android:layout_marginEnd="0dp"
+            android:text="stop service"
+            android:textSize="18sp" />
+
+
+    </RelativeLayout>
+</ScrollView>
