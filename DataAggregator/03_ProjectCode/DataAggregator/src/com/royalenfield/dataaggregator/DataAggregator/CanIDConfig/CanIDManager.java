@@ -30,7 +30,7 @@ public class CanIDManager {
             (byte) 0x1B5, (byte) 0x1B6, (byte) 0x1B7, (byte) 0x1B8, (byte) 0x1B9,
             (byte) 0x14E, (byte) 0x16E, (byte) 0x172, (byte) 0x17E, (byte) 0x153,
             (byte) 0x154, (byte) 0x171, (byte) 0x174, (byte) 0x4CE, (byte) 0x173,
-            (byte) 0x555
+            (byte) 0x555, (byte) 0x16F
     };
 
 }

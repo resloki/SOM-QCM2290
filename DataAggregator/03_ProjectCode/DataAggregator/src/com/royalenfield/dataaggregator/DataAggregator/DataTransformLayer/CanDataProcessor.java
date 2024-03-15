@@ -3,14 +3,15 @@ package com.royalenfield.dataaggregator.DataAggregator.DataTransformLayer;
 import android.content.Context;
 import android.util.Log;
 
+
 import com.royalenfield.dataaggregator.DataAggregator.DataPreserveLayer.Intervals;
 import com.royalenfield.dataaggregator.DataAggregator.DataTransformLayer.SignalConvert.ConverterInitialize;
 import com.royalenfield.dataaggregator.DataAggregator.DataTransformLayer.SignalConvert.SignalConverter;
+import com.royalenfield.dataaggregator.DataAggregator.FrameStructure.CanFrames;
 import com.royalenfield.dataaggregator.DataAggregator.strategicIoLayer.SignalPublisher;
 import com.royalenfield.dataaggregator.DataAggregator.strategicIoLayer.dbHandler.DBHandler_10ms;
 import com.royalenfield.dataaggregator.DataAggregator.strategicIoLayer.dbHandler.DBHandler_500ms;
 import com.royalenfield.dataaggregator.DataAggregator.strategicIoLayer.dbHandler.DBHandler_50ms;
-import com.royalenfield.dataaggregator.DataAggregator.FrameStructure.CanFrames;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
@@ -2196,7 +2197,6 @@ public class CanDataProcessor {
                 return;
             }
 
-
             for (Map.Entry<String, Object> entry : signalDataMap.entrySet()) {
                 String signalName = entry.getKey();
                 Object data = entry.getValue();
@@ -2205,10 +2205,12 @@ public class CanDataProcessor {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
                 String formattedTimestamp = dateFormat.format(new Date());
 
-                Log.d("DatabaseLog", " Timestamp: " + formattedTimestamp + "  CAN ID: 0x" + Integer.toHexString(canid) + "  Signal Name: " + signalName + "  Value: " + convertValue(data));
+                Log.d("DatabaseLog", " Timestamp: " + formattedTimestamp + "  CAN ID: 0x" + Integer.toHexString(canid) + "  Signal Name: " + signalName + "  Value: " + String.valueOf(data));
 
-                SignalPublisher signalPublisher=new SignalPublisher(context);
-                signalPublisher.SignalBroadcast(canid,signalName,convertValue(data),formattedTimestamp);
+
+                SignalPublisher signalPublisher = new SignalPublisher(context);
+                signalPublisher.SignalBroadcast(canid, signalName, data, formattedTimestamp);
+
             }
 
             switch (interval) {
@@ -2231,19 +2233,4 @@ public class CanDataProcessor {
             e.printStackTrace();
         }
     }
-
-    private long convertValue(Object value) {
-        if (value instanceof Long) {
-            return (Long) value;
-        } else if (value instanceof Integer) {
-            return (Integer) value;
-        } else if (value instanceof Short) {
-            return (Short) value;
-        } else if (value instanceof Byte) {
-            return (Byte) value;
-        } else {
-            throw new IllegalArgumentException("Unsupported data type: " + value.getClass());
-        }
-    }
-
 }

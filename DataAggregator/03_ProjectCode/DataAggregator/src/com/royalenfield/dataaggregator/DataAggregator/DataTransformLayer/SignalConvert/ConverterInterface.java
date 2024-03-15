@@ -1,6 +1,5 @@
 package com.royalenfield.dataaggregator.DataAggregator.DataTransformLayer.SignalConvert;
 
-
 public interface ConverterInterface {
     long Deserialize_VCU_to_OBC_Auth_Req( ConverterInitialize.VCU_to_OBC_Auth_Req_t messages, byte[] data_deserialize_VCU_to_OBC_Auth_Req);
     long Serialize_VCU_to_OBC_Auth_Req( ConverterInitialize.VCU_to_OBC_Auth_Req_t messages, byte[] data_serialize_VCU_to_OBC_Auth_Req);

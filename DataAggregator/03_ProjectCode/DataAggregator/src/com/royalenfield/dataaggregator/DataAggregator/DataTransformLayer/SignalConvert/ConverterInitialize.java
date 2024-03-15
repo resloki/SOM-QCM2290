@@ -777,7 +777,7 @@ public class ConverterInitialize {
 
     public static class VCU_to_OBC_Auth_Req_t {
 
-        public int VCU_to_OBC_Seed;
+        public float VCU_to_OBC_Seed;
     }
     /* public final int @VCU_TO_OBC_AUTH_STAT CAN MESSAGE = 143*/
     public final int VCU_TO_OBC_AUTH_STAT_ID = 143;
@@ -791,7 +791,7 @@ public class ConverterInitialize {
 
     public static class VCU_to_OBC_Auth_Stat_t {
 
-        public byte VCU_Auth_Res_to_OBC;
+        public float VCU_Auth_Res_to_OBC;
     }
     /* public final int @OBC_TO_VCU_AUTH_RESP CAN MESSAGE = 145*/
     public final int OBC_TO_VCU_AUTH_RESP_ID = 145;
@@ -805,7 +805,7 @@ public class ConverterInitialize {
 
     public static class OBC_to_VCU_Auth_Resp_t {
 
-        public int OBC_Key;
+        public float OBC_Key;
     }
     /* public final int @VCU_TO_MCU_AUTH_REQ CAN MESSAGE = 161*/
     public final int VCU_TO_MCU_AUTH_REQ_ID = 161;
@@ -819,7 +819,7 @@ public class ConverterInitialize {
 
     public static class VCU_to_MCU_Auth_Req_t {
 
-        public int VCU_to_MCU_Seed;
+        public float VCU_to_MCU_Seed;
     }
     /* public final int @MCU_TO_VCU_AUTH_RESP CAN MESSAGE = 169*/
     public final int MCU_TO_VCU_AUTH_RESP_ID = 169;
@@ -833,7 +833,7 @@ public class ConverterInitialize {
 
     public static class MCU_to_VCU_Auth_Resp_t {
 
-        public int MCU_Key;
+        public float MCU_Key;
     }
     /* public final int @VCU_TO_MCU_AUTH_STAT CAN MESSAGE = 177*/
     public final int VCU_TO_MCU_AUTH_STAT_ID = 177;
@@ -847,7 +847,7 @@ public class ConverterInitialize {
 
     public static class VCU_to_MCU_Auth_Stat_t {
 
-        public byte VCU_Auth_Resp_to_MCU;
+        public float VCU_Auth_Resp_to_MCU;
     }
     /* public final int @MCU_DATA2 CAN MESSAGE = 289*/
     public final int MCU_DATA2_ID = 289;
@@ -881,11 +881,11 @@ public class ConverterInitialize {
 
     public static class MCU_Data2_t {
 
-        public short Rotor_Angle;
-        public byte MCU_Riding_Mode;
-        public short MCU_DC_voltage;
-        public byte Cruise_Control_Status;
-        public byte Hill_Hold_Status;
+        public float Rotor_Angle;
+        public float MCU_Riding_Mode;
+        public float MCU_DC_voltage;
+        public float Cruise_Control_Status;
+        public float Hill_Hold_Status;
     }
     /* public final int @BMS_PARAMETER_1 CAN MESSAGE = 298*/
     public final int BMS_PARAMETER_1_ID = 298;
@@ -959,19 +959,19 @@ public class ConverterInitialize {
 
     public static class BMS_PARAMETER_1_t {
 
-        public byte Contactor_State;
-        public short Battery_Pack_Bus_Volt;
-        public short BMS_Board_Temp;
-        public byte BMS_Mode;
-        public byte Battery_Precharge_Failure_Status;
-        public byte Battery_Charge_Inhibit;
-        public byte Battery_Discharge_Inhibit;
-        public byte Battery_Derate_Drive_Curr_Flag;
-        public byte Battery_Derate_Charge_Curr_Flag;
-        public byte Battery_Inhibit_Regen_Fault;
-        public byte Battery_Permanant_Fault;
-        public byte BMS_Short_Cir_Detection_Error;
-        public byte Reserved;
+        public float Contactor_State;
+        public float Battery_Pack_Bus_Volt;
+        public float BMS_Board_Temp;
+        public float BMS_Mode;
+        public float Battery_Precharge_Failure_Status;
+        public float Battery_Charge_Inhibit;
+        public float Battery_Discharge_Inhibit;
+        public float Battery_Derate_Drive_Curr_Flag;
+        public float Battery_Derate_Charge_Curr_Flag;
+        public float Battery_Inhibit_Regen_Fault;
+        public float Battery_Permanant_Fault;
+        public float BMS_Short_Cir_Detection_Error;
+        public float Reserved;
     }
     /* public final int @BATTERY_LIMITS CAN MESSAGE = 303*/
     public final int BATTERY_LIMITS_ID = 303;
@@ -990,8 +990,8 @@ public class ConverterInitialize {
 
     public static class BATTERY_LIMITS_t {
 
-        public short Charge_Current_Limit;
-        public short Discharge_Current_Limit;
+        public float Charge_Current_Limit;
+        public float Discharge_Current_Limit;
     }
     /* public final int @BMS_PARAMETER_LIMIT_2 CAN MESSAGE = 334*/
     public final int BMS_PARAMETER_LIMIT_2_ID = 334;
@@ -1015,9 +1015,9 @@ public class ConverterInitialize {
 
     public static class BMS_PARAMETER_LIMIT_2_t {
 
-        public short Regen_Current_Limit;
-        public short Reserved;
-        public short Cell_Aggregate_Voltage;
+        public float Regen_Current_Limit;
+        public float Reserved;
+        public float Cell_Aggregate_Voltage;
     }
     /* public final int @VEHICLE_MODE CAN MESSAGE = 337*/
     public final int VEHICLE_MODE_ID = 337;
@@ -1061,13 +1061,13 @@ public class ConverterInitialize {
 
     public static class Vehicle_Mode_t {
 
-        public byte Vehicle_Mode_Lvl_1;
-        public byte Vehcile_Mode_Lvl_2;
-        public byte Vehicle_Mode_Lvl_3;
-        public byte Reserved;
-        public byte Reserved2;
-        public int Odometer;
-        public byte HMI_StatusBar_Stt;
+        public float Vehicle_Mode_Lvl_1;
+        public float Vehcile_Mode_Lvl_2;
+        public float Vehicle_Mode_Lvl_3;
+        public float Reserved;
+        public float Reserved2;
+        public float Odometer;
+        public float HMI_StatusBar_Stt;
     }
     /* public final int @TRACTION_CONTROL CAN MESSAGE = 338*/
     public final int TRACTION_CONTROL_ID = 338;
@@ -1106,12 +1106,12 @@ public class ConverterInitialize {
 
     public static class Traction_Control_t {
 
-        public byte Traction_Status;
-        public byte Lean_angle_right;
-        public byte Lean_angle_left;
-        public short Throtte_1_Value;
-        public short Throttle_2_Value;
-        public byte Motor_Cut;
+        public float Traction_Status;
+        public float Lean_angle_right;
+        public float Lean_angle_left;
+        public float Throtte_1_Value;
+        public float Throttle_2_Value;
+        public float Motor_Cut;
     }
     /* public final int @SOM_PARAMETERS_1 CAN MESSAGE = 339*/
     public final int SOM_PARAMETERS_1_ID = 339;
@@ -1135,9 +1135,9 @@ public class ConverterInitialize {
 
     public static class SOM_Parameters_1_t {
 
-        public byte SOM_HeartBeat_Failure;
-        public byte SOM_Status;
-        public byte Passcode_Authentication;
+        public float SOM_HeartBeat_Failure;
+        public float SOM_Status;
+        public float Passcode_Authentication;
     }
     /* public final int @ABS_PARAMETERS CAN MESSAGE = 340*/
     public final int ABS_PARAMETERS_ID = 340;
@@ -1166,10 +1166,10 @@ public class ConverterInitialize {
 
     public static class ABS_Parameters_t {
 
-        public byte ABS_FrontBrake_Status;
-        public byte ABS_RearBrake_Status;
-        public byte ABS_State;
-        public byte ABS_Faulty;
+        public float ABS_FrontBrake_Status;
+        public float ABS_RearBrake_Status;
+        public float ABS_State;
+        public float ABS_Faulty;
     }
     /* public final int @TRACTION_CONTROL2 CAN MESSAGE = 341*/
     public final int TRACTION_CONTROL2_ID = 341;
@@ -1223,15 +1223,15 @@ public class ConverterInitialize {
 
     public static class Traction_Control2_t {
 
-        public byte Throttle_1_per;
-        public byte Throttle_2_per;
-        public byte Throttle_Percentage;
-        public byte Thottle_1_flt;
-        public byte Throttle_2_flt;
-        public byte Throttle_Dev_flt;
-        public byte Front_Brake_Status;
-        public byte Rear_Brake_Status;
-        public byte Regeneration_Command;
+        public float Throttle_1_per;
+        public float Throttle_2_per;
+        public float Throttle_Percentage;
+        public float Thottle_1_flt;
+        public float Throttle_2_flt;
+        public float Throttle_Dev_flt;
+        public float Front_Brake_Status;
+        public float Rear_Brake_Status;
+        public float Regeneration_Command;
     }
     /* public final int @VEHICLE_FUNC CAN MESSAGE = 361*/
     public final int VEHICLE_FUNC_ID = 361;
@@ -1260,10 +1260,10 @@ public class ConverterInitialize {
 
     public static class Vehicle_Func_t {
 
-        public byte Cruise_Control_Req;
-        public byte Hill_Hold_Command;
-        public short Cruise_Set_Speed;
-        public short Vehicle_speed_kmph;
+        public float Cruise_Control_Req;
+        public float Hill_Hold_Command;
+        public float Cruise_Set_Speed;
+        public float Vehicle_speed_kmph;
     }
     /* public final int @BMS_PARAMETER_3 CAN MESSAGE = 366*/
     public final int BMS_PARAMETER_3_ID = 366;
@@ -1317,15 +1317,15 @@ public class ConverterInitialize {
 
     public static class BMS_PARAMETER_3_t {
 
-        public byte Balancing_Status;
-        public byte Effective_Battery_Temperature;
-        public byte Delta_Temp;
-        public short Delta_Voltage;
-        public byte HVIL_OBC_Req;
-        public byte HVIL_MCU_Req;
-        public byte HVIL_OBC_Status;
-        public byte HVIL_MCU_Status;
-        public short Isolation_Resistance;
+        public float Balancing_Status;
+        public float Effective_Battery_Temperature;
+        public float Delta_Temp;
+        public float Delta_Voltage;
+        public float HVIL_OBC_Req;
+        public float HVIL_MCU_Req;
+        public float HVIL_OBC_Status;
+        public float HVIL_MCU_Status;
+        public float Isolation_Resistance;
     }
     /* public final int @BMS_PARAMETER_4 CAN MESSAGE = 367*/
     public final int BMS_PARAMETER_4_ID = 367;
@@ -1359,11 +1359,11 @@ public class ConverterInitialize {
 
     public static class BMS_PARAMETER_4_t {
 
-        public short Pack_Internal_Resistance;
-        public byte Pack_SOH;
-        public byte Pack_SOP;
-        public short Total_Charge_Cycles;
-        public byte Pack_DOD;
+        public float Pack_Internal_Resistance;
+        public float Pack_SOH;
+        public float Pack_SOP;
+        public float Total_Charge_Cycles;
+        public float Pack_DOD;
     }
     /* public final int @BATTERY_ENERGY_CYCLES CAN MESSAGE = 368*/
     public final int BATTERY_ENERGY_CYCLES_ID = 368;
@@ -1392,10 +1392,10 @@ public class ConverterInitialize {
 
     public static class Battery_Energy_Cycles_t {
 
-        public short Cycle_Energy_In;
-        public short Cycle_Enegy_Out;
-        public short Total_Energy_In;
-        public short Total_Energy_Out;
+        public float Cycle_Energy_In;
+        public float Cycle_Enegy_Out;
+        public float Total_Energy_In;
+        public float Total_Energy_Out;
     }
     /* public final int @OBC_WAKEUP_INFO CAN MESSAGE = 369*/
     public final int OBC_WAKEUP_INFO_ID = 369;
@@ -1409,7 +1409,7 @@ public class ConverterInitialize {
 
     public static class OBC_Wakeup_Info_t {
 
-        public byte OBC_Wakeup;
+        public float OBC_Wakeup;
     }
     /* public final int @BATTERY_TEMPERATURE CAN MESSAGE = 370*/
     public final int BATTERY_TEMPERATURE_ID = 370;
@@ -1458,14 +1458,14 @@ public class ConverterInitialize {
 
     public static class BATTERY_TEMPERATURE_t {
 
-        public byte Battery_Temperature_1;
-        public byte Battery_Temperature_2;
-        public byte Battery_Temperature_3;
-        public byte Battery_Temperature_4;
-        public byte Battery_Temperature_5;
-        public byte Battery_Temperature_6;
-        public byte Battery_Temperature_Min;
-        public byte Battery_Temperature_Max;
+        public float Battery_Temperature_1;
+        public float Battery_Temperature_2;
+        public float Battery_Temperature_3;
+        public float Battery_Temperature_4;
+        public float Battery_Temperature_5;
+        public float Battery_Temperature_6;
+        public float Battery_Temperature_Min;
+        public float Battery_Temperature_Max;
     }
     /* public final int @CUSTOM_MODE CAN MESSAGE = 371*/
     public final int CUSTOM_MODE_ID = 371;
@@ -1494,10 +1494,10 @@ public class ConverterInitialize {
 
     public static class Custom_Mode_t {
 
-        public byte Custom_Drive_Enable;
-        public byte Power;
-        public byte Throttle_performance;
-        public byte Regen;
+        public float Custom_Drive_Enable;
+        public float Power;
+        public float Throttle_performance;
+        public float Regen;
     }
     /* public final int @VCU_DATA CAN MESSAGE = 372*/
     public final int VCU_DATA_ID = 372;
@@ -1596,24 +1596,24 @@ public class ConverterInitialize {
 
     public static class VCU_Data_t {
 
-        public byte Charger_Plugin;
-        public byte MCU_Power_Supply;
-        public byte HU_Power_Supply;
-        public byte Left_Indicator_Power_Supply;
-        public byte Right_Indicator_Power_Supply;
-        public byte High_Beam_Power_Supply;
-        public byte Low_Beam_Power_Supply;
-        public byte DRL_Power_Supply;
-        public byte Left_Switch_Cube_Power_Supply;
-        public byte Right_Switch_Cube_Power_Supply;
-        public byte Horn_Power_Supply;
-        public byte Speaker_Power_Supply;
-        public byte SOM_Power_Supply;
-        public byte ESCL_Power_Supply;
-        public byte ESCL_Commands;
-        public byte Stop_Lamp_Power_Supply;
-        public byte Tail_Lamp_Power_Supply;
-        public byte Charger_Info;
+        public float Charger_Plugin;
+        public float MCU_Power_Supply;
+        public float HU_Power_Supply;
+        public float Left_Indicator_Power_Supply;
+        public float Right_Indicator_Power_Supply;
+        public float High_Beam_Power_Supply;
+        public float Low_Beam_Power_Supply;
+        public float DRL_Power_Supply;
+        public float Left_Switch_Cube_Power_Supply;
+        public float Right_Switch_Cube_Power_Supply;
+        public float Horn_Power_Supply;
+        public float Speaker_Power_Supply;
+        public float SOM_Power_Supply;
+        public float ESCL_Power_Supply;
+        public float ESCL_Commands;
+        public float Stop_Lamp_Power_Supply;
+        public float Tail_Lamp_Power_Supply;
+        public float Charger_Info;
     }
     /* public final int @BMS_CELL_STATUS CAN MESSAGE = 382*/
     public final int BMS_CELL_STATUS_ID = 382;
@@ -1767,35 +1767,35 @@ public class ConverterInitialize {
 
     public static class BMS_CELL_STATUS_t {
 
-        public byte BMS_Balancing_Status_Cell_1;
-        public byte BMS_Balancing_Status_Cell_2;
-        public byte BMS_Balancing_Status_Cell_3;
-        public byte BMS_Balancing_Status_Cell_4;
-        public byte BMS_Balancing_Status_Cell_5;
-        public byte BMS_Balancing_Status_Cell_6;
-        public byte BMS_Balancing_Status_Cell_7;
-        public byte BMS_Balancing_Status_Cell_8;
-        public byte BMS_Balancing_Status_Cell_9;
-        public byte BMS_Balancing_Status_Cell_10;
-        public byte BMS_Balancing_Status_Cell_11;
-        public byte BMS_Balancing_Status_Cell_12;
-        public byte BMS_Balancing_Status_Cell_13;
-        public byte BMS_Balancing_Status_Cell_14;
-        public byte BMS_Balancing_Status_Cell_15;
-        public byte BMS_Balancing_Status_Cell_16;
-        public byte BMS_Balancing_Status_Cell_17;
-        public byte BMS_Balancing_Status_Cell_18;
-        public byte BMS_Balancing_Status_Cell_20;
-        public byte BMS_Balancing_Status_Cell_21;
-        public byte BMS_Balancing_Status_Cell_22;
-        public byte BMS_Balancing_Status_Cell_23;
-        public byte BMS_Balancing_Status_Cell_24;
-        public byte BMS_Balancing_Status_Cell_25;
-        public byte BMS_Balancing_Status_Cell_26;
-        public byte BMS_Balancing_Status_Cell_27;
-        public byte BMS_Balancing_Status_Cell_28;
-        public short BMS_Cell_Min_Voltage;
-        public short BMS_Cell_Max_Voltage;
+        public float BMS_Balancing_Status_Cell_1;
+        public float BMS_Balancing_Status_Cell_2;
+        public float BMS_Balancing_Status_Cell_3;
+        public float BMS_Balancing_Status_Cell_4;
+        public float BMS_Balancing_Status_Cell_5;
+        public float BMS_Balancing_Status_Cell_6;
+        public float BMS_Balancing_Status_Cell_7;
+        public float BMS_Balancing_Status_Cell_8;
+        public float BMS_Balancing_Status_Cell_9;
+        public float BMS_Balancing_Status_Cell_10;
+        public float BMS_Balancing_Status_Cell_11;
+        public float BMS_Balancing_Status_Cell_12;
+        public float BMS_Balancing_Status_Cell_13;
+        public float BMS_Balancing_Status_Cell_14;
+        public float BMS_Balancing_Status_Cell_15;
+        public float BMS_Balancing_Status_Cell_16;
+        public float BMS_Balancing_Status_Cell_17;
+        public float BMS_Balancing_Status_Cell_18;
+        public float BMS_Balancing_Status_Cell_20;
+        public float BMS_Balancing_Status_Cell_21;
+        public float BMS_Balancing_Status_Cell_22;
+        public float BMS_Balancing_Status_Cell_23;
+        public float BMS_Balancing_Status_Cell_24;
+        public float BMS_Balancing_Status_Cell_25;
+        public float BMS_Balancing_Status_Cell_26;
+        public float BMS_Balancing_Status_Cell_27;
+        public float BMS_Balancing_Status_Cell_28;
+        public float BMS_Cell_Min_Voltage;
+        public float BMS_Cell_Max_Voltage;
     }
     /* public final int @CHARGER_PARAMETER_1 CAN MESSAGE = 415*/
     public final int CHARGER_PARAMETER_1_ID = 415;
@@ -1824,10 +1824,10 @@ public class ConverterInitialize {
 
     public static class Charger_Parameter_1_t {
 
-        public short Charger_IP_AC_Volt;
-        public short Charger_IP_AC_Current;
-        public short Charger_OP_DC_Volt;
-        public short Charger_OP_DC_Current;
+        public float Charger_IP_AC_Volt;
+        public float Charger_IP_AC_Current;
+        public float Charger_OP_DC_Volt;
+        public float Charger_OP_DC_Current;
     }
     /* public final int @OBC_HP_DCDC_PARAMETER_2 CAN MESSAGE = 423*/
     public final int OBC_HP_DCDC_PARAMETER_2_ID = 423;
@@ -1871,13 +1871,13 @@ public class ConverterInitialize {
 
     public static class OBC_HP_DCDC_Parameter_2_t {
 
-        public short OBC_temp;
-        public short HP_DCDC_Temp;
-        public byte OBC_OP_Enable;
-        public byte OBC_Coolant_Fan_Status;
-        public byte Control_Proximity_status;
-        public byte DCDC_Conv_OP_Enable;
-        public short OBC_FET_Temp;
+        public float OBC_temp;
+        public float HP_DCDC_Temp;
+        public float OBC_OP_Enable;
+        public float OBC_Coolant_Fan_Status;
+        public float Control_Proximity_status;
+        public float DCDC_Conv_OP_Enable;
+        public float OBC_FET_Temp;
     }
     /* public final int @BMS_CELL_VOLTAGE_1 CAN MESSAGE = 435*/
     public final int BMS_CELL_VOLTAGE_1_ID = 435;
@@ -1906,10 +1906,10 @@ public class ConverterInitialize {
 
     public static class BMS_CELL_VOLTAGE_1_t {
 
-        public short Cell_Voltage_Vcell_1;
-        public short Cell_Voltage_Vcell_2;
-        public short Cell_Voltage_Vcell_3;
-        public short Cell_Voltage_Vcell_4;
+        public float Cell_Voltage_Vcell_1;
+        public float Cell_Voltage_Vcell_2;
+        public float Cell_Voltage_Vcell_3;
+        public float Cell_Voltage_Vcell_4;
     }
     /* public final int @BMS_CELL_VOLTAGE_2 CAN MESSAGE = 436*/
     public final int BMS_CELL_VOLTAGE_2_ID = 436;
@@ -1938,10 +1938,10 @@ public class ConverterInitialize {
 
     public static class BMS_CELL_VOLTAGE_2_t {
 
-        public short Cell_Voltage_Vcell_5;
-        public short Cell_Voltage_Vcell_6;
-        public short Cell_Voltage_Vcell_7;
-        public short Cell_Voltage_Vcell_8;
+        public float Cell_Voltage_Vcell_5;
+        public float Cell_Voltage_Vcell_6;
+        public float Cell_Voltage_Vcell_7;
+        public float Cell_Voltage_Vcell_8;
     }
     /* public final int @BMS_CELL_VOLTAGE_3 CAN MESSAGE = 437*/
     public final int BMS_CELL_VOLTAGE_3_ID = 437;
@@ -1970,10 +1970,10 @@ public class ConverterInitialize {
 
     public static class BMS_CELL_VOLTAGE_3_t {
 
-        public short Cell_Voltage_Vcell_9;
-        public short Cell_Voltage_Vcell_10;
-        public short Cell_Voltage_Vcell_11;
-        public short Cell_Voltage_Vcell_12;
+        public float Cell_Voltage_Vcell_9;
+        public float Cell_Voltage_Vcell_10;
+        public float Cell_Voltage_Vcell_11;
+        public float Cell_Voltage_Vcell_12;
     }
     /* public final int @BMS_CELL_VOLTAGE_4 CAN MESSAGE = 438*/
     public final int BMS_CELL_VOLTAGE_4_ID = 438;
@@ -2002,10 +2002,10 @@ public class ConverterInitialize {
 
     public static class BMS_CELL_VOLTAGE_4_t {
 
-        public short Cell_Voltage_Vcell_13;
-        public short Cell_Voltage_Vcell_14;
-        public short Cell_Voltage_Vcell_15;
-        public short Cell_Voltage_Vcell_16;
+        public float Cell_Voltage_Vcell_13;
+        public float Cell_Voltage_Vcell_14;
+        public float Cell_Voltage_Vcell_15;
+        public float Cell_Voltage_Vcell_16;
     }
     /* public final int @BMS_CELL_VOLTAGE_5 CAN MESSAGE = 439*/
     public final int BMS_CELL_VOLTAGE_5_ID = 439;
@@ -2034,10 +2034,10 @@ public class ConverterInitialize {
 
     public static class BMS_CELL_VOLTAGE_5_t {
 
-        public short Cell_Voltage_Vcell_17;
-        public short Cell_Voltage_Vcell_18;
-        public short Cell_Voltage_Vcell_19;
-        public short Cell_Voltage_Vcell_20;
+        public float Cell_Voltage_Vcell_17;
+        public float Cell_Voltage_Vcell_18;
+        public float Cell_Voltage_Vcell_19;
+        public float Cell_Voltage_Vcell_20;
     }
     /* public final int @BMS_CELL_VOLTAGE_6 CAN MESSAGE = 440*/
     public final int BMS_CELL_VOLTAGE_6_ID = 440;
@@ -2066,10 +2066,10 @@ public class ConverterInitialize {
 
     public static class BMS_CELL_VOLTAGE_6_t {
 
-        public short Cell_Voltage_Vcell_21;
-        public short Cell_Voltage_Vcell_22;
-        public short Cell_Voltage_Vcell_23;
-        public short Cell_Voltage_Vcell_24;
+        public float Cell_Voltage_Vcell_21;
+        public float Cell_Voltage_Vcell_22;
+        public float Cell_Voltage_Vcell_23;
+        public float Cell_Voltage_Vcell_24;
     }
     /* public final int @BMS_CELL_VOLTAGE_7 CAN MESSAGE = 441*/
     public final int BMS_CELL_VOLTAGE_7_ID = 441;
@@ -2098,10 +2098,10 @@ public class ConverterInitialize {
 
     public static class BMS_CELL_VOLTAGE_7_t {
 
-        public short Cell_Voltage_Vcell_25;
-        public short Cell_Voltage_Vcell_26;
-        public short Cell_Voltage_Vcell_27;
-        public short Cell_Voltage_Vcell_28;
+        public float Cell_Voltage_Vcell_25;
+        public float Cell_Voltage_Vcell_26;
+        public float Cell_Voltage_Vcell_27;
+        public float Cell_Voltage_Vcell_28;
     }
     /* public final int @CHARGER_STATUS_INFO CAN MESSAGE = 545*/
     public final int CHARGER_STATUS_INFO_ID = 545;
@@ -2120,8 +2120,8 @@ public class ConverterInitialize {
 
     public static class Charger_status_Info_t {
 
-        public byte Charger_Status_Signal;
-        public byte Charger_Mode;
+        public float Charger_Status_Signal;
+        public float Charger_Mode;
     }
     /* public final int @MCU_DATA3 CAN MESSAGE = 561*/
     public final int MCU_DATA3_ID = 561;
@@ -2150,10 +2150,10 @@ public class ConverterInitialize {
 
     public static class MCU_Data3_t {
 
-        public short R_Phase_Current_MCU;
-        public short Y_Phase_Current_MCU;
-        public short B_Phase_Current_MCU;
-        public short Regen_Min_Speed;
+        public float R_Phase_Current_MCU;
+        public float Y_Phase_Current_MCU;
+        public float B_Phase_Current_MCU;
+        public float Regen_Min_Speed;
     }
     /* public final int @MCU_DATA4 CAN MESSAGE = 562*/
     public final int MCU_DATA4_ID = 562;
@@ -2172,8 +2172,8 @@ public class ConverterInitialize {
 
     public static class MCU_Data4_t {
 
-        public short Motor_rpm;
-        public byte Regen_status;
+        public float Motor_rpm;
+        public float Regen_status;
     }
     /* public final int @MCU_DATA1 CAN MESSAGE = 801*/
     public final int MCU_DATA1_ID = 801;
@@ -2202,10 +2202,10 @@ public class ConverterInitialize {
 
     public static class MCU_Data1_t {
 
-        public short MCU_DC_Current;
-        public short MCU_Temperature;
-        public short Motor_temp;
-        public short Motor_Torque;
+        public float MCU_DC_Current;
+        public float MCU_Temperature;
+        public float Motor_temp;
+        public float Motor_Torque;
     }
     /* public final int @MCU_DISCONNECT_ACK CAN MESSAGE = 817*/
     public final int MCU_DISCONNECT_ACK_ID = 817;
@@ -2219,7 +2219,7 @@ public class ConverterInitialize {
 
     public static class MCU_Disconnect_ACK_t {
 
-        public byte Disconnect_ACK;
+        public float Disconnect_ACK;
     }
     /* public final int @MCU_FAULT_DATA CAN MESSAGE = 833*/
     public final int MCU_FAULT_DATA_ID = 833;
@@ -2443,49 +2443,49 @@ public class ConverterInitialize {
 
     public static class MCU_Fault_Data_t {
 
-        public byte MotorOC_protect_U_ph;
-        public byte MotorOC_protect_V_ph;
-        public byte MotorOC_protect_W_ph;
-        public byte Mcu_Flt_Wrong_Offset_Fault;
-        public byte MCU_over_temperature_warning;
-        public byte Motor_over_temperature_warning;
-        public byte MCU_Unintended_Direction;
-        public byte Encoder_Failure;
-        public byte DCbus_undervoltage;
-        public byte DCbus_overvoltage;
-        public byte DCbus_overcurrent;
-        public byte MCU_Over_speed_fault;
-        public byte Mcu_Flt_DCBus_Voltagesensor_STG;
-        public byte Mcu_Flt_DCBus_VoltgeSensor_STB;
-        public byte MCU_Flt_KL30_Sensor_STG;
-        public byte MCU_Flt_KL30_Sensor_STB;
-        public byte Mcu_Flt_BoardTempSensorSTG;
-        public byte Mcu_Flt_BoardTempSensorSTB;
-        public byte Mcu_Flt_RphaseSTG;
-        public byte Mcu_Flt_RphaseSTB;
-        public byte Loss_of_Tractioncontrol2msg;
-        public byte LV_supplyOvervoltage;
-        public byte LV_supplyUndervoltage;
-        public byte Mcu_Flt_YphaseSTG;
-        public byte Mcu_Flt_YphaseSTB;
-        public byte Mcu_Flt_BphaseSTG;
-        public byte Mcu_Flt_BphaseSTB;
-        public byte MCU_Flt_MachineTempSensorSTB;
-        public byte MCU_Flt_MachineTempSensorSTG;
-        public byte Mcu_Flt_DCCurrentSensorSTG;
-        public byte Mcu_Flt_DCCurrentSensorSTB;
-        public byte Mcu_Flt_BuckConvert5V_overvolt;
-        public byte Mcu_Flt_BuckConvert5v_undervolt;
-        public byte MCU_dio_over_volt_status;
-        public byte MCU_dio_over_curr_status;
-        public byte MCU_dio_phase_ctrl_status;
-        public byte Mcu_Flt_MachineTemp_Low;
-        public byte Mcu_Flt_BoardTemp_Low;
-        public byte Mcu_Flt_Rotor_Stall;
-        public byte Mcu_Flt_MOSFET_HighTemp;
-        public byte MCU_Flt_MOSFET_STG;
-        public byte MCU_Flt_MOSFET_STB;
-        public byte Throttle_ideal_percentage_error;
+        public float MotorOC_protect_U_ph;
+        public float MotorOC_protect_V_ph;
+        public float MotorOC_protect_W_ph;
+        public float Mcu_Flt_Wrong_Offset_Fault;
+        public float MCU_over_temperature_warning;
+        public float Motor_over_temperature_warning;
+        public float MCU_Unintended_Direction;
+        public float Encoder_Failure;
+        public float DCbus_undervoltage;
+        public float DCbus_overvoltage;
+        public float DCbus_overcurrent;
+        public float MCU_Over_speed_fault;
+        public float Mcu_Flt_DCBus_Voltagesensor_STG;
+        public float Mcu_Flt_DCBus_VoltgeSensor_STB;
+        public float MCU_Flt_KL30_Sensor_STG;
+        public float MCU_Flt_KL30_Sensor_STB;
+        public float Mcu_Flt_BoardTempSensorSTG;
+        public float Mcu_Flt_BoardTempSensorSTB;
+        public float Mcu_Flt_RphaseSTG;
+        public float Mcu_Flt_RphaseSTB;
+        public float Loss_of_Tractioncontrol2msg;
+        public float LV_supplyOvervoltage;
+        public float LV_supplyUndervoltage;
+        public float Mcu_Flt_YphaseSTG;
+        public float Mcu_Flt_YphaseSTB;
+        public float Mcu_Flt_BphaseSTG;
+        public float Mcu_Flt_BphaseSTB;
+        public float MCU_Flt_MachineTempSensorSTB;
+        public float MCU_Flt_MachineTempSensorSTG;
+        public float Mcu_Flt_DCCurrentSensorSTG;
+        public float Mcu_Flt_DCCurrentSensorSTB;
+        public float Mcu_Flt_BuckConvert5V_overvolt;
+        public float Mcu_Flt_BuckConvert5v_undervolt;
+        public float MCU_dio_over_volt_status;
+        public float MCU_dio_over_curr_status;
+        public float MCU_dio_phase_ctrl_status;
+        public float Mcu_Flt_MachineTemp_Low;
+        public float Mcu_Flt_BoardTemp_Low;
+        public float Mcu_Flt_Rotor_Stall;
+        public float Mcu_Flt_MOSFET_HighTemp;
+        public float MCU_Flt_MOSFET_STG;
+        public float MCU_Flt_MOSFET_STB;
+        public float Throttle_ideal_percentage_error;
     }
     /* public final int @DISPLAY_INFO CAN MESSAGE = 865*/
     public final int DISPLAY_INFO_ID = 865;
@@ -2544,16 +2544,16 @@ public class ConverterInitialize {
 
     public static class Display_info_t {
 
-        public byte Side_Stand_Status;
-        public byte Display_SoC;
-        public byte Vehicle_Range;
-        public byte Indicators_TTL;
-        public byte FrontLight_TTL;
-        public byte Charge_TTL;
-        public byte DRL_Lamp_TTL;
-        public byte Low_Battery_Alert_TTL;
-        public short Display_Vehicle_Speed;
-        public byte Fog_Lamp_TTL;
+        public float Side_Stand_Status;
+        public float Display_SoC;
+        public float Vehicle_Range;
+        public float Indicators_TTL;
+        public float FrontLight_TTL;
+        public float Charge_TTL;
+        public float DRL_Lamp_TTL;
+        public float Low_Battery_Alert_TTL;
+        public float Display_Vehicle_Speed;
+        public float Fog_Lamp_TTL;
     }
     /* public final int @ENVIRONMENT_DATA CAN MESSAGE = 881*/
     public final int ENVIRONMENT_DATA_ID = 881;
@@ -2572,8 +2572,8 @@ public class ConverterInitialize {
 
     public static class Environment_Data_t {
 
-        public short Ambient_Light_Sensor_Value;
-        public short Ambient_Temp_Sensor_Value;
+        public float Ambient_Light_Sensor_Value;
+        public float Ambient_Temp_Sensor_Value;
     }
     /* public final int @BMS_FAULT_1 CAN MESSAGE = 1054*/
     public final int BMS_FAULT_1_ID = 1054;
@@ -2892,68 +2892,68 @@ public class ConverterInitialize {
 
     public static class BMS_Fault_1_t {
 
-        public byte BMS_V_Sensor_Failure_Cell1;
-        public byte BMS_V_Sensor_Failure_Cell2;
-        public byte BMS_V_Sensor_Failure_Cell3;
-        public byte BMS_V_Sensor_Failure_Cell4;
-        public byte BMS_V_Sensor_Failure_Cell5;
-        public byte BMS_V_Sensor_Failure_Cell6;
-        public byte BMS_V_Sensor_Failure_Cell7;
-        public byte BMS_V_Sensor_Failure_Cell8;
-        public byte BMS_V_Sensor_Failure_Cell9;
-        public byte BMS_V_Sensor_Failure_Cell10;
-        public byte BMS_V_Sensor_Failure_Cell11;
-        public byte BMS_V_Sensor_Failure_Cell12;
-        public byte BMS_V_Sensor_Failure_Cell13;
-        public byte BMS_V_Sensor_Failure_Cell14;
-        public byte BMS_V_Sensor_Failure_Cell15;
-        public byte BMS_V_Sensor_Failure_Cell16;
-        public byte BMS_V_Sensor_Failure_Cell17;
-        public byte BMS_V_Sensor_Failure_Cell18;
-        public byte BMS_V_Sensor_Failure_Cell19;
-        public byte BMS_V_Sensor_Failure_Cell20;
-        public byte BMS_V_Sensor_Failure_Cell21;
-        public byte BMS_V_Sensor_Failure_Cell22;
-        public byte BMS_V_Sensor_Failure_Cell23;
-        public byte BMS_V_Sensor_Failure_Cell24;
-        public byte BMS_V_Sensor_Failure_Cell25;
-        public byte BMS_V_Sensor_Failure_Cell26;
-        public byte BMS_V_Sensor_Failure_Cell27;
-        public byte BMS_V_Sensor_Failure_Cell28;
-        public byte BMS_V_Out_of_Range_Cell1;
-        public byte BMS_V_Out_of_Range_Cell2;
-        public byte BMS_V_Out_of_Range_Cell3;
-        public byte BMS_V_Out_of_Range_Cell4;
-        public byte BMS_V_Out_of_Range_Cell5;
-        public byte BMS_V_Out_of_Range_Cell6;
-        public byte BMS_V_Out_of_Range_Cell7;
-        public byte BMS_V_Out_of_Range_Cell8;
-        public byte BMS_V_Out_of_Range_Cell9;
-        public byte BMS_V_Out_of_Range_Cell10;
-        public byte BMS_V_Out_of_Range_Cell11;
-        public byte BMS_V_Out_of_Range_Cell12;
-        public byte BMS_V_Out_of_Range_Cell13;
-        public byte BMS_V_Out_of_Range_Cell14;
-        public byte BMS_V_Out_of_Range_Cell15;
-        public byte BMS_V_Out_of_Range_Cell16;
-        public byte BMS_V_Out_of_Range_Cell17;
-        public byte BMS_V_Out_of_Range_Cell18;
-        public byte BMS_V_Out_of_Range_Cell19;
-        public byte BMS_V_Out_of_Range_Cell20;
-        public byte BMS_V_Out_of_Range_Cell21;
-        public byte BMS_V_Out_of_Range_Cell22;
-        public byte BMS_V_Out_of_Range_Cell23;
-        public byte BMS_V_Out_of_Range_Cell24;
-        public byte BMS_V_Out_of_Range_Cell25;
-        public byte BMS_V_Out_of_Range_Cell26;
-        public byte BMS_V_Out_of_Range_Cell27;
-        public byte BMS_V_Out_of_Range_Cell28;
-        public byte BMS_BatteryPackTemp_1_SensFail;
-        public byte BMS_BatteryPackTemp_2_SensFail;
-        public byte BMS_BatteryPackTemp_3_SensFail;
-        public byte BMS_BatteryPackTemp_4_SensFail;
-        public byte BMS_BatteryPackTemp_5_SensFail;
-        public byte BMS_BatteryPackTemp_6_SensFail;
+        public float BMS_V_Sensor_Failure_Cell1;
+        public float BMS_V_Sensor_Failure_Cell2;
+        public float BMS_V_Sensor_Failure_Cell3;
+        public float BMS_V_Sensor_Failure_Cell4;
+        public float BMS_V_Sensor_Failure_Cell5;
+        public float BMS_V_Sensor_Failure_Cell6;
+        public float BMS_V_Sensor_Failure_Cell7;
+        public float BMS_V_Sensor_Failure_Cell8;
+        public float BMS_V_Sensor_Failure_Cell9;
+        public float BMS_V_Sensor_Failure_Cell10;
+        public float BMS_V_Sensor_Failure_Cell11;
+        public float BMS_V_Sensor_Failure_Cell12;
+        public float BMS_V_Sensor_Failure_Cell13;
+        public float BMS_V_Sensor_Failure_Cell14;
+        public float BMS_V_Sensor_Failure_Cell15;
+        public float BMS_V_Sensor_Failure_Cell16;
+        public float BMS_V_Sensor_Failure_Cell17;
+        public float BMS_V_Sensor_Failure_Cell18;
+        public float BMS_V_Sensor_Failure_Cell19;
+        public float BMS_V_Sensor_Failure_Cell20;
+        public float BMS_V_Sensor_Failure_Cell21;
+        public float BMS_V_Sensor_Failure_Cell22;
+        public float BMS_V_Sensor_Failure_Cell23;
+        public float BMS_V_Sensor_Failure_Cell24;
+        public float BMS_V_Sensor_Failure_Cell25;
+        public float BMS_V_Sensor_Failure_Cell26;
+        public float BMS_V_Sensor_Failure_Cell27;
+        public float BMS_V_Sensor_Failure_Cell28;
+        public float BMS_V_Out_of_Range_Cell1;
+        public float BMS_V_Out_of_Range_Cell2;
+        public float BMS_V_Out_of_Range_Cell3;
+        public float BMS_V_Out_of_Range_Cell4;
+        public float BMS_V_Out_of_Range_Cell5;
+        public float BMS_V_Out_of_Range_Cell6;
+        public float BMS_V_Out_of_Range_Cell7;
+        public float BMS_V_Out_of_Range_Cell8;
+        public float BMS_V_Out_of_Range_Cell9;
+        public float BMS_V_Out_of_Range_Cell10;
+        public float BMS_V_Out_of_Range_Cell11;
+        public float BMS_V_Out_of_Range_Cell12;
+        public float BMS_V_Out_of_Range_Cell13;
+        public float BMS_V_Out_of_Range_Cell14;
+        public float BMS_V_Out_of_Range_Cell15;
+        public float BMS_V_Out_of_Range_Cell16;
+        public float BMS_V_Out_of_Range_Cell17;
+        public float BMS_V_Out_of_Range_Cell18;
+        public float BMS_V_Out_of_Range_Cell19;
+        public float BMS_V_Out_of_Range_Cell20;
+        public float BMS_V_Out_of_Range_Cell21;
+        public float BMS_V_Out_of_Range_Cell22;
+        public float BMS_V_Out_of_Range_Cell23;
+        public float BMS_V_Out_of_Range_Cell24;
+        public float BMS_V_Out_of_Range_Cell25;
+        public float BMS_V_Out_of_Range_Cell26;
+        public float BMS_V_Out_of_Range_Cell27;
+        public float BMS_V_Out_of_Range_Cell28;
+        public float BMS_BatteryPackTemp_1_SensFail;
+        public float BMS_BatteryPackTemp_2_SensFail;
+        public float BMS_BatteryPackTemp_3_SensFail;
+        public float BMS_BatteryPackTemp_4_SensFail;
+        public float BMS_BatteryPackTemp_5_SensFail;
+        public float BMS_BatteryPackTemp_6_SensFail;
     }
     /* public final int @BMS_FAULT_2 CAN MESSAGE = 1055*/
     public final int BMS_FAULT_2_ID = 1055;
@@ -3187,51 +3187,51 @@ public class ConverterInitialize {
 
     public static class BMS_Fault_2_t {
 
-        public byte BMS_LowTempCharge_Error;
-        public byte BMS_LowTempDrive_Warning;
-        public byte BMS_LowTempDrive_Error;
-        public byte OverTimetoFastCharge_Error;
-        public byte Battery_Discharge_Inhibit;
-        public byte Battery_Derate_Drive_Cur_Flag;
-        public byte Battery_Derate_Charge_Cur_Flag;
-        public byte Battery_Inhibit_regen_Fault;
-        public byte Battery_Volt_Deviation_Error;
-        public byte BMS_Batt_PackTemp_1_OutofRange;
-        public byte BMS_Batt_PackTemp_2_OutofRange;
-        public byte BMS_Batt_PackTemp_3_OutofRange;
-        public byte BMS_Batt_PackTemp_4_OutofRange;
-        public byte BMS_Batt_PackTemp_5_OutofRange;
-        public byte BMS_Batt_PackTemp_6_OutofRange;
-        public byte BMS_Curr_Sens_Failure_OpenCir;
-        public byte BMS_Curr_Sens_Failure_ShortCir;
-        public byte BMS_OverCurrCharge_Warn;
-        public byte BMS_OverCurrCharge_Error;
-        public byte BMS_PreChargeTooFast_Info;
-        public byte BMS_PreChargeTooSlow_Info;
-        public byte BMS_PreChargeFailure;
-        public byte BMS_MOSFETsConnFailed;
-        public byte BMS_MOSFETsDisconnFailed;
-        public byte BMS_PDU_TempWarn_Info;
-        public byte BMS_PDU_Temp_Error;
-        public byte BMS_OverVChargeWarnInfo;
-        public byte BMS_OverVChargeError;
-        public byte BMS_OverVChar_Perm_Fault;
-        public byte BMS_OverV_Regen_Warn_Info;
-        public byte BMS_OverV_Regen_Error;
-        public byte BMS_UndV_Warn_Info;
-        public byte BMS_UndV_Error;
-        public byte BMS_UndV_Perm_fault;
-        public byte BMS_OverTempCharWarnInfo;
-        public byte BMS_OverTempCharError;
-        public byte BMS_OverTempDriveWarnInfo;
-        public byte BMS_OverTempDriveError;
-        public byte BMS_OvTemp_CellVentError;
-        public byte BMS_OvTemp_CellVentFailure;
-        public byte BMS_ShortCir_DetectError;
-        public byte BMS_ShortCir_Detect_PermFault;
-        public byte BMS_Cell_Failure_PermFault;
-        public byte BMS_ParaCell_DisconFault;
-        public byte BMS_LowTemp_CharWarnInfo;
+        public float BMS_LowTempCharge_Error;
+        public float BMS_LowTempDrive_Warning;
+        public float BMS_LowTempDrive_Error;
+        public float OverTimetoFastCharge_Error;
+        public float Battery_Discharge_Inhibit;
+        public float Battery_Derate_Drive_Cur_Flag;
+        public float Battery_Derate_Charge_Cur_Flag;
+        public float Battery_Inhibit_regen_Fault;
+        public float Battery_Volt_Deviation_Error;
+        public float BMS_Batt_PackTemp_1_OutofRange;
+        public float BMS_Batt_PackTemp_2_OutofRange;
+        public float BMS_Batt_PackTemp_3_OutofRange;
+        public float BMS_Batt_PackTemp_4_OutofRange;
+        public float BMS_Batt_PackTemp_5_OutofRange;
+        public float BMS_Batt_PackTemp_6_OutofRange;
+        public float BMS_Curr_Sens_Failure_OpenCir;
+        public float BMS_Curr_Sens_Failure_ShortCir;
+        public float BMS_OverCurrCharge_Warn;
+        public float BMS_OverCurrCharge_Error;
+        public float BMS_PreChargeTooFast_Info;
+        public float BMS_PreChargeTooSlow_Info;
+        public float BMS_PreChargeFailure;
+        public float BMS_MOSFETsConnFailed;
+        public float BMS_MOSFETsDisconnFailed;
+        public float BMS_PDU_TempWarn_Info;
+        public float BMS_PDU_Temp_Error;
+        public float BMS_OverVChargeWarnInfo;
+        public float BMS_OverVChargeError;
+        public float BMS_OverVChar_Perm_Fault;
+        public float BMS_OverV_Regen_Warn_Info;
+        public float BMS_OverV_Regen_Error;
+        public float BMS_UndV_Warn_Info;
+        public float BMS_UndV_Error;
+        public float BMS_UndV_Perm_fault;
+        public float BMS_OverTempCharWarnInfo;
+        public float BMS_OverTempCharError;
+        public float BMS_OverTempDriveWarnInfo;
+        public float BMS_OverTempDriveError;
+        public float BMS_OvTemp_CellVentError;
+        public float BMS_OvTemp_CellVentFailure;
+        public float BMS_ShortCir_DetectError;
+        public float BMS_ShortCir_Detect_PermFault;
+        public float BMS_Cell_Failure_PermFault;
+        public float BMS_ParaCell_DisconFault;
+        public float BMS_LowTemp_CharWarnInfo;
     }
     /* public final int @ESCL_DATA CAN MESSAGE = 1230*/
     public final int ESCL_DATA_ID = 1230;
@@ -3300,18 +3300,18 @@ public class ConverterInitialize {
 
     public static class ESCL_Data_t {
 
-        public short ESCL_Supply_Voltage;
-        public short Motor_Stall_Current;
-        public byte ESCL_Status;
-        public byte ESCL_Hall1_Status;
-        public byte ESCL_Hall2_Status;
-        public byte ESCL_Power_Status;
-        public byte ESCL_Plunger_Status;
-        public byte ESCL_Motor_Temp_Fault;
-        public byte ESCL_Motor_Open_Fault;
-        public byte ESCL_Motor_Short_Fault;
-        public byte ESCL_Lock_Unlock_Error;
-        public byte ESCL_Sleep_Ack;
+        public float ESCL_Supply_Voltage;
+        public float Motor_Stall_Current;
+        public float ESCL_Status;
+        public float ESCL_Hall1_Status;
+        public float ESCL_Hall2_Status;
+        public float ESCL_Power_Status;
+        public float ESCL_Plunger_Status;
+        public float ESCL_Motor_Temp_Fault;
+        public float ESCL_Motor_Open_Fault;
+        public float ESCL_Motor_Short_Fault;
+        public float ESCL_Lock_Unlock_Error;
+        public float ESCL_Sleep_Ack;
     }
     /* public final int @MCU_DATA CAN MESSAGE = 1283*/
     public final int MCU_DATA_ID = 1283;
@@ -3325,7 +3325,7 @@ public class ConverterInitialize {
 
     public static class MCU_DATA_t {
 
-        public short Motor_rpm;
+        public float Motor_rpm;
     }
     /* public final int @CHARGER_FAULT_INFO CAN MESSAGE = 1294*/
     public final int CHARGER_FAULT_INFO_ID = 1294;
@@ -3464,32 +3464,32 @@ public class ConverterInitialize {
 
     public static class Charger_Fault_Info_t {
 
-        public byte OBC_IP_AC_overVoltage;
-        public byte OBC_IP_AC_UnderV;
-        public byte OBC_IP_Overcurrent;
-        public byte OBC_OP_Overcurrent;
-        public byte OBC_High_temp;
-        public byte OBC_Low_temp;
-        public byte OBC_Temp_Sensor_fail;
-        public byte OBC_Current_Sensor_fail;
-        public byte OBC_ContactorRelay_fail;
-        public byte OBC_OP_Open_Circuit;
-        public byte OBC_OP_Short_Circuit;
-        public byte OBC_OP_Over_Vol_flt;
-        public byte OBC_OP_Under_Vol_flt;
-        public byte DCDC_OP_Over_Vol_flt;
-        public byte DCDC_IP_Over_Voltage;
-        public byte DCDC_IP_Under_Voltage;
-        public byte DCDC_IP_Over_Current;
-        public byte DCDC_OP_Over_Current;
-        public byte DCDC_High_Temp;
-        public byte DCDC_Low_Temp;
-        public byte DCDC_TempSensor_Failure;
-        public byte DCDC_Current_Sensor_Failure;
-        public byte DCDC_Contactor_or_Relay_Failure;
-        public byte DCDC_OP_Open_Circuit;
-        public byte DCDC_OP_Short_Circuit;
-        public byte DCDC_OP_Under_Vol_flt;
+        public float OBC_IP_AC_overVoltage;
+        public float OBC_IP_AC_UnderV;
+        public float OBC_IP_Overcurrent;
+        public float OBC_OP_Overcurrent;
+        public float OBC_High_temp;
+        public float OBC_Low_temp;
+        public float OBC_Temp_Sensor_fail;
+        public float OBC_Current_Sensor_fail;
+        public float OBC_ContactorRelay_fail;
+        public float OBC_OP_Open_Circuit;
+        public float OBC_OP_Short_Circuit;
+        public float OBC_OP_Over_Vol_flt;
+        public float OBC_OP_Under_Vol_flt;
+        public float DCDC_OP_Over_Vol_flt;
+        public float DCDC_IP_Over_Voltage;
+        public float DCDC_IP_Under_Voltage;
+        public float DCDC_IP_Over_Current;
+        public float DCDC_OP_Over_Current;
+        public float DCDC_High_Temp;
+        public float DCDC_Low_Temp;
+        public float DCDC_TempSensor_Failure;
+        public float DCDC_Current_Sensor_Failure;
+        public float DCDC_Contactor_or_Relay_Failure;
+        public float DCDC_OP_Open_Circuit;
+        public float DCDC_OP_Short_Circuit;
+        public float DCDC_OP_Under_Vol_flt;
     }
     /* public final int @HP_DCDC_PARAMETER1 CAN MESSAGE = 1295*/
     public final int HP_DCDC_PARAMETER1_ID = 1295;
@@ -3518,10 +3518,10 @@ public class ConverterInitialize {
 
     public static class HP_DCDC_Parameter1_t {
 
-        public short HP_DCDC_IP_DC_Current;
-        public short HP_DCDC_IP_DC_Voltage;
-        public short HP_DCDC_OP_DC_Current;
-        public short HP_DCDC_OP_DC_Voltage;
+        public float HP_DCDC_IP_DC_Current;
+        public float HP_DCDC_IP_DC_Voltage;
+        public float HP_DCDC_OP_DC_Current;
+        public float HP_DCDC_OP_DC_Voltage;
     }
     /* public final int @SOM_SETTINGS_DATA CAN MESSAGE = 1365*/
     public final int SOM_SETTINGS_DATA_ID = 1365;
@@ -3570,14 +3570,14 @@ public class ConverterInitialize {
 
     public static class SOM_Settings_Data_t {
 
-        public byte ABS_Setting;
-        public byte Regen_Setting;
-        public byte Speed_Limit_Setting;
-        public byte Haptic_Setting;
-        public byte Hill_Hold_Setting;
-        public byte Traction_Control_Setting;
-        public byte Cruise_Control_Setting;
-        public byte Set_Max_Speed;
+        public float ABS_Setting;
+        public float Regen_Setting;
+        public float Speed_Limit_Setting;
+        public float Haptic_Setting;
+        public float Hill_Hold_Setting;
+        public float Traction_Control_Setting;
+        public float Cruise_Control_Setting;
+        public float Set_Max_Speed;
     }
     /* public final int @IMU_DATA_X CAN MESSAGE = 1579*/
     public final int IMU_DATA_X_ID = 1579;
@@ -3596,8 +3596,8 @@ public class ConverterInitialize {
 
     public static class IMU_Data_X_t {
 
-        public int Accelerometer_Xaxis;
-        public int Gyroscope_Xaxis;
+        public float Accelerometer_Xaxis;
+        public float Gyroscope_Xaxis;
     }
     /* public final int @MCU_SW_VERSION CAN MESSAGE = 1585*/
     public final int MCU_SW_VERSION_ID = 1585;
@@ -3646,14 +3646,14 @@ public class ConverterInitialize {
 
     public static class MCU_SW_Version_t {
 
-        public byte MCU_Firmware_OEM_Version;
-        public byte MCU_Firmware_Main_Version;
-        public byte MCU_Firmware_Sub_Version;
-        public byte MCU_Bootloader_OEM_Version;
-        public byte MCU_Bootloader_Main_Version;
-        public byte MCU_Hardware_OEM_Version;
-        public byte MCU_Hardware_Main_Version;
-        public byte MCU_Hardware_Sub_Version;
+        public float MCU_Firmware_OEM_Version;
+        public float MCU_Firmware_Main_Version;
+        public float MCU_Firmware_Sub_Version;
+        public float MCU_Bootloader_OEM_Version;
+        public float MCU_Bootloader_Main_Version;
+        public float MCU_Hardware_OEM_Version;
+        public float MCU_Hardware_Main_Version;
+        public float MCU_Hardware_Sub_Version;
     }
     /* public final int @ICM_HW_VERSION_INFO CAN MESSAGE = 1601*/
     public final int ICM_HW_VERSION_INFO_ID = 1601;
@@ -3667,7 +3667,7 @@ public class ConverterInitialize {
 
     public static class ICM_HW_Version_Info_t {
 
-        public long ICM_Hardware_Version;
+        public double ICM_Hardware_Version;
     }
     /* public final int @ICM_SW_VERSION CAN MESSAGE = 1602*/
     public final int ICM_SW_VERSION_ID = 1602;
@@ -3686,8 +3686,8 @@ public class ConverterInitialize {
 
     public static class ICM_SW_Version_t {
 
-        public int ICM_Firmware_Version;
-        public int ICM_Bootloader_Version;
+        public float ICM_Firmware_Version;
+        public float ICM_Bootloader_Version;
     }
     /* public final int @ESCL_HW_VERSION_INFO CAN MESSAGE = 1603*/
     public final int ESCL_HW_VERSION_INFO_ID = 1603;
@@ -3701,7 +3701,7 @@ public class ConverterInitialize {
 
     public static class ESCL_HW_Version_Info_t {
 
-        public long ESCL_Hardware_Version;
+        public double ESCL_Hardware_Version;
     }
     /* public final int @OBC_SW_VERSION CAN MESSAGE = 1604*/
     public final int OBC_SW_VERSION_ID = 1604;
@@ -3720,8 +3720,8 @@ public class ConverterInitialize {
 
     public static class OBC_SW_Version_t {
 
-        public int OBC_Firmware_Version;
-        public int OBC_Bootloader_Version;
+        public float OBC_Firmware_Version;
+        public float OBC_Bootloader_Version;
     }
     /* public final int @OBC_HW_VERSION CAN MESSAGE = 1605*/
     public final int OBC_HW_VERSION_ID = 1605;
@@ -3735,7 +3735,7 @@ public class ConverterInitialize {
 
     public static class OBC_HW_Version_t {
 
-        public int OBC_Hardware_Version;
+        public float OBC_Hardware_Version;
     }
     /* public final int @ESCL_SW_VERSION_INFO CAN MESSAGE = 1606*/
     public final int ESCL_SW_VERSION_INFO_ID = 1606;
@@ -3754,8 +3754,8 @@ public class ConverterInitialize {
 
     public static class ESCL_SW_Version_Info_t {
 
-        public int ESCL_Firmware_version;
-        public int ESCL_Bootloader_version;
+        public float ESCL_Firmware_version;
+        public float ESCL_Bootloader_version;
     }
     /* public final int @RSC_HW_VERSION_INFO CAN MESSAGE = 1607*/
     public final int RSC_HW_VERSION_INFO_ID = 1607;
@@ -3769,7 +3769,7 @@ public class ConverterInitialize {
 
     public static class RSC_HW_Version_Info_t {
 
-        public long RSC_Hardware_Version;
+        public double RSC_Hardware_Version;
     }
     /* public final int @RSC_SW_VERSION CAN MESSAGE = 1608*/
     public final int RSC_SW_VERSION_ID = 1608;
@@ -3788,8 +3788,8 @@ public class ConverterInitialize {
 
     public static class RSC_SW_Version_t {
 
-        public int RSC_Firmware_Version;
-        public int RSC_Bootloader_Version;
+        public float RSC_Firmware_Version;
+        public float RSC_Bootloader_Version;
     }
     /* public final int @LSC_HW_VERSION_INFO CAN MESSAGE = 1609*/
     public final int LSC_HW_VERSION_INFO_ID = 1609;
@@ -3803,7 +3803,7 @@ public class ConverterInitialize {
 
     public static class LSC_HW_Version_Info_t {
 
-        public long LSC_Hardware_Version;
+        public double LSC_Hardware_Version;
     }
     /* public final int @LSC_SW_VERSION CAN MESSAGE = 1610*/
     public final int LSC_SW_VERSION_ID = 1610;
@@ -3822,8 +3822,8 @@ public class ConverterInitialize {
 
     public static class LSC_SW_Version_t {
 
-        public int LSC_Firmware_Version;
-        public int LSC_Bootloader_Version;
+        public float LSC_Firmware_Version;
+        public float LSC_Bootloader_Version;
     }
     /* public final int @IMU_DATA_Y CAN MESSAGE = 1611*/
     public final int IMU_DATA_Y_ID = 1611;
@@ -3842,8 +3842,8 @@ public class ConverterInitialize {
 
     public static class IMU_Data_Y_t {
 
-        public int Accelerometer_Yaxis;
-        public int Gyroscope_Yaxis;
+        public float Accelerometer_Yaxis;
+        public float Gyroscope_Yaxis;
     }
     /* public final int @IC_PARAMTER_1 CAN MESSAGE = 1615*/
     public final int IC_PARAMTER_1_ID = 1615;
@@ -3872,10 +3872,10 @@ public class ConverterInitialize {
 
     public static class IC_Paramter_1_t {
 
-        public short LED_Temp;
-        public short Temp_Sensor_Input_Controller;
-        public short MAin_Input_Supply;
-        public short Temp_Sensor_Input_Ambient;
+        public float LED_Temp;
+        public float Temp_Sensor_Input_Controller;
+        public float MAin_Input_Supply;
+        public float Temp_Sensor_Input_Ambient;
     }
     /* public final int @ICM_DIGITAL_INPUT CAN MESSAGE = 1616*/
     public final int ICM_DIGITAL_INPUT_ID = 1616;
@@ -3924,14 +3924,14 @@ public class ConverterInitialize {
 
     public static class ICM_Digital_Input_t {
 
-        public byte Backlight_Driver_Fault_Input;
-        public byte Ambient_Light_Sensor_Interrupt;
-        public byte Ambient_Temp_Sensor_Interrupt;
-        public byte Warning_Status;
-        public byte Error_Status;
-        public byte Warning_Counter;
-        public byte Error_Counter;
-        public byte Reset_Counter;
+        public float Backlight_Driver_Fault_Input;
+        public float Ambient_Light_Sensor_Interrupt;
+        public float Ambient_Temp_Sensor_Interrupt;
+        public float Warning_Status;
+        public float Error_Status;
+        public float Warning_Counter;
+        public float Error_Counter;
+        public float Reset_Counter;
     }
     /* public final int @IMU_DATA_Z CAN MESSAGE = 1627*/
     public final int IMU_DATA_Z_ID = 1627;
@@ -3950,8 +3950,8 @@ public class ConverterInitialize {
 
     public static class IMU_Data_Z_t {
 
-        public int Accelerometer_Zaxis;
-        public int Gyroscope_Zaxis;
+        public float Accelerometer_Zaxis;
+        public float Gyroscope_Zaxis;
     }
     /* public final int @BMS_SOFTWARE_VERSIONS CAN MESSAGE = 1638*/
     public final int BMS_SOFTWARE_VERSIONS_ID = 1638;
@@ -3970,8 +3970,8 @@ public class ConverterInitialize {
 
     public static class BMS_SOFTWARE_VERSIONS_t {
 
-        public int BMS_Firmware_Version;
-        public int BMS_Bootloader_Version;
+        public float BMS_Firmware_Version;
+        public float BMS_Bootloader_Version;
     }
     /* public final int @ABS_SOFTWARE_VERSION CAN MESSAGE = 1639*/
     public final int ABS_SOFTWARE_VERSION_ID = 1639;
@@ -3990,8 +3990,8 @@ public class ConverterInitialize {
 
     public static class ABS_Software_Version_t {
 
-        public int ABS_Firmware_version;
-        public int ABS_Bootloader_version;
+        public float ABS_Firmware_version;
+        public float ABS_Bootloader_version;
     }
     /* public final int @BMS_HARDWARE_VERSION CAN MESSAGE = 1640*/
     public final int BMS_HARDWARE_VERSION_ID = 1640;
@@ -4005,7 +4005,7 @@ public class ConverterInitialize {
 
     public static class BMS_HARDWARE_VERSION_t {
 
-        public int BMS_Hardware_Version;
+        public float BMS_Hardware_Version;
     }
     /* public final int @ABS_HARDWARE_VERSION CAN MESSAGE = 1641*/
     public final int ABS_HARDWARE_VERSION_ID = 1641;
@@ -4019,7 +4019,7 @@ public class ConverterInitialize {
 
     public static class ABS_Hardware_Version_t {
 
-        public long ABS_Hardware_version;
+        public double ABS_Hardware_version;
     }
     /* public final int @BMS_DIAGNOSTIC_REQUEST CAN MESSAGE = 1652*/
     public final int BMS_DIAGNOSTIC_REQUEST_ID = 1652;
@@ -4033,7 +4033,7 @@ public class ConverterInitialize {
 
     public static class BMS_Diagnostic_Request_t {
 
-        public long BMS_Diag_Request;
+        public double BMS_Diag_Request;
     }
     /* public final int @BMS_DIAGNOSTIC_RESPONSE CAN MESSAGE = 1653*/
     public final int BMS_DIAGNOSTIC_RESPONSE_ID = 1653;
@@ -4047,7 +4047,7 @@ public class ConverterInitialize {
 
     public static class BMS_Diagnostic_Response_t {
 
-        public long BMS_Diag_Resp;
+        public double BMS_Diag_Resp;
     }
     /* public final int @OTA_STATUS CAN MESSAGE = 1664*/
     public final int OTA_STATUS_ID = 1664;
@@ -4061,7 +4061,7 @@ public class ConverterInitialize {
 
     public static class OTA_Status_t {
 
-        public byte OTA_Status_Info;
+        public float OTA_Status_Info;
     }
     /* public final int @VEHICLE_LEFT_SW_CUBE CAN MESSAGE = 1722*/
     public final int VEHICLE_LEFT_SW_CUBE_ID = 1722;
@@ -4205,33 +4205,33 @@ public class ConverterInitialize {
 
     public static class Vehicle_left_SW_Cube_t {
 
-        public byte High_beam;
-        public byte Low_beam;
-        public byte Pass_beam;
-        public byte Left_Indicator;
-        public byte Cruise_Control;
-        public byte Right_Indicator;
-        public byte Horn;
-        public byte Eco_Mode;
-        public byte Tour_Mode;
-        public byte Sports_Mode;
-        public byte Turbo_mode;
-        public byte Neutral;
-        public byte Park_Assist;
-        public byte Home;
-        public byte Joystick_Up;
-        public byte Joystick_Down;
-        public byte Joystick_Left;
-        public byte Joystick_Right;
-        public byte Joystick_SET_RST;
-        public byte LSC_Power_Status;
-        public byte Joystick_fault;
-        public byte Mode_Selector_Roller_fault;
-        public byte Left_Indicator_Button_fault;
-        public byte Cruise_Control_Button_fault;
-        public byte Horn_Button_fault;
-        public byte Home_Button_fault;
-        public byte LSC_System_fault;
+        public float High_beam;
+        public float Low_beam;
+        public float Pass_beam;
+        public float Left_Indicator;
+        public float Cruise_Control;
+        public float Right_Indicator;
+        public float Horn;
+        public float Eco_Mode;
+        public float Tour_Mode;
+        public float Sports_Mode;
+        public float Turbo_mode;
+        public float Neutral;
+        public float Park_Assist;
+        public float Home;
+        public float Joystick_Up;
+        public float Joystick_Down;
+        public float Joystick_Left;
+        public float Joystick_Right;
+        public float Joystick_SET_RST;
+        public float LSC_Power_Status;
+        public float Joystick_fault;
+        public float Mode_Selector_Roller_fault;
+        public float Left_Indicator_Button_fault;
+        public float Cruise_Control_Button_fault;
+        public float Horn_Button_fault;
+        public float Home_Button_fault;
+        public float LSC_System_fault;
     }
     /* public final int @VEHICLE_RIGHT_SW_CUBE CAN MESSAGE = 1723*/
     public final int VEHICLE_RIGHT_SW_CUBE_ID = 1723;
@@ -4260,10 +4260,10 @@ public class ConverterInitialize {
 
     public static class Vehicle_Right_SW_Cube_t {
 
-        public byte Voice_Assist;
-        public byte Regen;
-        public byte Key_Ignition;
-        public byte Start_Button;
+        public float Voice_Assist;
+        public float Regen;
+        public float Key_Ignition;
+        public float Start_Button;
     }
     /* public final int @ICM_ERROR CAN MESSAGE = 1799*/
     public final int ICM_ERROR_ID = 1799;
@@ -4317,15 +4317,15 @@ public class ConverterInitialize {
 
     public static class ICM_Error_t {
 
-        public byte Input_OverVoltage;
-        public byte Input_UncerVoltage;
-        public byte Input_OverCurrent;
-        public byte Output_OverCurrent;
-        public byte High_Temp;
-        public byte Low_Temp;
-        public byte Temp_Sensor_Failure;
-        public byte Output_Short_Circuit_Failure;
-        public byte Reserved;
+        public float Input_OverVoltage;
+        public float Input_UncerVoltage;
+        public float Input_OverCurrent;
+        public float Output_OverCurrent;
+        public float High_Temp;
+        public float Low_Temp;
+        public float Temp_Sensor_Failure;
+        public float Output_Short_Circuit_Failure;
+        public float Reserved;
     }
     /* public final int @TIMESTAMP_SYNC_MESSAGE CAN MESSAGE = 1807*/
     public final int TIMESTAMP_SYNC_MESSAGE_ID = 1807;
@@ -4339,7 +4339,7 @@ public class ConverterInitialize {
 
     public static class TimeStamp_Sync_Message_t {
 
-        public long VCU_TimeStamp;
+        public double VCU_TimeStamp;
     }
     /* public final int @RSC_DIAGNOSTIC_REQUEST CAN MESSAGE = 1953*/
     public final int RSC_DIAGNOSTIC_REQUEST_ID = 1953;
@@ -4353,7 +4353,7 @@ public class ConverterInitialize {
 
     public static class RSC_Diagnostic_Request_t {
 
-        public long RSC_Diag_Req;
+        public double RSC_Diag_Req;
     }
     /* public final int @RSC_DIAGNOSTIC_RESPONSE CAN MESSAGE = 1954*/
     public final int RSC_DIAGNOSTIC_RESPONSE_ID = 1954;
@@ -4367,7 +4367,7 @@ public class ConverterInitialize {
 
     public static class RSC_Diagnostic_Response_t {
 
-        public long RSC_Diag_Resp;
+        public double RSC_Diag_Resp;
     }
     /* public final int @LSC_DIAGNOSTIC_REQUEST CAN MESSAGE = 1955*/
     public final int LSC_DIAGNOSTIC_REQUEST_ID = 1955;
@@ -4381,7 +4381,7 @@ public class ConverterInitialize {
 
     public static class LSC_Diagnostic_Request_t {
 
-        public long LSC_Diag_Req;
+        public double LSC_Diag_Req;
     }
     /* public final int @LSC_DIAGNOSTIC_RESPONSE CAN MESSAGE = 1956*/
     public final int LSC_DIAGNOSTIC_RESPONSE_ID = 1956;
@@ -4395,7 +4395,7 @@ public class ConverterInitialize {
 
     public static class LSC_Diagnostic_Response_t {
 
-        public long LSC_Diagnostic_Response;
+        public double LSC_Diagnostic_Response;
     }
     /* public final int @MCU_DIAGNOSTIC_REQUEST CAN MESSAGE = 1972*/
     public final int MCU_DIAGNOSTIC_REQUEST_ID = 1972;
@@ -4409,7 +4409,7 @@ public class ConverterInitialize {
 
     public static class MCU_Diagnostic_Request_t {
 
-        public long MCU_Diag_Request;
+        public double MCU_Diag_Request;
     }
     /* public final int @MCU_DIAGNOSTIC_RESPONSE CAN MESSAGE = 1986*/
     public final int MCU_DIAGNOSTIC_RESPONSE_ID = 1986;
@@ -4423,7 +4423,7 @@ public class ConverterInitialize {
 
     public static class MCU_Diagnostic_Response_t {
 
-        public long MCU_Diagnostic_Response;
+        public double MCU_Diagnostic_Response;
     }
     /* public final int @OBC_DIAGNOSTIC_RESPONSE CAN MESSAGE = 1989*/
     public final int OBC_DIAGNOSTIC_RESPONSE_ID = 1989;
@@ -4437,7 +4437,7 @@ public class ConverterInitialize {
 
     public static class OBC_Diagnostic_Response_t {
 
-        public long OBC_Diag_Resp;
+        public double OBC_Diag_Resp;
     }
     /* public final int @ABS_DIAG_REQUEST CAN MESSAGE = 1992*/
     public final int ABS_DIAG_REQUEST_ID = 1992;
@@ -4451,7 +4451,7 @@ public class ConverterInitialize {
 
     public static class ABS_Diag_Request_t {
 
-        public long ABS_Diag_Request;
+        public double ABS_Diag_Request;
     }
     /* public final int @ABS_DIAG_RESPONSE CAN MESSAGE = 1993*/
     public final int ABS_DIAG_RESPONSE_ID = 1993;
@@ -4465,7 +4465,7 @@ public class ConverterInitialize {
 
     public static class ABS_Diag_Response_t {
 
-        public long ABS_Diag_Response;
+        public double ABS_Diag_Response;
     }
     /* public final int @OBC_DIAGNOSTIC_REQUEST CAN MESSAGE = 1996*/
     public final int OBC_DIAGNOSTIC_REQUEST_ID = 1996;
@@ -4479,7 +4479,7 @@ public class ConverterInitialize {
 
     public static class OBC_Diagnostic_Request_t {
 
-        public long OBC_Diag_Request;
+        public double OBC_Diag_Request;
     }
     /* public final int @HU_DIAGNOSTIC_RESPONSE CAN MESSAGE = 2006*/
     public final int HU_DIAGNOSTIC_RESPONSE_ID = 2006;
@@ -4493,7 +4493,7 @@ public class ConverterInitialize {
 
     public static class HU_Diagnostic_Response_t {
 
-        public long HU_Diagnostic_Response;
+        public double HU_Diagnostic_Response;
     }
     /* public final int @HU_DIAGNOSTIC_REQUEST CAN MESSAGE = 2007*/
     public final int HU_DIAGNOSTIC_REQUEST_ID = 2007;
@@ -4507,7 +4507,7 @@ public class ConverterInitialize {
 
     public static class HU_Diagnostic_Request_t {
 
-        public long HU_Diag_Req;
+        public double HU_Diag_Req;
     }
     /* public final int @ESCL_DIAGNOSTIC_RESPONSE CAN MESSAGE = 2008*/
     public final int ESCL_DIAGNOSTIC_RESPONSE_ID = 2008;
@@ -4521,7 +4521,7 @@ public class ConverterInitialize {
 
     public static class ESCL_Diagnostic_Response_t {
 
-        public long ESCL_Diagnostic_Response;
+        public double ESCL_Diagnostic_Response;
     }
     /* public final int @ESCL_DIAGNOSTIC_REQUEST CAN MESSAGE = 2009*/
     public final int ESCL_DIAGNOSTIC_REQUEST_ID = 2009;
@@ -4535,7 +4535,7 @@ public class ConverterInitialize {
 
     public static class ESCL_Diagnostic_Request_t {
 
-        public long ESCL_Diag_Req;
+        public double ESCL_Diag_Req;
     }
     /* public final int @BCM_DIAGNOSTIC_RESPONSE CAN MESSAGE = 2010*/
     public final int BCM_DIAGNOSTIC_RESPONSE_ID = 2010;
@@ -4549,7 +4549,7 @@ public class ConverterInitialize {
 
     public static class BCM_Diagnostic_Response_t {
 
-        public long BCM_Diag_Response;
+        public double BCM_Diag_Response;
     }
     /* public final int @BCM_DIAGNOSTIC_REQUEST CAN MESSAGE = 2011*/
     public final int BCM_DIAGNOSTIC_REQUEST_ID = 2011;
@@ -4563,7 +4563,7 @@ public class ConverterInitialize {
 
     public static class BCM_Diagnostic_Request_t {
 
-        public long BCM_Diag_Request;
+        public double BCM_Diag_Request;
     }
     /* public final int @FUNC_DIAGNOSTIC_REQUEST CAN MESSAGE = 2029*/
     public final int FUNC_DIAGNOSTIC_REQUEST_ID = 2029;
@@ -4577,7 +4577,7 @@ public class ConverterInitialize {
 
     public static class Func_Diagnostic_Request_t {
 
-        public long Functional_Diag_Request;
+        public double Functional_Diag_Request;
     }
     /* public final int @BATTERY_STATUS_INFO CAN MESSAGE = 302*/
     public final int BATTERY_STATUS_INFO_ID = 302;
@@ -4616,11 +4616,11 @@ public class ConverterInitialize {
 
     public static class BATTERY_STATUS_INFO_t {
 
-        public short Battery_Current;
-        public short Battery_Pack_SoC;
-        public short Charge_Voltage_limit;
-        public byte Charger_Mode_Request;
-        public byte Time_to_Charge_Hrs;
-        public byte Time_to_Charge_Mins;
+        public float Battery_Current;
+        public float Battery_Pack_SoC;
+        public float Charge_Voltage_limit;
+        public float Charger_Mode_Request;
+        public float Time_to_Charge_Hrs;
+        public float Time_to_Charge_Mins;
     }
 }

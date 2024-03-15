@@ -12,53 +12,41 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * DBHandler_50ms is responsible for handling the database operations related to
  * storing and managing data received at 50ms intervals.
  */
 public class DBHandler_50ms extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "DATA_AGGREGATOR_DATABASE_50ms";
     private static final int DATABASE_VERSION = 1;
+    private static final String TABLE_NAME = "VEHICLE_DATA_50ms";
+    private static final String COLUMN_TIMESTAMP = "TIMESTAMP";
+    private static final String COLUMN_CAN_ID = "CAN_ID";
+    private static final String COLUMN_SIGNAL_NAME = "SIGNAL_NAME";
+    private static final String COLUMN_DATA = "DATA";
     private static final long DELETE_INTERVAL_MS = 15 * 60 * 1000;
     private static final String TAG = "StoreToDatabase";
 
-    private String tableName;
-    private String timestampColumn;
-    private String canIdColumn;
-    private String signalNameColumn;
-    private String dataColumn;
-
     public DBHandler_50ms(Context context) {
-        super(context, loadDatabaseName(context), null, DATABASE_VERSION);
-        Properties properties = DatabaseConfigLoader.loadDatabaseConfig(context);
-        this.tableName = properties.getProperty("dbhandler_50ms.table_name");
-        this.timestampColumn = properties.getProperty("dbhandler_50ms.timestamp_column");
-        this.canIdColumn = properties.getProperty("dbhandler_50ms.can_id_column");
-        this.signalNameColumn = properties.getProperty("dbhandler_50ms.signal_name_column");
-        this.dataColumn = properties.getProperty("dbhandler_50ms.data_column");
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         scheduleDataDeletionTask(context);
-    }
-
-    private static String loadDatabaseName(Context context) {
-        Properties properties = DatabaseConfigLoader.loadDatabaseConfig(context);
-        return properties.getProperty("dbhandler_50ms.database_name");
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = "CREATE TABLE " + tableName + " (" +
-                timestampColumn + " TEXT," +
-                canIdColumn + " INTEGER," +
-                signalNameColumn + " TEXT," +
-                dataColumn + " TEXT," +
-                "PRIMARY KEY (" + canIdColumn + ", " + signalNameColumn + ")" +
+        String createTableQuery = "CREATE TABLE " + TABLE_NAME + " (" +
+                COLUMN_TIMESTAMP + " TEXT," +
+                COLUMN_CAN_ID + " INTEGER," +
+                COLUMN_SIGNAL_NAME + " TEXT," +
+                COLUMN_DATA + " TEXT," +
+                "PRIMARY KEY (" + COLUMN_CAN_ID + ", " + COLUMN_SIGNAL_NAME + ")" +
                 ");";
 
         db.execSQL(createTableQuery);
 
-        Log.d(TAG, "Table created successfully: " + tableName);
+        Log.d(TAG, "Table created successfully: " + TABLE_NAME);
     }
 
     @Override
@@ -77,7 +65,7 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
             public void run() {
                 deleteOldRows();
 
-                handler.postDelayed(this, DELETE_INTERVAL_MS);
+                scheduleDataDeletionTask(context);
             }
         }, DELETE_INTERVAL_MS);
     }
@@ -94,7 +82,7 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
             String fifteenMinutesAgoStr = dateFormat.format(new Date(fifteenMinutesAgo));
 
-            int rowsDeleted = db.delete(tableName, timestampColumn + " < ?", new String[]{fifteenMinutesAgoStr});
+            int rowsDeleted = db.delete(TABLE_NAME, COLUMN_TIMESTAMP + " < ?", new String[]{fifteenMinutesAgoStr});
             Log.d("DeleteOldRows", rowsDeleted + " rows deleted.");
 
             db.setTransactionSuccessful();
@@ -120,36 +108,36 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
                 String formattedTimestamp = dateFormat.format(new Date());
 
-                cursor = db.query(tableName, null,
-                        canIdColumn + "=? AND " + signalNameColumn + "=?",
+                cursor = db.query(TABLE_NAME, null,
+                        COLUMN_CAN_ID + "=? AND " + COLUMN_SIGNAL_NAME + "=?",
                         new String[]{String.valueOf(canId), signalName},
                         null, null, null);
 
                 if (cursor != null && cursor.moveToFirst()) {
                     ContentValues updateValues = new ContentValues();
-                    updateValues.put(dataColumn, convertValue(data));
-                    updateValues.put(timestampColumn, formattedTimestamp);
+                    updateValues.put(COLUMN_DATA, String.valueOf(data));
+                    updateValues.put(COLUMN_TIMESTAMP, formattedTimestamp);
 
-                    int rowsAffected = db.update(tableName, updateValues,
-                            canIdColumn + "=? AND " + signalNameColumn + "=?",
+                    int rowsAffected = db.update(TABLE_NAME, updateValues,
+                            COLUMN_CAN_ID + "=? AND " + COLUMN_SIGNAL_NAME + "=?",
                             new String[]{String.valueOf(canId), signalName});
 
                     if (rowsAffected > 0) {
-                        Log.d(TAG, "Timestamp: " + formattedTimestamp + ", CAN ID: 0x" + Integer.toHexString(canId) + ", Signal Name: " + signalName + ", Data: 0x" + Long.toHexString(convertValue(data)));
+                        Log.d(TAG, "Timestamp: " + formattedTimestamp + ", CAN ID: 0x" + Integer.toHexString(canId) + ", Signal Name: " + signalName + ", Data: 0x" + String.valueOf(data));
                     } else {
                         Log.e(TAG, "Error updating data. CAN ID: " + Integer.toHexString(canId));
                     }
                 } else {
                     ContentValues insertValues = new ContentValues();
-                    insertValues.put(timestampColumn, formattedTimestamp);
-                    insertValues.put(canIdColumn, canId);
-                    insertValues.put(signalNameColumn, signalName);
-                    insertValues.put(dataColumn, convertValue(data));
+                    insertValues.put(COLUMN_CAN_ID, canId);
+                    insertValues.put(COLUMN_SIGNAL_NAME, signalName);
+                    insertValues.put(COLUMN_DATA, String.valueOf(data));
+                    insertValues.put(COLUMN_TIMESTAMP, formattedTimestamp);
 
-                    long rowId = db.insert(tableName, null, insertValues);
+                    long rowId = db.insert(TABLE_NAME, null, insertValues);
 
                     if (rowId != -1) {
-                        Log.d(TAG, "Timestamp: " + formattedTimestamp + ", CAN ID: 0x" + Integer.toHexString(canId) + ", Signal Name: " + signalName + ", Data: " + Long.toHexString(convertValue(data)));
+                        Log.d(TAG, "Timestamp: " + formattedTimestamp + ", CAN ID: 0x" + Integer.toHexString(canId) + ", Signal Name: " + signalName + ", Data: " + String.valueOf(data));
                     } else {
                         Log.e(TAG, "Error inserting data");
                     }
@@ -165,19 +153,4 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
             db.endTransaction();
         }
     }
-
-    private long convertValue(Object value) {
-        if (value instanceof Long) {
-            return (Long) value;
-        } else if (value instanceof Integer) {
-            return (Integer) value;
-        } else if (value instanceof Short) {
-            return (Short) value;
-        } else if (value instanceof Byte) {
-            return (Byte) value;
-        } else {
-            throw new IllegalArgumentException("Unsupported data type: " + value.getClass());
-        }
-    }
-
 }
