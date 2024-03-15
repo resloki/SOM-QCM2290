@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.DiagCAN" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- Use a solid, non-transparent color for colorPrimary.
+             Example here is a red color with no transparency. -->
+        <item name="colorPrimary">#00000000</item>
+
+        <!-- The color for the status bar background.
+             Example here is a dark gray to ensure visibility of white icons and text. -->
+        <item name="android:statusBarColor">#FF202020</item>
+
+        <!-- This item changes the status bar content to light theme.
+             Set this to true if the statusBarColor is dark. -->
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.DiagCAN" parent="Base.Theme.DiagCAN" />
+</resources>

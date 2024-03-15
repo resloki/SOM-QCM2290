@@ -1,0 +1,132 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#686868"
+    android:padding="16dp"
+    android:theme="@style/Theme.AppCompat.Light">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Title TextView -->
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:text="Permission Required"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Description TextView -->
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="To continue, please grant the following permissions:"
+            android:textColor="#212121"
+            android:textSize="18sp" />
+
+        <!-- Grant Permission Button -->
+        <Button
+            android:id="@+id/grant_permission_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descriptionTextView"
+            android:layout_marginTop="16dp"
+            android:background="#5EC862"
+            android:text="Grant Storage Permission"
+            android:textColor="#020000"
+            android:textSize="16sp" />
+
+        <!-- Load HEX File Button -->
+        <Button
+            android:id="@+id/hexfileLoadBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/grant_permission_button"
+            android:layout_marginTop="16dp"
+            android:background="#FF9800"
+            android:text="Load HEX File"
+            android:textColor="#0E0000"
+            android:textSize="16sp" />
+
+        <!-- Load XML File Button -->
+        <Button
+            android:id="@+id/xmlfileLoadBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hexfileLoadBtn"
+            android:layout_marginTop="16dp"
+            android:background="#FF9800"
+            android:text="Load XML File"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <!-- Physical CAN ID EditText -->
+        <EditText
+            android:id="@+id/physicalCanIdEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xmlfileLoadBtn"
+            android:layout_marginTop="16dp"
+            android:hint="Physical CAN ID"
+            android:inputType="text"
+            android:textSize="16sp" />
+
+        <!-- Functional CAN ID EditText -->
+        <EditText
+            android:id="@+id/functionalCanIdEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/physicalCanIdEditText"
+            android:layout_marginTop="16dp"
+            android:hint="Functional CAN ID"
+            android:inputType="text"
+            android:textSize="16sp" />
+
+        <!-- Response CAN ID EditText -->
+        <EditText
+            android:id="@+id/responseCanIdEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/functionalCanIdEditText"
+            android:layout_marginTop="16dp"
+            android:hint="Response CAN ID"
+            android:inputType="text"
+            android:textSize="16sp" />
+
+        <!-- Submit Request Button -->
+        <Button
+            android:id="@+id/submit_BL_Request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/responseCanIdEditText"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="231dp"
+            android:layout_marginTop="16dp"
+            android:background="#FF9800"
+            android:text="Submit BL req"
+            android:textColor="#0E0000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/submit_AP_Request"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/submit_BL_Request"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="240dp"
+            android:layout_marginTop="26dp"
+            android:background="#FF9800"
+            android:text="Submit AP req"
+            android:textColor="#0E0000"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</ScrollView>
