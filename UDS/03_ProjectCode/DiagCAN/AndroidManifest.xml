@@ -30,7 +30,13 @@
         </activity>
 
         <!-- Declaration for DiagCanServiceMain -->
-        <service android:name=".DiagCanServiceMain"/>
+         <service android:name=".DiagCanServiceMain"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.royalenfield.diagcan.UDS_FOTA_COMMUNICATION"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -1,9 +1,13 @@
 package com.royalenfield.diagcan.iso15765TP.Network;
 
 
-import com.royalenfield.diagcan.iso15765TP.DataLinkConnectorTP;
-import com.royalenfield.diagcan.iso15765TP.I15765CanConfig;
-import com.royalenfield.diagcan.iso15765TP.Transport.Transport;
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.util.Log;
+
+import  com.royalenfield.diagcan.iso15765TP.DataLinkConnectorTP;
+import  com.royalenfield.diagcan.iso15765TP.I15765CanConfig;
+import  com.royalenfield.diagcan.iso15765TP.Transport.Transport;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Timer;
@@ -114,17 +118,20 @@ public class NetwrokLayerRx extends I15765CanConfig{
     }
 
     private static void setnewTimer(long newDelay) {
-        cancelTimerTask();
-        // Schedule a new TimerTask with the updated delay
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                resetRxState("The operation timed out while awaiting the reception of consecutive frames from the receiving device");
-            }
-        };
-
-        // Schedule the updated task with the new delay
-        timer.schedule(task, newDelay);
+        try {
+            cancelTimerTask();
+            // Schedule a new TimerTask with the updated delay
+            task = new TimerTask() {
+                @Override
+                public void run() {
+                    resetRxState("The operation timed out while awaiting the reception of consecutive frames from the receiving device");
+                }
+            };
+            // Schedule the updated task with the new delay
+            timer.schedule(task, newDelay);
+        } catch (Exception e) {
+            Log.e(TAG, "timer.schedule Error:", e);
+        }
     }
 
     private static boolean cancelTimerTask() {

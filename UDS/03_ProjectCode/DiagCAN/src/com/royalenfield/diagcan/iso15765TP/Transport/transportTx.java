@@ -1,7 +1,7 @@
 package com.royalenfield.diagcan.iso15765TP.Transport;
 
-import com.royalenfield.diagcan.iso15765TP.I15765CanConfig;
-import com.royalenfield.diagcan.iso15765TP.Network.Network;
+import  com.royalenfield.diagcan.iso15765TP.I15765CanConfig;
+import  com.royalenfield.diagcan.iso15765TP.Network.Network;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,12 +18,12 @@ public class transportTx extends I15765CanConfig implements TransportComm {
 
     @Override
     public void processData(byte[] transportData, int length) {
-
         CANSegmented TPData = new CANSegmented();
         if (CAN_TP_MAX_PAYLOAD_SIZE >= transportData.length) {
-            if (transportData.length <= CAN_TP_DATA_SEGMENT_SIZE) {
+            if (CAN_TP_DATA_SEGMENT_SIZE > length) {
                 byte[] dataWithPadding = new byte[CAN_TP_DATA_SEGMENT_SIZE];
-                System.arraycopy(transportData, 0, dataWithPadding, 0, transportData.length);
+                System.arraycopy(transportData, 0, dataWithPadding, 1, length);
+                dataWithPadding[0] = (byte) length;
                 TPData.setMessageType(CANFrameType.SINGLE_FRAME);
                 TPData.setData(dataWithPadding);
                 submitNetworkProcessing(TPData);
@@ -125,7 +125,6 @@ public class transportTx extends I15765CanConfig implements TransportComm {
         System.arraycopy(Source_data, 0, Destination_frameData, 2, 6); // Copy the data starting from byte 2.
         return Destination_frameData;
     }
-
 
 
 }

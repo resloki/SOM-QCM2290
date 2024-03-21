@@ -1,7 +1,7 @@
 package com.royalenfield.diagcan.iso15765TP.session;
 
-import com.royalenfield.diagcan.iso15765TP.I15765CanConfig;
-import com.royalenfield.diagcan.iso15765TP.Transport.Transport;
+import  com.royalenfield.diagcan.iso15765TP.I15765CanConfig;
+import  com.royalenfield.diagcan.iso15765TP.Transport.Transport;
 
 import java.util.function.Consumer;
 

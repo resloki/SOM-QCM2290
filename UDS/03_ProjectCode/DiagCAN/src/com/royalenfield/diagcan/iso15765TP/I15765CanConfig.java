@@ -9,6 +9,6 @@ public class I15765CanConfig {
     public final short CAN_TP_DATA_SEGMENT_SIZE = 0x08;
     public final short CONSECUTIVE_FRAME_START_INDEX = 0x01;
     public final short TIMEOUT = 0x1f4; //CAN TP Inter-Frame Space Time (500)
-    public final short STMin_RX = 0x0a; //Receive Frames(sending flow control)
+    public final short STMin_RX = 0x05; //Receive Frames(sending flow control)
 
 }

@@ -19,10 +19,10 @@ public class UdsCallbackEventManager {
         return instance;
     }
 
-    public void progressUpdate(int progress) {
+    public void progressUpdate(int totalBytes, int currentByte) {
         if (isCallbackRegistard()) {
             try {
-                mCallback.progressUpdate(progress);
+                mCallback.progressUpdate(totalBytes,currentByte);
             } catch (RemoteException e) {
                 Log.e(TAG, "RemoteException occurred in progressUpdate: " + e.getMessage());
                 throw new RuntimeException(e);
@@ -30,7 +30,7 @@ public class UdsCallbackEventManager {
         }
     }
 
-    public void Log(String TAG, String message) {
+    public void log(String TAG, String message) {
         if (isCallbackRegistard()) {
             try {
                 mCallback.udsLog(message);

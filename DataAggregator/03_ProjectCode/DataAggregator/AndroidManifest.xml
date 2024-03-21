@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.royalenfield.dataaggregator"
-    coreApp="true"
-    android:sharedUserId="android.uid.system">
+    package="com.royalenfield.dataaggregator">
+
+    <queries>
+        <package android:name="com.royalenfield.uartservice"></package>
+    </queries>
 
     <application
         android:allowBackup="true"
-        android:exported="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name">
-
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DataAggregator">
         <service
-            android:name="com.royalenfield.dataaggregator.DataAggregator.DataAggregatorMain"
+            android:name="com.royalenfield.dataaggregator.DataAggregatorMain"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.royalenfield.dataaggregator.BROADCAST_THROUGH_AIDL">
+                </action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

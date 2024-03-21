@@ -7,5 +7,6 @@ import com.royalenfield.uartservice.VcanCommunicationCallback;
 interface VcanCommunicationInterface {
     // Define the method
     int vcanTransmitData(in int canId, in byte[] payload, byte length);
+
     void registerReception(VcanCommunicationCallback callback);
 }

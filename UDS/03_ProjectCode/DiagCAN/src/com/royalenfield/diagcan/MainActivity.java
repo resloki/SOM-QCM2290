@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.royalenfield.diagcan.Iso14229UdsClient.UdsSession;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                     params.putInt("PhysicalCanId", 0x7f0);
                     params.putInt("FunctionalCanId", 0x7f0);
                     params.putInt("ResponseCanId", 0x7f1);
-                    params.putString("ServiceType", ServiceType.BOOTLOADER.name()); // or ServiceType.APPLICATION.name()
+                    params.putString("ServiceType", String.valueOf(UdsSession.ServiceType.BOOTLOADER_SERVICE));
                     mUDSService.SubmitRequest(params);
                 } else {
                     Toast.makeText(this, "One or both files do not exist", Toast.LENGTH_SHORT).show();
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     params.putInt("PhysicalCanId", 0x7f0);
                     params.putInt("FunctionalCanId", 0x7f0);
                     params.putInt("ResponseCanId", 0x7f1);
-                    params.putString("ServiceType", ServiceType.APPLICATION.name()); // or ServiceType.APPLICATION.name()
+                    params.putString("ServiceType", String.valueOf(UdsSession.ServiceType.APPLICATION_SERVICE));
                     mUDSService.SubmitRequest(params);
                 } else {
                     Toast.makeText(this, "One or both files do not exist", Toast.LENGTH_SHORT).show();
@@ -247,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent = new Intent(this, DiagCanServiceMain.class);
+        Intent intent = new Intent(this, CanDiagnosticServicesClient.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
 
