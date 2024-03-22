@@ -36,7 +36,7 @@ public class Iso14229Serv0x27 extends UdsDiagnosticService {
             'z', 'a', 'C', '1', 'y', 'c', '2',
             'E', 'A', 'A', 'A', 'A', 'D', 'A',
             'Q', 'A', 'B', 'A', 'A', 'A', 'B',
-            'A', 'Q', 'C', 'a'}; //todo hridhya
+            'A', 'Q', 'C', 'a'};
 
 
     public Iso14229Serv0x27(ServiceInfo serviceInfo, Iso15765TpInterface Iso15765TransportIF) {

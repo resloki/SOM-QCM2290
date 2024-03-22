@@ -19,6 +19,8 @@ import java.util.Properties;
 /**
  * DBHandler_50ms is responsible for handling the database operations related to
  * storing and managing data received at 50ms intervals.
+ *
+ * @author Jayanth S (jayanth.s@sloki.in)
  */
 public class DBHandler_50ms extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -71,7 +73,6 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
     /**
      * Deletes old rows from the database that are older than 15 minutes.
      */
-
     private void scheduleDataDeletionTask() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -107,6 +108,12 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Checks if a given CAN ID exists in the database table associated with 50ms intervals.
+     *
+     * @param canId The CAN ID to check for existence in the database.
+     * @return true if the CAN ID exists in the database, false otherwise.
+     */
     public boolean canIdInDatabase50ms(String canId) {
         int decimalCanId = Integer.parseInt(String.valueOf(canId), 16);
         SQLiteDatabase db = this.getReadableDatabase();
@@ -130,6 +137,13 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
 
         return canIdExists;
     }
+
+    /**
+     * Fetches signal records associated with the given CAN ID from the database table associated with 50ms intervals.
+     *
+     * @param canId The CAN ID for which signal records are to be fetched.
+     * @return An array of SignalRecord objects containing the fetched signal records, or null if no records are found.
+     */
     public SignalRecord[] fetchFromDatabase50ms(String canId) {
         int decimalCanId = Integer.parseInt(canId, 16);
         SQLiteDatabase db = this.getReadableDatabase();
@@ -170,7 +184,13 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
         return signalRecords;
     }
 
-
+    /**
+     * Saves signal data to the database table, updating existing records if the CAN ID and signal name already exist,
+     * or inserting new records otherwise.
+     *
+     * @param canId          The CAN ID associated with the signal data.
+     * @param signalDataMap  A map containing signal names as keys and corresponding data values to be saved.
+     */
     public void saveDataToDatabase(int canId, Map<String, Object> signalDataMap) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = null;

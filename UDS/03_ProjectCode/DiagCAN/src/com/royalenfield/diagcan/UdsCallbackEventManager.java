@@ -6,6 +6,12 @@ import android.util.Log;
 
 import java.util.Arrays;
 
+
+/**
+ * The UdsCallbackEventManager class manages event callbacks for UDS (Unified Diagnostic Services).
+ *
+ * @author Venu Manikonda (venu.v@sloki.in)
+ */
 public class UdsCallbackEventManager {
     private static final String TAG = "UdsCallback";
     private static UdsCallbackEventManager instance;
@@ -19,8 +25,14 @@ public class UdsCallbackEventManager {
         return instance;
     }
 
+    /**
+     * Notifies the registered callback about progress update.
+     *
+     * @param totalBytes   Total bytes.
+     * @param currentByte  Current byte.
+     */
     public void progressUpdate(int totalBytes, int currentByte) {
-        if (isCallbackRegistard()) {
+        if (isCallbackRegistered()) {
             try {
                 mCallback.progressUpdate(totalBytes,currentByte);
             } catch (RemoteException e) {
@@ -30,8 +42,14 @@ public class UdsCallbackEventManager {
         }
     }
 
+    /**
+     * Logs a message and notifies the registered callback.
+     *
+     * @param TAG     The tag for logging.
+     * @param message The message to be logged and notified.
+     */
     public void log(String TAG, String message) {
-        if (isCallbackRegistard()) {
+        if (isCallbackRegistered()) {
             try {
                 mCallback.udsLog(message);
                 Log.d(TAG, "UDS Log: " + message);
@@ -42,8 +60,14 @@ public class UdsCallbackEventManager {
         }
     }
 
+    /**
+     * Notifies the registered callback about operation completion.
+     *
+     * @param status  The status code.
+     * @param message The message describing the completion status.
+     */
     public void operationComplete(int status, String message) {
-        if (isCallbackRegistard()) {
+        if (isCallbackRegistered()) {
             try {
                 mCallback.operationComplete(status, message);
             } catch (RemoteException e) {
@@ -53,8 +77,14 @@ public class UdsCallbackEventManager {
         }
     }
 
+    /**
+     * Notifies the registered callback about an error.
+     *
+     * @param errorCode    The error code.
+     * @param errorMessage The error message.
+     */
     public void onError(int errorCode, String errorMessage) {
-        if (isCallbackRegistard()) {
+        if (isCallbackRegistered()) {
             try {
                 mCallback.onError(errorCode, errorMessage+"\n");
             } catch (RemoteException e) {
@@ -64,8 +94,16 @@ public class UdsCallbackEventManager {
         }
     }
 
+    /**
+     * Notifies the registered callback about available data.
+     *
+     * @param data         The data array.
+     * @param SID          The Service Identifier.
+     * @param Parameter    The parameter.
+     * @param ParameterName The parameter name.
+     */
     public void onDataAvailable(byte[] data, int SID, int Parameter, String ParameterName) {
-        if (isCallbackRegistard()) {
+        if (isCallbackRegistered()) {
             try {
                 Bundle bundle = new Bundle();
                 bundle.putInt("SID", SID);
@@ -81,8 +119,14 @@ public class UdsCallbackEventManager {
         Log.d(TAG, "Data available: " + Arrays.toString(data));
     }
 
+    /**
+     * Notifies the registered callback about a critical failure.
+     *
+     * @param statusEn     The status code.
+     * @param errorMessage The error message.
+     */
     public void onCriticalFailure(int statusEn, String errorMessage) {
-        if (isCallbackRegistard()) {
+        if (isCallbackRegistered()) {
             try {
                 mCallback.onCriticalFailure(statusEn,errorMessage);
             } catch (RemoteException e) {
@@ -92,7 +136,7 @@ public class UdsCallbackEventManager {
         }
     }
 
-    boolean isCallbackRegistard() {
+    boolean isCallbackRegistered() {
         return isCallbackRegistered;
     }
 }

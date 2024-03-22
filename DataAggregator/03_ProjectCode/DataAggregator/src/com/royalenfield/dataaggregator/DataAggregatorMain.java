@@ -28,8 +28,9 @@ import java.util.concurrent.Executors;
 /**
  * DataAggregatorMain is the main service class responsible for aggregating and processing incoming CAN messages.
  * It initializes the CanMapping component to handle the mapping of CAN data.
+ *
+ * @author Jayanth S (jayanth.s@sloki.in)
  */
-
 
 public class DataAggregatorMain extends Service {
     CanMapping canMapping;
@@ -74,7 +75,7 @@ public class DataAggregatorMain extends Service {
     }
 
     /**
-     * ServiceConnection implementation for connecting to UARTService and DataAggregator.
+     * @param ServiceConnection implementation for connecting to UARTService and DataAggregator.
      * Handles the communication between the current component and the bound service.
      */
 
@@ -100,7 +101,7 @@ public class DataAggregatorMain extends Service {
     };
 
     /**
-     * Stub implementation of VcanCommunicationCallback for handling callbacks from UartService service.
+     * @param VcanCommunicationCallback Stub is used for handling callbacks from UartService service.
      * Defines the behavior upon receiving data from CANId with associated Data and length.
      */
     private VcanCommunicationCallback.Stub mCallback = new VcanCommunicationCallback.Stub() {
@@ -112,7 +113,7 @@ public class DataAggregatorMain extends Service {
     };
 
     /**
-     * Stub implementation of VehicleDataInterface used for fetching data from the database.
+     * @param VehicleDataInterface Stub is used for fetching data from the database.
      * Allows other applications to request data associated with a specific CANId.
      */
     private final VehicleDataInterface.Stub dataFetcherBinder = new VehicleDataInterface.Stub() {
@@ -131,6 +132,13 @@ public class DataAggregatorMain extends Service {
     };
 
 
+    /**
+     * Retrieves data from the database based on the CAN ID and specified database interval.
+     *
+     * @param canId The CAN ID for which data is to be retrieved.
+     * @param databaseInterval The interval of the database (e.g., DATABASE10ms, DATABASE50ms, DATABASE500ms).
+     * @return An array of strings representing the retrieved data. Returns an empty array if no data is found or an error occurs.
+     */
     private String[] retrieveData(String canId, DatabaseInterval databaseInterval) {
         SignalRecord[] signalRecord =null;
         try {
@@ -178,6 +186,12 @@ public class DataAggregatorMain extends Service {
         }
     }
 
+    /**
+     * Checks if the given CAN ID exists in any of the database intervals (10ms, 50ms, or 500ms).
+     *
+     * @param canId The CAN ID to check for existence in the databases.
+     * @return The database interval (e.g., DATABASE10ms, DATABASE50ms, DATABASE500ms) if the CAN ID exists in any of the databases; otherwise, returns null.
+     */
     private DatabaseInterval checkCanIdExist(String canId) {
         if (dbHandler10ms.canIdInDatabase10ms(canId)) {
             return DatabaseInterval.DATABASE10ms;
@@ -219,12 +233,24 @@ public class DataAggregatorMain extends Service {
         }
     }
 
+    /**
+     * Transmits a CAN frame to the Vehicle Data Analyzer (VDA) by processing the provided message.
+     *
+     * @param Msg The CAN frame message to be transmitted to the VDA.
+     */
     public void transmitCanFrameToVDA(CanFrames Msg) {
         canMapping.processData(Msg);
         Log.d(TAG, "sendCANMsgToVDA called");
 
     }
 
+    /**
+     * Processes a received CAN frame by converting it into a CanFrames object and transmitting it to the VDA.
+     * This method is typically called upon receiving a CAN frame from the IO interface.
+     *
+     * @param canId The CAN ID of the received frame.
+     * @param data The data payload of the received frame.
+     */
     public void processReceivedCanFrame(int canId, byte[] data) {
         CanFrames canFrame = new CanFrames();
         canFrame.CANId = canId;

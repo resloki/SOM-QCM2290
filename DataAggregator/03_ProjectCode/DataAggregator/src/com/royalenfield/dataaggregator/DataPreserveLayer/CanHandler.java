@@ -1,13 +1,14 @@
 package com.royalenfield.dataaggregator.DataPreserveLayer;
 
-
 import com.royalenfield.dataaggregator.FrameStructure.CanFrames;
 
 /**
- * Functional interface defining a method to handle CAN frames with associated intervals.
+ * Functional interface for handling CAN frames.
+ * Implementations of this interface define how to process received CAN frames.
+ *
+ * @author Jayanth S (jayanth.s@sloki.in)
  */
-
 @FunctionalInterface
 public interface CanHandler {
-    void handle(CanFrames receivedData, Intervals interval);
+    void handleCanData(CanFrames receivedData, Intervals interval);
 }

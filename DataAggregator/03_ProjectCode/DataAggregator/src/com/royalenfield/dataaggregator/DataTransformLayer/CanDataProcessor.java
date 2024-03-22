@@ -23,26 +23,30 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * DataTransformMain is responsible for handling the transformation of CAN messages into specific data structures.
+ * CanDataProcessor is responsible for handling the transformation of CAN messages into specific data structures.
  * It uses SignalConverter to deserialize CAN message data and processes it accordingly.
+ *
+ * @author Jayanth S (jayanth.s@sloki.in)
  */
 public class CanDataProcessor {
     private Context context;
     private SignalConverter signalConverter = new SignalConverter();
-    private DBHandler_10ms databaseHandler_10ms;
-    private DBHandler_50ms databaseHandler_50ms;
-    private DBHandler_500ms databaseHandler_500ms;
     private static final String TAG = "CanProcessor";
     private static final int THREAD_POOL_SIZE = 10;
     private static final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    private SignalDataProcessor signalDataProcessor;
 
     public CanDataProcessor(Context context) {
         this.context = context;
-        databaseHandler_10ms = new DBHandler_10ms(context);
-        databaseHandler_50ms = new DBHandler_50ms(context);
-        databaseHandler_500ms = new DBHandler_500ms(context);
+        this.signalDataProcessor = new SignalDataProcessor(context);
     }
 
+    /**
+     * Handles the diagnostic request for a specific CAN message by deserializing the received data and processing it.
+     *
+     * @param receivedData The CAN frame containing the diagnostic request data.
+     * @param interval The interval at which the diagnostic request was received.
+     */
     public void ABS_Diag_Request_Handle(CanFrames receivedData, Intervals interval) {
         ConverterInitialize.ABS_Diag_Request_t vcuMessages_deserialize_abs_diag_request = new ConverterInitialize.ABS_Diag_Request_t();
         signalConverter.Deserialize_ABS_Diag_Request(vcuMessages_deserialize_abs_diag_request, receivedData.Data);
@@ -64,7 +68,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -90,7 +94,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -113,7 +117,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -136,7 +140,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -160,7 +164,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -183,7 +187,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -206,7 +210,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -230,7 +234,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -253,7 +257,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -276,7 +280,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -299,7 +303,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -322,7 +326,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -345,7 +349,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -368,7 +372,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -391,7 +395,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -414,7 +418,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -437,7 +441,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -460,7 +464,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -483,7 +487,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -506,7 +510,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -529,7 +533,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -552,7 +556,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -575,7 +579,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -598,7 +602,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -621,7 +625,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -644,7 +648,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -667,7 +671,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -691,7 +695,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -714,7 +718,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -737,7 +741,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -760,7 +764,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -783,7 +787,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -806,7 +810,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -829,7 +833,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -852,7 +856,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -875,7 +879,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -898,7 +902,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -921,7 +925,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -944,7 +948,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -967,7 +971,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -990,7 +994,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1013,7 +1017,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1036,7 +1040,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1059,7 +1063,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1082,7 +1086,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1105,7 +1109,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1128,7 +1132,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1151,7 +1155,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1174,7 +1178,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1197,7 +1201,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1220,7 +1224,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1243,7 +1247,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1266,7 +1270,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1289,7 +1293,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1312,7 +1316,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1335,7 +1339,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1358,7 +1362,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1381,7 +1385,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1404,7 +1408,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1427,7 +1431,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1450,7 +1454,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1473,7 +1477,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1496,7 +1500,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1519,7 +1523,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1542,7 +1546,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1565,7 +1569,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1588,7 +1592,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1611,7 +1615,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1634,7 +1638,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1657,7 +1661,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1680,7 +1684,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1703,7 +1707,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1726,7 +1730,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1749,7 +1753,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1772,7 +1776,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1795,7 +1799,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1818,7 +1822,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1841,7 +1845,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1864,7 +1868,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1887,7 +1891,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1910,7 +1914,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1933,7 +1937,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1956,7 +1960,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -1979,7 +1983,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -2002,7 +2006,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -2025,7 +2029,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -2048,7 +2052,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -2071,7 +2075,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -2094,7 +2098,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -2117,7 +2121,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -2140,7 +2144,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -2163,7 +2167,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
     }
 
@@ -2186,51 +2190,7 @@ public class CanDataProcessor {
             }
         }
         executorService.submit(() ->
-                processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
+               signalDataProcessor.processAndSubmitDataToDB(receivedData.CANId, signalDataMap, interval)
         );
-    }
-
-    public void processAndSubmitDataToDB(int canid, Map<String, Object> signalDataMap, Intervals interval) {
-        try {
-            if (context == null) {
-                Log.e(TAG, "Context is null");
-                return;
-            }
-
-            for (Map.Entry<String, Object> entry : signalDataMap.entrySet()) {
-                String signalName = entry.getKey();
-                Object data = entry.getValue();
-
-
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
-                String formattedTimestamp = dateFormat.format(new Date());
-
-                Log.d("DatabaseLog", " Timestamp: " + formattedTimestamp + "  CAN ID: 0x" + Integer.toHexString(canid) + "  Signal Name: " + signalName + "  Value: " + String.valueOf(data));
-
-
-                SignalPublisher signalPublisher = new SignalPublisher(context);
-                signalPublisher.SignalBroadcast(canid, signalName, data, formattedTimestamp);
-
-            }
-
-            switch (interval) {
-                case Milliseconds_10: {
-                    databaseHandler_10ms.saveDataToDatabase(canid, signalDataMap);
-                    break;
-                }
-                case Milliseconds_50: {
-                    databaseHandler_50ms.saveDataToDatabase(canid, signalDataMap);
-                    break;
-                }
-                case Milliseconds_500: {
-                    databaseHandler_500ms.saveDataToDatabase(canid, signalDataMap);
-                    break;
-                }
-                default:
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -8,6 +8,8 @@ package com.royalenfield.dataaggregator.CanIDConfig;
  * allowing read-only access to the CAN IDs they contain. This class serves as a central repository for
  * organizing and accessing CAN IDs used within the system, facilitating efficient management and
  * configuration of CAN communications.
+ *
+ * @author Jayanth S (jayanth.s@sloki.in)
  */
 public class CanIDManager {
 

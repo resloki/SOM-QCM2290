@@ -13,6 +13,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The TpInterfaceManager class manages the ISO 15765 Transport Protocol interface.
+ *
+ * @author Venu Manikonda (venu.v@sloki.in)
+ */
 public class TpInterfaceManager extends Iso15765TpInterface {
 
     private Session Session;
@@ -62,25 +67,30 @@ public class TpInterfaceManager extends Iso15765TpInterface {
 
     @Override
     public int sendRequest(byte[] Payload, int paloadLength) {
-        Session.RecieveDataFromApplication(Payload, paloadLength);
+        Session.ReceiveDataFromApplication(Payload, paloadLength);
         return 0;
     }
 
+    /**
+     * Reads the response from the reception queue with a specified timeout.
+     * @param response The ResponseFrameContainer to store the response.
+     * @param timeoutInMillis The timeout duration in milliseconds.
+     */
     @Override
-    public void readResponse(ResponseFrameContainer Response, int timeoutInMillis) {
+    public void readResponse(ResponseFrameContainer response, int timeoutInMillis) {
         try {
             byte[] responseFrame = receptionQueue.poll(timeoutInMillis, TimeUnit.MILLISECONDS);
             if (responseFrame != null) {
-                Response.setResponseFrame(responseFrame);
-                Response.serviceResponse = ResponseFrameContainer.ServiceResponse.RESPONSE_SUCCESS;
+                response.setResponseFrame(responseFrame);
+                response.serviceResponse = ResponseFrameContainer.ServiceResponse.RESPONSE_SUCCESS;
                 return;
             }
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
-            Response.serviceResponse = ResponseFrameContainer.ServiceResponse.RESPONSE_FAILD;
+            response.serviceResponse = ResponseFrameContainer.ServiceResponse.RESPONSE_FAILD;
         }
         Log.d("iso15765TP", "No data received within the timeout.");
-        Response.serviceResponse = ResponseFrameContainer.ServiceResponse.NO_RESPONSE;
+        response.serviceResponse = ResponseFrameContainer.ServiceResponse.NO_RESPONSE;
     }
 
 

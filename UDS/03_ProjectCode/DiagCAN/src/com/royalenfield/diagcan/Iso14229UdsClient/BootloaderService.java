@@ -42,7 +42,7 @@ public class BootloaderService extends UdsSession {
      * Starts the bootloader update service.
      * @author Venu Manikonda
      * @param TemplateUri URI representing the UDS flow configuration file.
-     * @param firmwareImageFileURI URI representing the program file for the ECU softwere update.
+     * @param firmwareImageFileURI URI representing the program file for the ECU software update.
      */
     public void startBootloaderService(Uri TemplateUri, Uri firmwareImageFileURI) {
         Log.i(TAG,  "Starting Bootloader Service");

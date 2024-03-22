@@ -14,6 +14,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+/**
+ * HexToBin class converts Intel HEX firmware files to binary format.
+ * It reads the Intel HEX file line by line, parses each record, and extracts data to generate a binary output.
+ * The class also calculates the CRC32 checksum of the generated binary data.
+ *
+ * @author Venu Manikonda (venu.v@sloki.in)
+ */
 public class HexToBin {
 
     String flashingFilePath = null;

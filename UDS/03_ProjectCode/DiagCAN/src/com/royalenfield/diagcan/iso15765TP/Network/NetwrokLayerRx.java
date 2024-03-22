@@ -17,6 +17,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+/**
+ * The NetwrokLayerRx class represents the receiver side of the ISO 15765-2 Network layer.
+ * It handles the reception and processing of ISO-TP multi-frame messages.
+ * When a First Frame is received, it initializes the reception process by sending a Flow Control frame.
+ * Consecutive Frames are collected until the complete message is received.
+ * It also manages timers for timeout handling.
+ *
+ * @author Venu Manikonda (venu.v@sloki.in)
+ */
 public class NetwrokLayerRx extends I15765CanConfig{
     private static int expectedMultiFrameSize = 0;
     private static int receivedMultiFrameSize = 0;

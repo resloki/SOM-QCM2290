@@ -8,6 +8,8 @@ import java.util.TimerTask;
 /**
  * Scheduler class manages the scheduling of tasks based on specific intervals.
  * It utilizes a Timer to schedule tasks for processing buffered data at predefined intervals.
+ *
+ * @author Jayanth S (jayanth.s@sloki.in)
  */
 public class Scheduler {
     CanMapping canMapping;
@@ -46,7 +48,7 @@ public class Scheduler {
                     Log.d(TAG, "Sent Data to processBufferedData");
                 } catch (Exception e) {
                     Log.e(TAG, "Error: " + e.getMessage());
-                    e.printStackTrace(); // or log the exception
+                    e.printStackTrace();
                 }
             }
         }, delay);

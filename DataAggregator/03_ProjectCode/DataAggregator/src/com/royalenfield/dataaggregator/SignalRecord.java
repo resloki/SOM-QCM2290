@@ -1,5 +1,11 @@
 package com.royalenfield.dataaggregator;
 
+/**
+ * SignalRecord class represents a single record of signal data retrieved from the database.
+ * It encapsulates information such as timestamp, CAN ID, signal name, and data value.
+ *
+ * @author Jayanth S (jayanth.s@sloki.in)
+ */
 public class SignalRecord {
     private String timestamp;
     private String canId;

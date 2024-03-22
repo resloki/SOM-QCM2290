@@ -11,6 +11,8 @@ import java.util.Map;
  * CanHandlerRegistry class is responsible for managing the mappings between CAN IDs and their corresponding handler methods.
  * It initializes these mappings in the constructor based on the provided DataTransformMain instance.
  * The mappings are stored in a HashMap, where the key is the CAN ID and the value is the corresponding CanHandler.
+ *
+ * @author Jayanth S (jayanth.s@sloki.in)
  */
 
 public class CanHandlerRegistry {

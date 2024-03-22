@@ -28,6 +28,12 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
+/**
+ * The CanDiagnosticServicesClient class manages CAN diagnostic services including BootloaderService and ApplicationService.
+ *
+ * @author Venu Manikonda (venu.v@sloki.in)
+ */
 public class CanDiagnosticServicesClient extends Service {
 
     private static final String TAG = "CanDiagnosticServicesClient";

@@ -16,6 +16,8 @@ import com.royalenfield.dataaggregator.FrameStructure.CanFrames;
  * It buffers incoming messages based on their intervals and delegates processing to appropriate handlers.
  * The class maintains three buffers for 10ms, 50ms, and 500ms intervals.
  * It utilizes a CanDataProcessor for handling the data and a CanHandlerRegistry for mapping CAN IDs to handlers.
+ *
+ * @author Jayanth S (jayanth.s@sloki.in)
  */
 
 public class CanMapping {
@@ -53,6 +55,8 @@ public class CanMapping {
     /**
      * Processes incoming CAN messages.
      * Determines the interval based on the CAN ID and delegates processing to the appropriate handler.
+     *
+     * @param receivedData The CAN frame received for processing.
      */
     public void processData(CanFrames receivedData) {
         try {
@@ -103,17 +107,31 @@ public class CanMapping {
         }
     }
 
-    private void updateBuffer(CircularBuffer<CanFrames> buffer, CanFrames newData) {
+
+    /**
+     * Updates the provided circular buffer with new CAN frame data, replacing any existing data with the same CAN ID.
+     *
+     * @param buffer The circular buffer to be updated.
+     * @param receivedData The new CAN frame data to be added to the buffer.
+     */
+    private void updateBuffer(CircularBuffer<CanFrames> buffer, CanFrames receivedData) {
         Iterator<CanFrames> iterator = buffer.iterator();
         while (iterator.hasNext()) {
             CanFrames existingData = iterator.next();
-            if (existingData.CANId == newData.CANId) {
+            if (existingData.CANId == receivedData.CANId) {
                 iterator.remove();
             }
         }
-        buffer.add(newData);
+        buffer.add(receivedData);
     }
 
+    /**
+     * Checks if the given CAN ID is present in the provided array of CAN IDs.
+     *
+     * @param CanBuffer The array of CAN IDs to check.
+     * @param receivedCanId The CAN ID to search for in the array.
+     * @return true if the CAN ID is found in the array, false otherwise.
+     */
     private boolean isCanIdInBuffer(byte[] CanBuffer, int receivedCanId) {
         for (byte canId : CanBuffer) {
             if ((canId & 0xFF) == (receivedCanId & 0xFF)) {
@@ -124,7 +142,10 @@ public class CanMapping {
     }
 
     /**
-     * The processBufferedData method processes buffered CAN frames using registered handlers.
+     * Executes processing of buffered CAN frames using registered handlers.
+     *
+     * @param buffer The circular buffer containing the buffered CAN frames to be processed.
+     * @param interval The interval at which the buffered data was collected.
      */
     protected void executeBufferedData(CircularBuffer<CanFrames> buffer, Intervals interval) {
         if (context == null) {
@@ -138,7 +159,7 @@ public class CanMapping {
             Log.d("CanFramesHandler", "CanHandler");
             try {
                 if (handler != null) {
-                    executorService.submit(() -> handler.handle(receivedData, interval));
+                    executorService.submit(() -> handler.handleCanData(receivedData, interval));
                     Log.d("CanFramesHandler", "Send Data to Deserialize");
                 } else {
                     Log.e("CanFramesHandler", "Invalid CanId");
@@ -150,5 +171,4 @@ public class CanMapping {
         }
         buffer.clear();
     }
-
 }
