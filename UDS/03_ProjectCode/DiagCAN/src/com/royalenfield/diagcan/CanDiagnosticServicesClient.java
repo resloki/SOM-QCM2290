@@ -28,12 +28,6 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
-/**
- * The CanDiagnosticServicesClient class manages CAN diagnostic services including BootloaderService and ApplicationService.
- *
- * @author Venu Manikonda (venu.v@sloki.in)
- */
 public class CanDiagnosticServicesClient extends Service {
 
     private static final String TAG = "CanDiagnosticServicesClient";
@@ -110,7 +104,7 @@ public class CanDiagnosticServicesClient extends Service {
 
 
     private void initializeComponents() {
-        canTpMgr = new TpInterfaceManager(dataLinkDelegateTP);
+        canTpMgr = new TpInterfaceManager(dataLinkDelegateTP,this);
         bootloaderService = new BootloaderService(canTpMgr, this);
         applicationService = new ApplicationService(canTpMgr, this);
     }
@@ -208,10 +202,9 @@ public class CanDiagnosticServicesClient extends Service {
 
         // Extract parameters from the Bundle with descriptive variable names
         String udsFlowConfiguration = params.getString("UDSFlowConfiguration");
-        String programFile = params.getString("ProgramFile");  // Likely for bootloader updates
-        int physicalCanId = params.getInt("PhysicalCanId");
-        int functionalCanId = params.getInt("FunctionalCanId");
-        int responseCanId = params.getInt("ResponseCanId");
+        String programFile = params.getString("FirmwareImageFile");  // Likely for bootloader updates
+        String canTPconfigFile = params.getString("CANTPConfig");  // Likely for bootloader updates
+
         ServiceType serviceType;
         try {
             serviceType = ServiceType.valueOf(params.getString("ServiceType"));
@@ -223,7 +216,7 @@ public class CanDiagnosticServicesClient extends Service {
 
 
         /*  Set CAN IDs in the CAN TP manager (assuming canTpMgr is a relevant object)  */
-        canTpMgr.setCanId(physicalCanId, functionalCanId, responseCanId);
+        canTpMgr.setTPConfig(canTPconfigFile);
 
         switch (serviceType) {
             case BOOTLOADER_SERVICE:

@@ -6,12 +6,6 @@ import  com.royalenfield.diagcan.iso15765TP.Network.Network;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * The transportTx class represents the transmitter side of the transport layer.
- * It implements the TransportComm interface for processing outgoing transport layer data.
- *
- * @author Venu Manikonda (venu.v@sloki.in)
- */
 public class transportTx extends I15765CanConfig implements TransportComm {
     Network network;
     private ExecutorService executorService;
@@ -21,12 +15,7 @@ public class transportTx extends I15765CanConfig implements TransportComm {
         this.network = network;
     }
 
-    /**
-     * Processes the outgoing transport layer data.
-     *
-     * @param transportData The data to be processed.
-     * @param length        The length of the data.
-     */
+
     @Override
     public void processData(byte[] transportData, int length) {
         CANSegmented TPData = new CANSegmented();
@@ -47,23 +36,15 @@ public class transportTx extends I15765CanConfig implements TransportComm {
         }
     }
 
-    /**
-     * Submits the segmented data to the network for processing.
-     *
-     * @param TPData The segmented data to be processed.
-     */
+
     private void submitNetworkProcessing(CANSegmented TPData) {
         network.TxReceivedFromTransport(TPData);
+//        executorService.submit(() -> {
+//            network.TxReceivedFromTransport(TPData);
+//        });
     }
 
 
-    /**
-     * Segments the data into multiple frames for transmission.
-     *
-     * @param RecFromSession The data received from the session layer.
-     * @param length         The length of the data.
-     * @return An array of segmented frames.
-     */
     public byte[][] DataSegmentation(byte[] RecFromSession, int length) {
         int totalMessageLength = length;
         byte[] firstFrame = FirstFrame(RecFromSession, totalMessageLength);
@@ -97,13 +78,41 @@ public class transportTx extends I15765CanConfig implements TransportComm {
         return frames;
     }
 
-    /**
-     * Creates the first frame of the multi-frame transmission.
-     *
-     * @param Source_data       The source data to be transmitted.
-     * @param totalMessageLength The total length of the message.
-     * @return The first frame of the multi-frame transmission.
-     */
+
+//    public byte[][] DataSegmentation(byte[] RecFromSession) {
+//        int totalMessageLength = RecFromSession.length;
+//        byte[] firstFrame = FirstFrame(RecFromSession, totalMessageLength);
+//
+//        int numberOfFullFrames = (totalMessageLength - 6) / 7;
+//        int remainingFrameSize = (totalMessageLength - 6) % 7;
+//        // Calculate total number of frames
+//        int totalFrames = numberOfFullFrames + (remainingFrameSize > 0 ? 1 : 0) + 1;
+//        // Initialize the array of frames
+//        byte[][] frames = new byte[totalFrames][8];
+//        frames[0] = firstFrame; // Set the first frame
+//
+//        int messageIndex = 6; // Index in the RecFromSession
+//        byte sequenceNumber = 0; // Sequence number for CFs
+//
+//        for (int i = 1; i < totalFrames; i++) {
+//            // Set the frame type nibble
+//            byte frameTypeNibble = (byte) (CANFrameType.CONSECUTIVE_FRAME.ordinal() << 4);
+//            // Properly increment and wrap the sequence number
+//            sequenceNumber = (byte) ((sequenceNumber + 1) & 0x0F); // Increment and wrap the sequence number
+//            // No need to shift frameTypeNibble again as it's already in the higher nibble
+//            frames[i][0] = (byte) (frameTypeNibble | sequenceNumber); // Combine frame type and sequence number
+//
+//            // Determine the size of the frame and copy the data
+//            int frameSize = Math.min(7, totalMessageLength - messageIndex);
+//            System.arraycopy(RecFromSession, messageIndex, frames[i], 1, frameSize);
+//            messageIndex += frameSize;
+//        }
+//
+//        // Return the segmented frames
+//        return frames;
+//    }
+
+
     byte[] FirstFrame(byte[] Source_data, int totalMessageLength) {
 
         byte upperNibble = (byte) ((totalMessageLength >> 8) & 0x0F); // Extract the upper 4 bits of the length.

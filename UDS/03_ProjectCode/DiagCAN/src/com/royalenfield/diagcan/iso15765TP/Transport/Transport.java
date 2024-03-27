@@ -4,13 +4,6 @@ import  com.royalenfield.diagcan.iso15765TP.I15765CanConfig;
 import  com.royalenfield.diagcan.iso15765TP.Network.Network;
 import  com.royalenfield.diagcan.iso15765TP.session.Session;
 
-/**
- * The Transport class represents the ISO 15765-2 transport layer.
- * It coordinates communication between the session layer and the network layer.
- * It initializes the transport communication channels for transmission and reception.
- *
- * @author Venu Manikonda (venu.v@sloki.in)
- */
 
 public class Transport extends I15765CanConfig {
 

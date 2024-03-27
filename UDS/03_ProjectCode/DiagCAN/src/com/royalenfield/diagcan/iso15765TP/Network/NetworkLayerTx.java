@@ -18,16 +18,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
-
-/**
- * The NetworkLayerTx class represents the transmitter side of the ISO 15765-2 Network layer.
- * It handles the transmission of segmented CAN frames and flow control frames.
- * Segmented frames are stored in a map until acknowledged by the receiver.
- * Flow control frames are processed to determine the flow status and block size.
- * It notifies when flow control frames are received and sends the next block of data accordingly.
- *
- * @author Venu Manikonda (venu.v@sloki.in)
- */
 public class NetworkLayerTx extends I15765CanConfig {
     String TAG="NetworkLayerTx:";
     private static final ConcurrentMap<Long, CANSegmented> segmentedMap = new ConcurrentHashMap<>();
@@ -88,7 +78,7 @@ public class NetworkLayerTx extends I15765CanConfig {
                 byte[] firstFrame = segments.getFirstFrameData();
                 connectDataLink.transmitDataToDL(physicalCanId,firstFrame);
                 ExpectingFlowContolFlag = true;
-                setTimer(TIMEOUT);
+                setTimer(timeoutMs);
             } catch (InterruptedException e) {
                 e.printStackTrace(); // Handle or log the exception appropriately
             }

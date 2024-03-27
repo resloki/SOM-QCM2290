@@ -19,10 +19,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import com.royalenfield.diagcan.Iso14229UdsClient.UdsSession;
 
 import java.io.File;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,8 +33,13 @@ public class MainActivity extends AppCompatActivity {
     TextView titleTextView;
     TextView descriptionTextView;
     Button grantPermissionButton;
+
+
     Button hexfileLoadButton;
     Button xmlfileLoadButton;
+    Button yamlfileLoadButton;
+
+
     Button submit_BL_Request;
     Button submit_AP_Request;
 
@@ -41,10 +47,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int STORAGE_PERMISSION_REQUEST_CODE = 1001;
     private static final int REQUEST_PICK_HEX_FILE = 1;
     private static final int REQUEST_PICK_XML_FILE = 2;
+    private static final int REQUEST_PICK_YAML_FILE = 3;
 
 
     protected Uri UDSFlowConfig = null;
     protected Uri ProgramFile = null;
+    protected Uri canTPconfigFile = null;
 
 
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -71,13 +79,14 @@ public class MainActivity extends AppCompatActivity {
         grantPermissionButton = findViewById(R.id.grant_permission_button);
         hexfileLoadButton = findViewById(R.id.hexfileLoadBtn);
         xmlfileLoadButton = findViewById(R.id.xmlfileLoadBtn);
+        yamlfileLoadButton = findViewById(R.id.yamlfileLoadBtn);
         submit_BL_Request = findViewById(R.id.submit_BL_Request);
         submit_AP_Request = findViewById(R.id.submit_AP_Request);
 
 
         // Set onClickListener for grantPermissionButton
         grantPermissionButton.setOnClickListener(v -> {
-            
+
         });
 
 
@@ -91,15 +100,21 @@ public class MainActivity extends AppCompatActivity {
             loadXmlFile();
         });
 
+        yamlfileLoadButton.setOnClickListener(v -> {
+            loadYamlFile();
+        });
+
+
+
         // Set onClickListener for submitRequestButton
         submit_BL_Request.setOnClickListener(v -> {
-            submitRequest_BL();
+            submitRequest_BSW();
         });
 
 
         // Set onClickListener for submitRequestButton
         submit_AP_Request.setOnClickListener(v -> {
-            submitRequest_AL();
+            submitRequest_ASW();
         });
 
 
@@ -121,17 +136,23 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_PICK_XML_FILE);
     }
 
+    private void loadYamlFile() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/octet-stream");
+        startActivityForResult(intent, REQUEST_PICK_YAML_FILE);
+    }
 
-    private void submitRequest_BL() {
+
+    private void submitRequest_BSW() {
         try {
             if (UDSFlowConfig != null && ProgramFile != null) {
                 if (fileExists(UDSFlowConfig) && fileExists(ProgramFile)) {
                     Bundle params = new Bundle();
                     params.putString("UDSFlowConfiguration", String.valueOf(UDSFlowConfig));
                     params.putString("ProgramFile", String.valueOf(ProgramFile));
-                    params.putInt("PhysicalCanId", 0x7f0);
-                    params.putInt("FunctionalCanId", 0x7f0);
-                    params.putInt("ResponseCanId", 0x7f1);
+                    params.putString("FirmwareImageFile", String.valueOf(ProgramFile));
+                    params.putString("CANTPConfig", String.valueOf(canTPconfigFile));
                     params.putString("ServiceType", String.valueOf(UdsSession.ServiceType.BOOTLOADER_SERVICE));
                     mUDSService.SubmitRequest(params);
                 } else {
@@ -146,15 +167,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void submitRequest_AL() {
+    private void submitRequest_ASW() {
         try {
             if (UDSFlowConfig != null) {
                 if (fileExists(UDSFlowConfig)) {
                     Bundle params = new Bundle();
                     params.putString("UDSFlowConfiguration", String.valueOf(UDSFlowConfig));
-                    params.putInt("PhysicalCanId", 0x7f0);
-                    params.putInt("FunctionalCanId", 0x7f0);
-                    params.putInt("ResponseCanId", 0x7f1);
+                    params.putString("CANTPConfig", String.valueOf(canTPconfigFile));
                     params.putString("ServiceType", String.valueOf(UdsSession.ServiceType.APPLICATION_SERVICE));
                     mUDSService.SubmitRequest(params);
                 } else {
@@ -196,10 +215,13 @@ public class MainActivity extends AppCompatActivity {
                 UDSFlowConfig = data.getData();
                 String xmlFileName = getFileNameFromUri(UDSFlowConfig);
 //                selectedxmlfileName.setText(xmlFileName);
+            } else if (requestCode == REQUEST_PICK_YAML_FILE) {
+                canTPconfigFile = data.getData();
+                String yamlFileName = getFileNameFromUri(canTPconfigFile);
+                //                selectedxmlfileName.setText(yamlFileName);
             }
         }
     }
-
 
     private boolean fileExists(Uri uri) {
         if (uri != null) {
@@ -252,6 +274,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CanDiagnosticServicesClient.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
-
-
 }

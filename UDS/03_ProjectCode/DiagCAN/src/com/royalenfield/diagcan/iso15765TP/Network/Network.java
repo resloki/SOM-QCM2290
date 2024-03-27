@@ -9,14 +9,6 @@ import  com.royalenfield.diagcan.iso15765TP.Transport.CANFrameType;
 import  com.royalenfield.diagcan.iso15765TP.Transport.CANSegmented;
 import  com.royalenfield.diagcan.iso15765TP.Transport.Transport;
 
-/**
- * The Network class represents the ISO 15765-2 Network layer.
- * It acts as an interface between the Transport layer and the Data Link layer.
- * This class handles the transmission and reception of segmented CAN frames.
- * It processes data received from the Data Link layer and forwards it to the appropriate layer for further processing.
- *
- * @author Venu Manikonda (venu.v@sloki.in)
- */
 public class Network  extends  I15765CanConfig implements RegisterCanTpCallbackDL {
     private static Transport transport;
     private DataLinkConnectorTP connectDataLink;

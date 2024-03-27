@@ -140,8 +140,8 @@ public class UdsSession {
     /**
      * Executes a list of diagnostic services (DiagCanService objects) sequentially.
      * <p>
-     * This method iterates through the provided service list and calls the `executeDiagnosticService` method on each DiagCanService object.
-     * The return value of `executeDiagnosticService` is assumed to be an integer representing the service execution status.
+     * This method iterates through the provided service list and calls the `runService` method on each DiagCanService object.
+     * The return value of `runService` is assumed to be an integer representing the service execution status.
      * <p>
      * The method extracts the service ID, result (success/failure), and NRC (Negative Response Code) from the status value.
      * It logs successful executions and terminates the execution with the status code upon encountering a failure.

@@ -4,8 +4,8 @@ import android.os.Bundle;
 // This interface is responsible for providing callbacks from the UDS service to the FOTA manager,
 // allowing the FOTA manager to receive status updates and execution statuses of services.
 interface UDSEventCallback {
-     // Method to provide detailed progress updates during UDS service operations.
-        void progressUpdate(int progress);
+        // Method to provide detailed progress updates during UDS service operations.
+        void progressUpdate(int totalBytes, int currentByte);
 
         void udsLog(String Message);
 
@@ -20,6 +20,5 @@ interface UDSEventCallback {
 
         // Method to notify the FOTA manager when the UDS service encounters a critical failure.
         void onCriticalFailure(int statusEn, String errorMessage);
-
 
 }

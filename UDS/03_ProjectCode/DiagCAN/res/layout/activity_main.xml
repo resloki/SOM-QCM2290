@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Title TextView -->
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
@@ -21,7 +20,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Description TextView -->
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="wrap_content"
@@ -33,7 +31,6 @@
             android:textColor="#212121"
             android:textSize="18sp" />
 
-        <!-- Grant Permission Button -->
         <Button
             android:id="@+id/grant_permission_button"
             android:layout_width="match_parent"
@@ -45,7 +42,6 @@
             android:textColor="#020000"
             android:textSize="16sp" />
 
-        <!-- Load HEX File Button -->
         <Button
             android:id="@+id/hexfileLoadBtn"
             android:layout_width="match_parent"
@@ -57,7 +53,6 @@
             android:textColor="#0E0000"
             android:textSize="16sp" />
 
-        <!-- Load XML File Button -->
         <Button
             android:id="@+id/xmlfileLoadBtn"
             android:layout_width="match_parent"
@@ -69,18 +64,27 @@
             android:textColor="#000000"
             android:textSize="16sp" />
 
-        <!-- Physical CAN ID EditText -->
+        <Button
+            android:id="@+id/yamlfileLoadBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/xmlfileLoadBtn"
+            android:layout_marginTop="16dp"
+            android:background="#FF9800"
+            android:text="Load YAML File"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
         <EditText
             android:id="@+id/physicalCanIdEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/xmlfileLoadBtn"
+            android:layout_below="@id/yamlfileLoadBtn"
             android:layout_marginTop="16dp"
             android:hint="Physical CAN ID"
             android:inputType="text"
             android:textSize="16sp" />
 
-        <!-- Functional CAN ID EditText -->
         <EditText
             android:id="@+id/functionalCanIdEditText"
             android:layout_width="match_parent"
@@ -90,8 +94,6 @@
             android:hint="Functional CAN ID"
             android:inputType="text"
             android:textSize="16sp" />
-
-        <!-- Response CAN ID EditText -->
         <EditText
             android:id="@+id/responseCanIdEditText"
             android:layout_width="match_parent"
@@ -102,7 +104,6 @@
             android:inputType="text"
             android:textSize="16sp" />
 
-        <!-- Submit Request Button -->
         <Button
             android:id="@+id/submit_BL_Request"
             android:layout_width="wrap_content"
@@ -120,7 +121,7 @@
             android:id="@+id/submit_AP_Request"
             android:layout_width="155dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/submit_BL_Request"
+            android:layout_below="@id/submit_BL_Request"
             android:layout_alignParentStart="true"
             android:layout_marginStart="240dp"
             android:layout_marginTop="26dp"
@@ -128,5 +129,6 @@
             android:text="Submit AP req"
             android:textColor="#0E0000"
             android:textSize="16sp" />
+
     </RelativeLayout>
 </ScrollView>

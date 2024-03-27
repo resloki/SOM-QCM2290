@@ -5,14 +5,6 @@ import  com.royalenfield.diagcan.iso15765TP.Transport.Transport;
 
 import java.util.function.Consumer;
 
-
-/**
- * The Session class represents an ISO 15765-2 session.
- * It manages the communication session between the application layer and the transport layer.
- * It allows setting a callback function to handle received data.
- *
- * @author Venu Manikonda (venu.v@sloki.in)
- */
 public class Session extends I15765CanConfig {
     Transport Transport;
     boolean SessionInit;
@@ -32,7 +24,7 @@ public class Session extends I15765CanConfig {
     }
 
 
-    public void ReceiveDataFromApplication(byte[] data, int dataLength) {
+    public void RecieveDataFromApplication(byte[] data, int dataLength) {
         if (SessionInit) {
 
             Transport.transportTx.processData(data, dataLength);
