@@ -31,13 +31,17 @@ public class CircularBuffer<T> implements Iterable<T> {
      * @param element The element to be added to the circular buffer.
      */
     public void add(T element) {
-        if (count == size) {
-            head = (head + 1) % size;
-            count--;
+        try {
+            if (count == size) {
+                head = (head + 1) % size;
+                count--;
+            }
+            buffer[tail] = element;
+            tail = (tail + 1) % size;
+            count++;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        buffer[tail] = element;
-        tail = (tail + 1) % size;
-        count++;
     }
 
     /**

@@ -12,15 +12,14 @@ import java.util.TimerTask;
  * @author Jayanth S (jayanth.s@sloki.in)
  */
 public class Scheduler {
-    CanMapping canMapping;
-    Timer timer;
+    private CanMapping canMapping;
+    private Timer timer;
+    private final String TAG = "Time_scheduler";
 
     Scheduler(CanMapping canMapping) {
         this.canMapping = canMapping;
         this.timer = new Timer();
     }
-
-    private final String TAG = "Time_scheduler";
 
     public void createTimer(final Intervals interval, long delay) {
         timer.schedule(new TimerTask() {

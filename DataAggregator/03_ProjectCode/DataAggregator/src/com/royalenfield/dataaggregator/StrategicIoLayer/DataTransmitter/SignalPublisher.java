@@ -1,4 +1,4 @@
-package com.royalenfield.dataaggregator.strategicIoLayer;
+package com.royalenfield.dataaggregator.StrategicIoLayer.DataTransmitter;
 
 import android.content.Context;
 import android.content.Intent;

@@ -3,7 +3,9 @@ package com.royalenfield.dataaggregator.DataPreserveLayer;
 import android.content.Context;
 import android.util.Log;
 
+import java.lang.reflect.Method;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,9 +36,9 @@ public class CanMapping {
     protected CircularBuffer<CanFrames> buffer10ms;
     protected CircularBuffer<CanFrames> buffer50ms;
     protected CircularBuffer<CanFrames> buffer500ms;
-    protected int bufferSize10ms=10;
-    protected int bufferSize50ms=50;
-    protected int bufferSize500ms=500;
+    protected int bufferSize10ms = 10;
+    protected int bufferSize50ms = 50;
+    protected int bufferSize500ms = 500;
 
     public CanMapping(Context context) {
         if (context == null) {
@@ -111,64 +113,73 @@ public class CanMapping {
     /**
      * Updates the provided circular buffer with new CAN frame data, replacing any existing data with the same CAN ID.
      *
-     * @param buffer The circular buffer to be updated.
+     * @param buffer       The circular buffer to be updated.
      * @param receivedData The new CAN frame data to be added to the buffer.
      */
     private void updateBuffer(CircularBuffer<CanFrames> buffer, CanFrames receivedData) {
-        Iterator<CanFrames> iterator = buffer.iterator();
-        while (iterator.hasNext()) {
-            CanFrames existingData = iterator.next();
-            if (existingData.CANId == receivedData.CANId) {
-                iterator.remove();
+        try {
+            Iterator<CanFrames> iterator = buffer.iterator();
+            while (iterator.hasNext()) {
+                CanFrames existingData = iterator.next();
+                if (existingData.CANId == receivedData.CANId) {
+                    iterator.remove();
+                }
             }
+            buffer.add(receivedData);
+        } catch (Exception e) {
+            Log.e(TAG, "Error in UpdateBuffer: " + e.getMessage());
         }
-        buffer.add(receivedData);
     }
 
     /**
      * Checks if the given CAN ID is present in the provided array of CAN IDs.
      *
-     * @param CanBuffer The array of CAN IDs to check.
+     * @param CanBuffer     The array of CAN IDs to check.
      * @param receivedCanId The CAN ID to search for in the array.
      * @return true if the CAN ID is found in the array, false otherwise.
      */
     private boolean isCanIdInBuffer(byte[] CanBuffer, int receivedCanId) {
-        for (byte canId : CanBuffer) {
-            if ((canId & 0xFF) == (receivedCanId & 0xFF)) {
-                return true;
+        try {
+            for (byte canId : CanBuffer) {
+                if ((canId & 0xFF) == (receivedCanId & 0xFF)) {
+                    return true;
+                }
             }
+            return false;
+        } catch (Exception e) {
+            Log.e(TAG, "Error in isCanIdInBuffer: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     /**
      * Executes processing of buffered CAN frames using registered handlers.
      *
-     * @param buffer The circular buffer containing the buffered CAN frames to be processed.
+     * @param buffer   The circular buffer containing the buffered CAN frames to be processed.
      * @param interval The interval at which the buffered data was collected.
      */
     protected void executeBufferedData(CircularBuffer<CanFrames> buffer, Intervals interval) {
-        if (context == null) {
-            Log.e(TAG, "context is null");
-            return;
-        }
-        for (int i = 0; i < buffer.size(); i++) {
-            CanFrames receivedData = buffer.get(i);
-            int receivedCanId = receivedData.CANId;
-            CanHandler handler = handlerRegistry.getHandler(receivedCanId);
-            Log.d("CanFramesHandler", "CanHandler");
-            try {
-                if (handler != null) {
-                    executorService.submit(() -> handler.handleCanData(receivedData, interval));
-                    Log.d("CanFramesHandler", "Send Data to Deserialize");
-                } else {
-                    Log.e("CanFramesHandler", "Invalid CanId");
+        try {
+            for (int i = 0; i < buffer.size(); i++) {
+                CanFrames receivedData = buffer.get(i);
+                int receivedCanId = receivedData.CANId;
+                CanHandler handler = handlerRegistry.getHandler(receivedCanId);
+                Log.d("CanFramesHandler", "CanHandler");
+                try {
+                    if (handler != null) {
+                        executorService.submit(() -> handler.handleCanData(receivedData, interval));
+                        Log.d("CanFramesHandler", "Send Data to Deserialize");
+                    } else {
+                        Log.e("CanFramesHandler", "Invalid CanId");
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error in processBufferedData: " + e.getMessage());
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                Log.e(TAG, "Error in processBufferedData: " + e.getMessage());
-                e.printStackTrace();
             }
+            buffer.clear();
+        } catch (Exception e) {
+            Log.e(TAG, "Error in executing buffered data: " + e.getMessage());
         }
-        buffer.clear();
     }
 }

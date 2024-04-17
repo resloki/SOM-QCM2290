@@ -1,18 +1,25 @@
 package com.royalenfield.dataaggregator.DataTransformLayer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.royalenfield.dataaggregator.DataPreserveLayer.Intervals;
-import com.royalenfield.dataaggregator.strategicIoLayer.SignalPublisher;
-import com.royalenfield.dataaggregator.strategicIoLayer.dbHandler.DBHandler_10ms;
-import com.royalenfield.dataaggregator.strategicIoLayer.dbHandler.DBHandler_500ms;
-import com.royalenfield.dataaggregator.strategicIoLayer.dbHandler.DBHandler_50ms;
+import com.royalenfield.dataaggregator.SignalRecord;
+import com.royalenfield.dataaggregator.StrategicIoLayer.DataTransmitter.SignalPublisher;
+import com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler.DBHandler_10ms;
+import com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler.DBHandler_500ms;
+import com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler.DBHandler_50ms;
+import com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler.DatabaseInterval;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * SignalDataProcessor processes and submits signal data to the database based on the provided CAN ID, signal data map,
@@ -71,8 +78,84 @@ public class SignalDataProcessor {
                 }
                 default:
             }
+
+
+            Properties properties = new Properties();
+            try {
+                InputStream inputStream = context.getAssets().open("broadcastData_config.properties");
+                properties.load(inputStream);
+
+
+                String[] canIds = properties.getProperty("canIds").split(",\\s*");
+                boolean canIdExists = false;
+                for (String CANId : canIds) {
+                    DatabaseInterval databaseInterval = isCanIdExist(CANId);
+                    if (databaseInterval != null) {
+                        Log.d(TAG, "CanId " + CANId + " exists in at least one database.");
+                        SignalRecord[] data = retrieveFromDatabase(CANId, databaseInterval);
+                        broadcastData(data);
+                    } else {
+                        Log.d(TAG, "CanId " + CANId + " does not exist in any database.");
+                    }
+                }
+
+                if (!canIdExists) {
+                    Log.d(TAG, "CanId " + canIds + " does not exist in the properties file.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private SignalRecord[] retrieveFromDatabase(String canId, DatabaseInterval databaseInterval) {
+        SignalRecord[] signalRecords = null;
+        try {
+            switch (databaseInterval) {
+                case DATABASE10ms:
+                    signalRecords = databaseHandler_10ms.fetchFromDatabase10ms(canId);
+                    break;
+                case DATABASE50ms:
+                    signalRecords = databaseHandler_50ms.fetchFromDatabase50ms(canId);
+                    break;
+                case DATABASE500ms:
+                    signalRecords = databaseHandler_500ms.fetchFromDatabase500ms(canId);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving data from database: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return signalRecords;
+    }
+
+
+    private DatabaseInterval isCanIdExist(String canId) {
+        if (databaseHandler_10ms.canIdInDatabase10ms(canId)) {
+            return DatabaseInterval.DATABASE10ms;
+        } else if (databaseHandler_50ms.canIdInDatabase50ms(canId)) {
+            return DatabaseInterval.DATABASE50ms;
+        } else if (databaseHandler_500ms.canIdInDatabase500ms(canId)) {
+            return DatabaseInterval.DATABASE500ms;
+        }
+        return null;
+    }
+
+    private void broadcastData(SignalRecord[] signalRecords) {
+        String[] data = new String[signalRecords.length];
+        for (int i = 0; i < signalRecords.length; i++) {
+            data[i] = signalRecords[i].toString();
+        }
+
+        Intent intent = new Intent("com.re.BROADCAST_PARTICULAR_CANID");
+        intent.putExtra("data", data);
+        context.sendBroadcast(intent);
+        Log.d(TAG, "Broadcasted data for CAN ID: " + signalRecords[0].getCanId()); // Assuming the first record's CAN ID is used for logging
+    }
+
+
 }

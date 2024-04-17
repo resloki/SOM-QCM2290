@@ -1,4 +1,4 @@
-package com.royalenfield.dataaggregator;
+package com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler;
 
 /**
  * DatabaseInterval enum represents different intervals for database operations.

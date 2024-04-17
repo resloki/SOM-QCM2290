@@ -1,4 +1,4 @@
-package com.royalenfield.dataaggregator.strategicIoLayer.dbHandler;
+package com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler;
 
 import android.content.Context;
 

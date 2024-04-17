@@ -1,4 +1,4 @@
-package com.royalenfield.uartservice;
+package com.royalenfield.DataAggregator;
 
 /**
  * Interface for fetching vehicle data.

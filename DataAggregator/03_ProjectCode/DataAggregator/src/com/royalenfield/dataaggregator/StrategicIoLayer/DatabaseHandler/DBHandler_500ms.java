@@ -1,4 +1,4 @@
-package com.royalenfield.dataaggregator.strategicIoLayer.dbHandler;
+package com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,12 +17,12 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * DBHandler_50ms is responsible for handling the database operations related to
- * storing and managing data received at 50ms intervals.
+ * DBHandler_500ms is responsible for handling the database operations related to
+ * storing and managing data received at 500ms intervals.
  *
  * @author Jayanth S (jayanth.s@sloki.in)
  */
-public class DBHandler_50ms extends SQLiteOpenHelper {
+public class DBHandler_500ms extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final long DELETE_INTERVAL_MS = 15 * 60 * 1000;
     private static final String TAG = "StoreToDatabase";
@@ -32,23 +32,23 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
     private String canIdColumn;
     private String signalNameColumn;
     private String dataColumn;
+    private SignalRecord signalRecord;
 
-    public DBHandler_50ms(Context context) {
+    public DBHandler_500ms(Context context) {
         super(context, loadDatabaseName(context), null, DATABASE_VERSION);
         Properties properties = DatabaseConfigLoader.loadDatabaseConfig(context);
-        this.tableName = properties.getProperty("dbhandler_50ms.table_name");
-        this.timestampColumn = properties.getProperty("dbhandler_50ms.timestamp_column");
-        this.canIdColumn = properties.getProperty("dbhandler_50ms.can_id_column");
-        this.signalNameColumn = properties.getProperty("dbhandler_50ms.signal_name_column");
-        this.dataColumn = properties.getProperty("dbhandler_50ms.data_column");
-        scheduleDataDeletionTask();
+        this.tableName = properties.getProperty("dbhandler_500ms.table_name");
+        this.timestampColumn = properties.getProperty("dbhandler_500ms.timestamp_column");
+        this.canIdColumn = properties.getProperty("dbhandler_500ms.can_id_column");
+        this.signalNameColumn = properties.getProperty("dbhandler_500ms.signal_name_column");
+        this.dataColumn = properties.getProperty("dbhandler_500ms.data_column");
+        scheduleDataDeletionTask(context);
     }
 
     private static String loadDatabaseName(Context context) {
         Properties properties = DatabaseConfigLoader.loadDatabaseConfig(context);
-        return properties.getProperty("dbhandler_50ms.database_name");
+        return properties.getProperty("dbhandler_500ms.database_name");
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -70,10 +70,7 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
 
     }
 
-    /**
-     * Deletes old rows from the database that are older than 15 minutes.
-     */
-    private void scheduleDataDeletionTask() {
+    private void scheduleDataDeletionTask(Context context) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -84,6 +81,10 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
             }
         }, DELETE_INTERVAL_MS);
     }
+
+    /**
+     * Deletes old rows from the database that are older than 15 minutes.
+     */
 
     private void deleteOldRows() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -109,13 +110,19 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
     }
 
     /**
-     * Checks if a given CAN ID exists in the database table associated with 50ms intervals.
+     * Checks if a given CAN ID exists in the database table associated with 500ms intervals.
      *
      * @param canId The CAN ID to check for existence in the database.
      * @return true if the CAN ID exists in the database, false otherwise.
      */
-    public boolean canIdInDatabase50ms(String canId) {
-        int decimalCanId = Integer.parseInt(String.valueOf(canId), 16);
+    public boolean canIdInDatabase500ms(String canId) {
+        int decimalCanId = 0;
+        try {
+            decimalCanId = Integer.parseInt(canId.replace("0x", ""), 16);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
         boolean canIdExists = false;
@@ -124,7 +131,6 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
             cursor = db.rawQuery("SELECT * FROM " + tableName +
                     " WHERE " + canIdColumn + " = ?", new String[]{String.valueOf(decimalCanId)});
             if (cursor != null && cursor.moveToFirst()) {
-                // If the cursor has rows, it means the canId exists in the database
                 canIdExists = true;
             }
         } catch (Exception e) {
@@ -139,13 +145,19 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
     }
 
     /**
-     * Fetches signal records associated with the given CAN ID from the database table associated with 50ms intervals.
+     * Checks if a given CAN ID exists in the database table associated with 500ms intervals.
      *
-     * @param canId The CAN ID for which signal records are to be fetched.
-     * @return An array of SignalRecord objects containing the fetched signal records, or null if no records are found.
+     * @param canId The CAN ID to check for existence in the database.
+     * @return true if the CAN ID exists in the database, false otherwise.
      */
-    public SignalRecord[] fetchFromDatabase50ms(String canId) {
-        int decimalCanId = Integer.parseInt(canId, 16);
+    public SignalRecord[] fetchFromDatabase500ms(String canId) {
+
+        int decimalCanId = 0;
+        try {
+            decimalCanId = Integer.parseInt(canId.replace("0x", ""), 16);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
         SignalRecord[] signalRecords = null;
@@ -185,11 +197,10 @@ public class DBHandler_50ms extends SQLiteOpenHelper {
     }
 
     /**
-     * Saves signal data to the database table, updating existing records if the CAN ID and signal name already exist,
-     * or inserting new records otherwise.
+     * Fetches signal records associated with the given CAN ID from the database table associated with 500ms intervals.
      *
-     * @param canId          The CAN ID associated with the signal data.
-     * @param signalDataMap  A map containing signal names as keys and corresponding data values to be saved.
+     * @param canId The CAN ID for which signal records are to be fetched.
+     * @return An array of SignalRecord objects containing the fetched signal records, or null if no records are found.
      */
     public void saveDataToDatabase(int canId, Map<String, Object> signalDataMap) {
         SQLiteDatabase db = this.getWritableDatabase();
