@@ -1,4 +1,4 @@
-package com.royalenfield.dataaggregator.CanIDConfig;
+package com.royalenfield.dataaggregator.ConfigurationFile.CanIDConfig;
 
 
 /**

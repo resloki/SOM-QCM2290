@@ -18,7 +18,9 @@ public class GenerateJavaFile {
     DbcMain front = new DbcMain();
     int Controller_Endianness = 0;
     private boolean contentLoaded;
-    protected StringBuilder sourceFile = new StringBuilder(100000);
+    protected StringBuilder sourceFile_ConverterInitialize = new StringBuilder(100000);
+    protected StringBuilder sourceFile_ConverterInterface = new StringBuilder(100000);
+    protected StringBuilder sourceFile_SignalConverter = new StringBuilder(100000);
     StringBuilder sb = new StringBuilder(512);
     private String nameDrv = "";
     int validity_Count = 0;
@@ -59,14 +61,14 @@ public class GenerateJavaFile {
         String sourceName = strList[k];
         List<String> funcSignatures = new ArrayList<String>();
         file.setDir(path);
-        String incName = sourceName.toLowerCase();
+        String incName = sourceName;
         file.setFiles(file.getDir() + "\\" + incName.toLowerCase());
         file.setFiles(file.getDir() + "\\" + incName);
         funcUtilName = incName;
-        sourceFile.setLength(0);
+        sourceFile_ConverterInitialize.setLength(0);
 
-        sourceFile.append("class CanConverter {").append("\n");
-        sourceFile.append("\n");
+        sourceFile_ConverterInitialize.append("public class " + incName + "_ConverterInitialize {").append("\n");
+        sourceFile_ConverterInitialize.append("\n");
         long startBit = 0;
         for (MessageDescriptor msg : d.getMessages()) {
             for (SignalBitsDesc msg1 : msg.getSignals()) {
@@ -78,109 +80,141 @@ public class GenerateJavaFile {
                         msg1.getMaskValueToString()[i] = msg.getMessageName().toUpperCase() + "_"
                                 + msg1.getFieldName().toUpperCase() + "_MASK" + i;
 
-                        sourceFile.append("public final int ").append(msg.getMessageName().toUpperCase()).append("_")
+                        sourceFile_ConverterInitialize.append("public final int ").append(msg.getMessageName().toUpperCase()).append("_")
                                 .append(msg1.getFieldName().toUpperCase()).append("_MASK").append(i).append("=")
                                 .append(msg1.getMaskValue()[i]).append(";\n");
                     }
                 }
             }
-            sourceFile.append("\n");
+            sourceFile_ConverterInitialize.append("\n");
         }
-        sourceFile.append("public final int SIGNLE_READ_Mask0 = 0;\n");
-        sourceFile.append("public final int SIGNLE_READ_Mask1 = 0x01;\n");
-        sourceFile.append("public final int SIGNLE_READ_Mask2 = 0x03;\n");
-        sourceFile.append("public final int SIGNLE_READ_Mask3 = 0x07;\n");
-        sourceFile.append("public final int SIGNLE_READ_Mask4 = 0x0F;\n");
-        sourceFile.append("public final int SIGNLE_READ_Mask5 = 0x1F;\n");
-        sourceFile.append("public final int SIGNLE_READ_Mask6 = 0x3F;\n");
-        sourceFile.append("public final int SIGNLE_READ_Mask7 = 0x7F;\n");
-        sourceFile.append("public final int SIGNLE_READ_Mask8 = 0xFF;\n");
-        sourceFile.append("\n");
-        sourceFile.append("public final int SIGNLE_WRITE_Mask0 = 0x80;\n");
-        sourceFile.append("public final int SIGNLE_WRITE_Mask1 = 0xC0;\n");
-        sourceFile.append("public final int SIGNLE_WRITE_Mask2 = 0xE0;\n");
-        sourceFile.append("public final int SIGNLE_WRITE_Mask3 = 0xF0;\n");
-        sourceFile.append("public final int SIGNLE_WRITE_Mask4 = 0xF8;\n");
-        sourceFile.append("public final int SIGNLE_WRITE_Mask5 = 0xFC;\n");
-        sourceFile.append("public final int SIGNLE_WRITE_Mask6 = 0xFE;\n");
-        sourceFile.append("public final int SIGNLE_WRITE_Mask7 = 0xFF;\n");
-        sourceFile.append("\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_READ_Mask0 = 0;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_READ_Mask1 = 0x01;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_READ_Mask2 = 0x03;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_READ_Mask3 = 0x07;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_READ_Mask4 = 0x0F;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_READ_Mask5 = 0x1F;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_READ_Mask6 = 0x3F;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_READ_Mask7 = 0x7F;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_READ_Mask8 = 0xFF;\n");
+        sourceFile_ConverterInitialize.append("\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_WRITE_Mask0 = 0x80;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_WRITE_Mask1 = 0xC0;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_WRITE_Mask2 = 0xE0;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_WRITE_Mask3 = 0xF0;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_WRITE_Mask4 = 0xF8;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_WRITE_Mask5 = 0xFC;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_WRITE_Mask6 = 0xFE;\n");
+        sourceFile_ConverterInitialize.append("public final int SIGNLE_WRITE_Mask7 = 0xFF;\n");
+        sourceFile_ConverterInitialize.append("\n");
 
         for (MessageDescriptor msg : d.getMessages()) {
-            sourceFile.append("/* public final int @").append(msg.getMessageName().toUpperCase())
+        	sourceFile_ConverterInitialize.append("/* public final int @").append(msg.getMessageName().toUpperCase())
                     .append(" CAN MESSAGE = ").append(msg.getMessageId()).append("*/\n");
-            sourceFile.append("public final int ").append(msg.getMessageName().toUpperCase()).append("_ID = ")
+        	sourceFile_ConverterInitialize.append("public final int ").append(msg.getMessageName().toUpperCase()).append("_ID = ")
                     .append(msg.getMessageId()).append(";\n");
-            sourceFile.append("public final int ").append(msg.getMessageName().toUpperCase()).append("_IDE = ")
+        	sourceFile_ConverterInitialize.append("public final int ").append(msg.getMessageName().toUpperCase()).append("_IDE = ")
                     .append(msg.getIsExtended()).append(";\n");
-            sourceFile.append("public final int ").append(msg.getMessageName().toUpperCase()).append("_DLC = ")
+        	sourceFile_ConverterInitialize.append("public final int ").append(msg.getMessageName().toUpperCase()).append("_DLC = ")
                     .append(msg.getDataLen()).append(";\n");
 
             startBit = 0;
             for (SignalBitsDesc msg1 : msg.getSignals()) {
-                sourceFile.append("public final double ").append(msg.getMessageName().toUpperCase()).append("_")
+            	sourceFile_ConverterInitialize.append("public final double ").append(msg.getMessageName().toUpperCase()).append("_")
                         .append(msg1.getFieldName().toUpperCase()).append("_FACTOR = ").append(msg1.getFactor())
                         .append(";\n");
-                sourceFile.append("public final int ").append(msg.printMsgIDName().toUpperCase()).append("_")
+            	sourceFile_ConverterInitialize.append("public final int ").append(msg.printMsgIDName().toUpperCase()).append("_")
                         .append(msg1.getFieldName().toUpperCase()).append("_STARTBIT = ").append(msg1.getStartBit())
                         .append(";\n");
-                sourceFile.append("public final double ").append(msg.printMsgIDName().toUpperCase()).append("_")
+            	sourceFile_ConverterInitialize.append("public final double ").append(msg.printMsgIDName().toUpperCase()).append("_")
                         .append(msg1.getFieldName().toUpperCase()).append("_OFFSET = ").append(msg1.getOffset())
                         .append(";\n");
-                sourceFile.append("public final double ").append(msg.printMsgIDName().toUpperCase()).append("_")
+            	sourceFile_ConverterInitialize.append("public final double ").append(msg.printMsgIDName().toUpperCase()).append("_")
                         .append(msg1.getFieldName().toUpperCase()).append("_MIN = ").append(msg1.getMinValue())
                         .append(";\n");
-                sourceFile.append("public final double ").append(msg.printMsgIDName().toUpperCase()).append("_")
+            	sourceFile_ConverterInitialize.append("public final double ").append(msg.printMsgIDName().toUpperCase()).append("_")
                         .append(msg1.getFieldName().toUpperCase()).append("_MAX = ").append(msg1.getMaxValue())
                         .append(";\n");
             }
-            sourceFile.append("\n");
+            sourceFile_ConverterInitialize.append("\n");
 
-            sourceFile.append("public static class ").append(msg.getMessageName()).append("_t").append(" { ")
+            sourceFile_ConverterInitialize.append("public static class ").append(msg.getMessageName()).append("_t").append(" { ")
                     .append("\n");
-            sourceFile.append("\n");
+            sourceFile_ConverterInitialize.append("\n");
             for (SignalBitsDesc msg1 : msg.getSignals()) {
                 if (msg1.getLengthBit() <= 8) {
-                    sourceFile.append("  ").append("public float ").append(msg1.getFieldName()).append(";\n");
+                	sourceFile_ConverterInitialize.append("  ").append("public float ").append(msg1.getFieldName()).append(";\n");
 
                 } else if (msg1.getLengthBit() <= 16) {
-                    sourceFile.append("  ").append("public float ").append(msg1.getFieldName()).append(";\n");
+                	sourceFile_ConverterInitialize.append("  ").append("public float ").append(msg1.getFieldName()).append(";\n");
                 } else if (msg1.getLengthBit() <= 32) {
-                    sourceFile.append("  ").append("public float ").append(msg1.getFieldName()).append(";\n");
+                	sourceFile_ConverterInitialize.append("  ").append("public float ").append(msg1.getFieldName()).append(";\n");
                 } else {
-                    sourceFile.append("  ").append("public double ").append(msg1.getFieldName()).append(";\n");
+                	sourceFile_ConverterInitialize.append("  ").append("public double ").append(msg1.getFieldName()).append(";\n");
                 }
 
                 validity_Count += (int) msg1.getLengthBit();
                 startBit += (int) msg1.getLengthBit();
             }
-            sourceFile.append("}\n");
+            sourceFile_ConverterInitialize.append("}\n");
         }
-        sourceFile.append("}\n");
+        sourceFile_ConverterInitialize.append("}\n");
+        
+        String fileWriteInitialize = "";
 
-        sourceFile.append("interface can_Converter {\n ");
+        for (int i = 0; i < strList.length - 1; i++) {
+        	fileWriteInitialize += strList[i] + "\\\\";
+        }
+
+        fileWriteInitialize = fileWriteInitialize + strList[strList.length - 1] + "_ConverterInitialize.java";
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileWriteInitialize))) {
+            bufferedWriter.write(sourceFile_ConverterInitialize.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        sourceFile_ConverterInterface.setLength(0);
+
+        sourceFile_ConverterInterface.append("interface " + incName +"_ConverterInterface {\n ");
 
         for (MessageDescriptor msg : d.getMessages()) {
-            sourceFile.append("long Deserialize_").append(msg.getMessageName()).append("( CanConverter.")
+        	sourceFile_ConverterInterface.append("long Deserialize_").append(msg.getMessageName()).append("( " + incName + "_ConverterInitialize.")
                     .append(msg.getMessageName() + "_t")
                     .append(" messages, byte[] data_deserialize_" + msg.getMessageName() + ");").append("\n");
-            sourceFile.append("long Serialize_").append(msg.getMessageName()).append("( CanConverter.")
+        	sourceFile_ConverterInterface.append("long Serialize_").append(msg.getMessageName()).append("( " + incName + "_ConverterInitialize.")
                     .append(msg.getMessageName() + "_t")
                     .append(" messages, byte[] data_serialize_" + msg.getMessageName() + ");").append("\n");
         }
 
-        sourceFile.append("}\n");
-        sourceFile.append("\n");
+        sourceFile_ConverterInterface.append("}\n");
+        sourceFile_ConverterInterface.append("\n");
+        
+        String fileWriteConverterInterface = "";
 
-        sourceFile.append("class Converter implements can_Converter  {\n");
+        for (int i = 0; i < strList.length - 1; i++) {
+        	fileWriteConverterInterface += strList[i] + "\\\\";
+        }
+
+        fileWriteConverterInterface = fileWriteConverterInterface + strList[strList.length - 1] + "_ConverterInterface.java";
+        
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileWriteConverterInterface))) {
+            bufferedWriter.write(sourceFile_ConverterInterface.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        sourceFile_SignalConverter.setLength(0);
+
+        sourceFile_SignalConverter.append("public class " + incName + "_SignalConverter implements " + incName +"_ConverterInterface  {\n");
         int msg_LengthBit = 0;
         String data;
 
         for (MessageDescriptor msg : d.getMessages()) {
-            sourceFile.append("public long Deserialize_").append(msg.getMessageName()).append("( CanConverter.")
+        	sourceFile_SignalConverter.append("public long Deserialize_").append(msg.getMessageName()).append("( " + incName + "_ConverterInitialize.")
                     .append(msg.getMessageName() + "_t").append((" messages, byte[] data)\n"));
-            sourceFile.append("{\n");
-            sourceFile.append(" CanConverter can = new CanConverter();\n");
+        	sourceFile_SignalConverter.append("{\n");
+        	sourceFile_SignalConverter.append(" " + incName + "_ConverterInitialize can = new " + incName + "_ConverterInitialize();\n");
 
             for (SignalBitsDesc msg1 : msg.getSignals()) {
 
@@ -191,14 +225,14 @@ public class GenerateJavaFile {
                             "_FACTOR)) + (can." + msg.printMsgIDName().toUpperCase() + "_" +
                             msg1.getFieldName().toUpperCase() + "_OFFSET));";
 
-                    sourceFile.append(data + "\n");
+                    sourceFile_SignalConverter.append(data + "\n");
                 } else if (msg1.getLengthBit() <= 16) {
 
                     data = "messages." + msg1.getFieldName() + " = (float)(((" + printFunctionBody(msg1) + ") * (can." +
                             msg.getMessageName().toUpperCase() + "_" + msg1.getFieldName().toUpperCase() +
                             "_FACTOR)) + (can." + msg.printMsgIDName().toUpperCase() + "_" +
                             msg1.getFieldName().toUpperCase() + "_OFFSET));";
-                    sourceFile.append(data + "\n");
+                    sourceFile_SignalConverter.append(data + "\n");
                     
                 } else if (msg1.getLengthBit() <= 32) {
 
@@ -206,49 +240,49 @@ public class GenerateJavaFile {
                             msg.getMessageName().toUpperCase() + "_" + msg1.getFieldName().toUpperCase() +
                             "_FACTOR)) + (can." + msg.printMsgIDName().toUpperCase() + "_" +
                             msg1.getFieldName().toUpperCase() + "_OFFSET));";
-                    sourceFile.append(data + "\n");
+                    sourceFile_SignalConverter.append(data + "\n");
                 } else {
                 	
                     data = "messages." + msg1.getFieldName() + " = (double)(((" + printFunctionBody(msg1) + ") * (can." +
                             msg.getMessageName().toUpperCase() + "_" + msg1.getFieldName().toUpperCase() +
                             "_FACTOR)) + (can." + msg.printMsgIDName().toUpperCase() + "_" +
                             msg1.getFieldName().toUpperCase() + "_OFFSET));";
-                    sourceFile.append(data + "\n");
+                    sourceFile_SignalConverter.append(data + "\n");
                 }
 
                 validity_Count += (int) msg1.getLengthBit();
                 startBit += (int) msg1.getLengthBit();
 
             }
-            sourceFile.append("\n");
-            sourceFile.append("  return can.").append(msg.getMessageName().toUpperCase()).append("_ID;\n");
-            sourceFile.append("}\n");
-            sourceFile.append("\n");
+            sourceFile_SignalConverter.append("\n");
+            sourceFile_SignalConverter.append("  return can.").append(msg.getMessageName().toUpperCase()).append("_ID;\n");
+            sourceFile_SignalConverter.append("}\n");
+            sourceFile_SignalConverter.append("\n");
 
-            sourceFile.append("/*------------------------------------------------------------*/\n");
-            sourceFile.append("\n");
-            sourceFile.append("public long Serialize_" + msg.getMessageName() + "( CanConverter." + msg.getMessageName()
+            sourceFile_SignalConverter.append("/*------------------------------------------------------------*/\n");
+            sourceFile_SignalConverter.append("\n");
+            sourceFile_SignalConverter.append("public long Serialize_" + msg.getMessageName() + "( " + incName + "_ConverterInitialize." + msg.getMessageName()
                     + "_t" + " messages, byte[] data)\n");
-            sourceFile.append("{\n");
-            sourceFile.append(" CanConverter can = new CanConverter();\n");
+            sourceFile_SignalConverter.append("{\n");
+            sourceFile_SignalConverter.append(" " + incName + "_ConverterInitialize can = new " + incName + "_ConverterInitialize();\n");
             for (SignalBitsDesc msg1 : msg.getSignals()) {
                 if (msg1.getLengthBit() <= 8) {
-                    sourceFile.append("messages.").append(msg1.getFieldName())
+                	sourceFile_SignalConverter.append("messages.").append(msg1.getFieldName())
                             .append("=(float) (" + "messages." + msg1.getFieldName() + " - can.")
                             .append(msg.printMsgIDName().toUpperCase()).append("_")
                             .append(msg1.getFieldName().toUpperCase()).append("_OFFSET);\n");
                 } else if (msg1.getLengthBit() <= 16) {
-                    sourceFile.append("messages.").append(msg1.getFieldName())
+                	sourceFile_SignalConverter.append("messages.").append(msg1.getFieldName())
                             .append("=(float) (" + "messages." + msg1.getFieldName() + " - can.")
                             .append(msg.printMsgIDName().toUpperCase()).append("_")
                             .append(msg1.getFieldName().toUpperCase()).append("_OFFSET);\n");
                 } else if (msg1.getLengthBit() <= 32) {
-                    sourceFile.append("messages.").append(msg1.getFieldName())
+                	sourceFile_SignalConverter.append("messages.").append(msg1.getFieldName())
                             .append("=(float) (" + "messages." + msg1.getFieldName() + " - can.")
                             .append(msg.printMsgIDName().toUpperCase()).append("_")
                             .append(msg1.getFieldName().toUpperCase()).append("_OFFSET);\n");
                 } else {
-                    sourceFile.append("messages.").append(msg1.getFieldName())
+                	sourceFile_SignalConverter.append("messages.").append(msg1.getFieldName())
                             .append("=(double) (" + "messages." + msg1.getFieldName() + " - can.")
                             .append(msg.printMsgIDName().toUpperCase()).append("_")
                             .append(msg1.getFieldName().toUpperCase()).append("_OFFSET);\n");
@@ -271,57 +305,57 @@ public class GenerateJavaFile {
             for (int i = 0; i < 8; i++) {
                 if (msg.getSigsToByteExpr()[i] != null) {
                     data = " data[" + i + "] = (byte)(" + msg.getSigsToByteExpr()[i] + ");\n";
-                    sourceFile.append(data);
+                    sourceFile_SignalConverter.append(data);
                 }
             }
 
-            sourceFile.append("  return can.").append(msg.getMessageName().toUpperCase()).append("_ID;\n");
-            sourceFile.append("}\n");
-            sourceFile.append("\n");
-            sourceFile.append("/*------------------------------------------------------------*/\n");
-            sourceFile.append("\n");
+            sourceFile_SignalConverter.append("  return can.").append(msg.getMessageName().toUpperCase()).append("_ID;\n");
+            sourceFile_SignalConverter.append("}\n");
+            sourceFile_SignalConverter.append("\n");
+            sourceFile_SignalConverter.append("/*------------------------------------------------------------*/\n");
+            sourceFile_SignalConverter.append("\n");
         }
 
-        sourceFile.append("}\n");
+        sourceFile_SignalConverter.append("}\n");
+//
+//        sourceFile.append("class " + incName + "{\n");
+//        sourceFile.append("public static void main(String[] args) {\n");
+//        sourceFile.append("can_Converter canconvert = new Converter();\n");
+//        sourceFile.append("\n");
+//        for (MessageDescriptor msg : d.getMessages()) {
+//            sourceFile.append("byte[] data_deserialize_" + msg.getMessageName() + " = new byte[255];\n");
+//            sourceFile.append("CanConverter." + msg.getMessageName() + "_t vcuMessages_deserialize_"
+//                    + msg.getMessageName().toLowerCase() + " = new CanConverter." + msg.getMessageName() + "_t();\n");
+//            sourceFile.append("canconvert.Deserialize_" + msg.getMessageName() + "(" + " vcuMessages_deserialize_"
+//                    + msg.getMessageName().toLowerCase() + ", data_deserialize_" + msg.getMessageName() + ");\n");
+//            sourceFile.append("\n");
+//
+//            sourceFile.append("byte[] data_serialize_" + msg.getMessageName() + " = new byte[255];\n");
+//            sourceFile.append("CanConverter." + msg.getMessageName() + "_t vcuMessages_serialize_"
+//                    + msg.getMessageName().toLowerCase() + " = new CanConverter." + msg.getMessageName() + "_t();\n");
+//            sourceFile.append("canconvert.Serialize_" + msg.getMessageName() + "(" + " vcuMessages_serialize_"
+//                    + msg.getMessageName().toLowerCase() + ", data_serialize_" + msg.getMessageName() + ");\n");
+//            sourceFile.append("\n");
+//        }
+//
+//        sourceFile.append("}\n");
+//        sourceFile.append("}\n");
 
-        sourceFile.append("class " + incName + "{\n");
-        sourceFile.append("public static void main(String[] args) {\n");
-        sourceFile.append("can_Converter canconvert = new Converter();\n");
-        sourceFile.append("\n");
-        for (MessageDescriptor msg : d.getMessages()) {
-            sourceFile.append("byte[] data_deserialize_" + msg.getMessageName() + " = new byte[255];\n");
-            sourceFile.append("CanConverter." + msg.getMessageName() + "_t vcuMessages_deserialize_"
-                    + msg.getMessageName().toLowerCase() + " = new CanConverter." + msg.getMessageName() + "_t();\n");
-            sourceFile.append("canconvert.Deserialize_" + msg.getMessageName() + "(" + " vcuMessages_deserialize_"
-                    + msg.getMessageName().toLowerCase() + ", data_deserialize_" + msg.getMessageName() + ");\n");
-            sourceFile.append("\n");
-
-            sourceFile.append("byte[] data_serialize_" + msg.getMessageName() + " = new byte[255];\n");
-            sourceFile.append("CanConverter." + msg.getMessageName() + "_t vcuMessages_serialize_"
-                    + msg.getMessageName().toLowerCase() + " = new CanConverter." + msg.getMessageName() + "_t();\n");
-            sourceFile.append("canconvert.Serialize_" + msg.getMessageName() + "(" + " vcuMessages_serialize_"
-                    + msg.getMessageName().toLowerCase() + ", data_serialize_" + msg.getMessageName() + ");\n");
-            sourceFile.append("\n");
-        }
-
-        sourceFile.append("}\n");
-        sourceFile.append("}\n");
-
-        String fileWrite = "";
+        String fileWriteSignalConverter = "";
 
         for (int i = 0; i < strList.length - 1; i++) {
-            fileWrite += strList[i] + "\\\\";
+        	fileWriteSignalConverter += strList[i] + "\\\\";
         }
 
-        fileWrite = fileWrite + strList[strList.length - 1] + ".java";
-
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileWrite))) {
-            bufferedWriter.write(sourceFile.toString());
+        fileWriteSignalConverter = fileWriteSignalConverter + strList[strList.length - 1] + "_SignalConverter.java";
+        
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileWriteSignalConverter))) {
+            bufferedWriter.write(sourceFile_SignalConverter.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
         JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, "Operation successfull and Saved in the path " + fileWrite, "Completed",
+        JOptionPane.showMessageDialog(frame, "Operation successfull and Saved in the path " + fileWriteSignalConverter, "Completed",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 

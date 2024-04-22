@@ -44,16 +44,6 @@ public class SignalRecord {
         this.data = data;
     }
 
-//    @Override
-//    public String toString() {
-//        return "SignalRecord{" +
-//                "timestamp='" + timestamp + '\'' +
-//                ", canId='" + canId + '\'' +
-//                ", signalName='" + signalName + '\'' +
-//                ", data='" + data + '\'' +
-//                '}';
-//    }
-
     @Override
     public String toString() {
         return "Timestamp: " + timestamp + ", CAN ID: " + canId + ", Signal Name: " + signalName + ", Data: " + data;

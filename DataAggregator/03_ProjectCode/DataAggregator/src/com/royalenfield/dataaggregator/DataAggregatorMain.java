@@ -35,7 +35,7 @@ import java.util.concurrent.Executors;
  */
 
 public class DataAggregatorMain extends Service {
-    CanMapping canMapping;
+    private CanMapping canMapping;
     ExecutorService executorService;
     private final IBinder binder = new DataAggregatorMainBinder(this);
     private VcanCommunicationInterface vcanService;
@@ -90,7 +90,7 @@ public class DataAggregatorMain extends Service {
             Log.d(TAG, "Service connected");
             isServiceConnected = true;
             try {
-                // vcanService.vcanConnect(7);
+                vcanService.vcanConnect(7);
                 vcanService.registerReception(mCallback);
             } catch (RemoteException e) {
                 Log.e(TAG, "Error in service connection: " + e.getMessage());
@@ -232,7 +232,6 @@ public class DataAggregatorMain extends Service {
     private void establishConnection() {
         try {
             Intent intent = new Intent("com.royalenfield.ACTION_UART_SERVICE");
-//            Intent intent = new Intent("AIDLRoyalEnfieldUartService");
             intent.setPackage("com.royalenfield.uartservice");
             bindService(intent, serviceConnection, BIND_AUTO_CREATE);
             Log.d(TAG, "bindservice called");

@@ -15,7 +15,7 @@ public class SignalPublisher {
     public SignalPublisher(Context context){
         this.context=context;
     }
-    public void SignalBroadcast(int canid,String signalName,Object data,String formattedTimestamp){
+    public void signalBroadcast(int canid, String signalName, Object data, long formattedTimestamp){
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("com.royalenfield.dataaggregator.ENGINEERING_SIGNALS_BROADCAST");
         broadcastIntent.putExtra("canid", canid);

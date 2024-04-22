@@ -11,6 +11,7 @@ import android.util.Log;
 import com.royalenfield.dataaggregator.SignalRecord;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -91,14 +92,11 @@ public class DBHandler_500ms extends SQLiteOpenHelper {
         try {
             db.beginTransaction();
 
-            long currentTime = System.currentTimeMillis();
+            long currentTime = Instant.now().toEpochMilli();
             long fifteenMinutesInMillis = 15 * 60 * 1000;
             long fifteenMinutesAgo = currentTime - fifteenMinutesInMillis;
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
-            String fifteenMinutesAgoStr = dateFormat.format(new Date(fifteenMinutesAgo));
-
-            int rowsDeleted = db.delete(tableName, timestampColumn + " < ?", new String[]{fifteenMinutesAgoStr});
+            int rowsDeleted = db.delete(tableName, timestampColumn + " < ?", new String[]{String.valueOf(fifteenMinutesAgo)});
             Log.d("DeleteOldRows", rowsDeleted + " rows deleted.");
 
             db.setTransactionSuccessful();
@@ -213,8 +211,7 @@ public class DBHandler_500ms extends SQLiteOpenHelper {
                 String signalName = entry.getKey();
                 Object data = entry.getValue();
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
-                String formattedTimestamp = dateFormat.format(new Date());
+                long currentTimestampSeconds = Instant.now().toEpochMilli();
 
                 cursor = db.query(tableName, null,
                         canIdColumn + "=? AND " + signalNameColumn + "=?",
@@ -224,20 +221,20 @@ public class DBHandler_500ms extends SQLiteOpenHelper {
                 if (cursor != null && cursor.moveToFirst()) {
                     ContentValues updateValues = new ContentValues();
                     updateValues.put(dataColumn, String.valueOf(data));
-                    updateValues.put(timestampColumn, formattedTimestamp);
+                    updateValues.put(timestampColumn, currentTimestampSeconds);
 
                     int rowsAffected = db.update(tableName, updateValues,
                             canIdColumn + "=? AND " + signalNameColumn + "=?",
                             new String[]{String.valueOf(canId), signalName});
 
                     if (rowsAffected > 0) {
-                        Log.d(TAG, "Timestamp: " + formattedTimestamp + ", CAN ID: 0x" + Integer.toHexString(canId) + ", Signal Name: " + signalName + ", Data: 0x" + String.valueOf(data));
+                        Log.d(TAG, "Timestamp: " + currentTimestampSeconds + ", CAN ID: 0x" + Integer.toHexString(canId) + ", Signal Name: " + signalName + ", Data: " + String.valueOf(data));
                     } else {
                         Log.e(TAG, "Error updating data. CAN ID: " + Integer.toHexString(canId));
                     }
                 } else {
                     ContentValues insertValues = new ContentValues();
-                    insertValues.put(timestampColumn, formattedTimestamp);
+                    insertValues.put(timestampColumn, currentTimestampSeconds);
                     insertValues.put(canIdColumn, canId);
                     insertValues.put(signalNameColumn, signalName);
                     insertValues.put(dataColumn, String.valueOf(data));
@@ -246,7 +243,7 @@ public class DBHandler_500ms extends SQLiteOpenHelper {
                     long rowId = db.insert(tableName, null, insertValues);
 
                     if (rowId != -1) {
-                        Log.d(TAG, "Timestamp: " + formattedTimestamp + ", CAN ID: 0x" + Integer.toHexString(canId) + ", Signal Name: " + signalName + ", Data: " + String.valueOf(data));
+                        Log.d(TAG, "Timestamp: " + currentTimestampSeconds + ", CAN ID: 0x" + Integer.toHexString(canId) + ", Signal Name: " + signalName + ", Data: " + String.valueOf(data));
                     } else {
                         Log.e(TAG, "Error inserting data");
                     }

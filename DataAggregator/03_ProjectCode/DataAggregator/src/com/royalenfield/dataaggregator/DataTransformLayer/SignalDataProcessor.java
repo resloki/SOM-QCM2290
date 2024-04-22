@@ -12,12 +12,9 @@ import com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler.DBHandle
 import com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler.DBHandler_50ms;
 import com.royalenfield.dataaggregator.StrategicIoLayer.DatabaseHandler.DatabaseInterval;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.time.Instant;
 import java.util.Map;
 import java.util.Properties;
 
@@ -31,6 +28,8 @@ import java.util.Properties;
 public class SignalDataProcessor {
 
     private static final String TAG = "SignalDataProcessor";
+    private String broadcastDataPropertyFile = "signal_broadcaster.properties";
+
     private final Context context;
     private final DBHandler_10ms databaseHandler_10ms;
     private final DBHandler_50ms databaseHandler_50ms;
@@ -43,6 +42,12 @@ public class SignalDataProcessor {
         databaseHandler_500ms = new DBHandler_500ms(context);
     }
 
+    /**
+     * Processes and submits signal data to the database.
+     * @param canId The CAN ID associated with the signal data.
+     * @param signalDataMap The map containing signal names and their corresponding data values.
+     * @param interval The interval at which the signal data was received.
+     */
     public void processAndSubmitDataToDB(int canId, Map<String, Object> signalDataMap, Intervals interval) {
         try {
             if (context == null) {
@@ -54,13 +59,12 @@ public class SignalDataProcessor {
                 String signalName = entry.getKey();
                 Object data = entry.getValue();
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
-                String formattedTimestamp = dateFormat.format(new Date());
+                long currentTimestampSeconds = Instant.now().toEpochMilli();
 
-                Log.d("DatabaseLog", " Timestamp: " + formattedTimestamp + "  CAN ID: 0x" + Integer.toHexString(canId) + "  Signal Name: " + signalName + "  Value: " + String.valueOf(data));
+                Log.d("DatabaseLog", " Timestamp: " + currentTimestampSeconds + "  CAN ID: 0x" + Integer.toHexString(canId) + "  Signal Name: " + signalName + "  Value: " + String.valueOf(data));
 
                 SignalPublisher signalPublisher = new SignalPublisher(context);
-                signalPublisher.SignalBroadcast(canId, signalName, data, formattedTimestamp);
+                signalPublisher.signalBroadcast(canId, signalName, data, currentTimestampSeconds);
             }
 
             switch (interval) {
@@ -79,12 +83,10 @@ public class SignalDataProcessor {
                 default:
             }
 
-
             Properties properties = new Properties();
             try {
-                InputStream inputStream = context.getAssets().open("broadcastData_config.properties");
+                InputStream inputStream = context.getAssets().open(broadcastDataPropertyFile);
                 properties.load(inputStream);
-
 
                 String[] canIds = properties.getProperty("canIds").split(",\\s*");
                 boolean canIdExists = false;
@@ -110,6 +112,12 @@ public class SignalDataProcessor {
         }
     }
 
+    /**
+     * Retrieves signal data from the database based on the CAN ID and interval.
+     * @param canId The CAN ID for which signal data is to be retrieved.
+     * @param databaseInterval The interval at which the data is stored in the database.
+     * @return An array of SignalRecord objects containing the retrieved data.
+     */
     private SignalRecord[] retrieveFromDatabase(String canId, DatabaseInterval databaseInterval) {
         SignalRecord[] signalRecords = null;
         try {
@@ -133,7 +141,11 @@ public class SignalDataProcessor {
         return signalRecords;
     }
 
-
+    /**
+     * Checks if a given CAN ID exists in any of the database intervals.
+     * @param canId The CAN ID to check.
+     * @return The DatabaseInterval where the CAN ID exists, or null if it doesn't exist.
+     */
     private DatabaseInterval isCanIdExist(String canId) {
         if (databaseHandler_10ms.canIdInDatabase10ms(canId)) {
             return DatabaseInterval.DATABASE10ms;
@@ -145,6 +157,10 @@ public class SignalDataProcessor {
         return null;
     }
 
+    /**
+     * Broadcasts data to the application components.
+     * @param signalRecords An array of SignalRecord objects containing the data to broadcast.
+     */
     private void broadcastData(SignalRecord[] signalRecords) {
         String[] data = new String[signalRecords.length];
         for (int i = 0; i < signalRecords.length; i++) {
@@ -154,7 +170,7 @@ public class SignalDataProcessor {
         Intent intent = new Intent("com.re.BROADCAST_PARTICULAR_CANID");
         intent.putExtra("data", data);
         context.sendBroadcast(intent);
-        Log.d(TAG, "Broadcasted data for CAN ID: " + signalRecords[0].getCanId()); // Assuming the first record's CAN ID is used for logging
+        Log.d(TAG, "Broadcasted data for CAN ID: " + signalRecords[0].getCanId());
     }
 
 

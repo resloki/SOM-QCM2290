@@ -3,21 +3,23 @@ package com.royalenfield.dataaggregator.DataPreserveLayer;
 import android.content.Context;
 import android.util.Log;
 
-import java.lang.reflect.Method;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import com.royalenfield.dataaggregator.CanIDConfig.*;
+import com.royalenfield.dataaggregator.ConfigurationFile.CanIDConfig.CanIDManager;
 import com.royalenfield.dataaggregator.DataTransformLayer.CanDataProcessor;
 import com.royalenfield.dataaggregator.FrameStructure.CanFrames;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * CanMapping class manages the processing and mapping of incoming CAN messages.
  * It buffers incoming messages based on their intervals and delegates processing to appropriate handlers.
  * The class maintains three buffers for 10ms, 50ms, and 500ms intervals.
  * It utilizes a CanDataProcessor for handling the data and a CanHandlerRegistry for mapping CAN IDs to handlers.
+ * This class also loads buffer size properties from a configuration file.
  *
  * @author Jayanth S (jayanth.s@sloki.in)
  */
@@ -36,24 +38,41 @@ public class CanMapping {
     protected CircularBuffer<CanFrames> buffer10ms;
     protected CircularBuffer<CanFrames> buffer50ms;
     protected CircularBuffer<CanFrames> buffer500ms;
-    protected int bufferSize10ms = 10;
-    protected int bufferSize50ms = 50;
-    protected int bufferSize500ms = 500;
+    private String bufferSizePropertyFile = "buffer_sizes_config.properties";
+    protected int bufferSize10ms;
+    protected int bufferSize50ms;
+    protected int bufferSize500ms;
 
     public CanMapping(Context context) {
-        if (context == null) {
-            Log.e(TAG, "context is null");
-            return;
-        }
         this.context = context;
         this.canDataProcessor = new CanDataProcessor(context);
-        this.handlerRegistry = new CanHandlerRegistry(canDataProcessor);
+        this.handlerRegistry = new CanHandlerRegistry(canDataProcessor,context);
         this.executorService = Executors.newSingleThreadExecutor();
+        loadProperties();
         buffer10ms = new CircularBuffer<>(bufferSize10ms);
         buffer50ms = new CircularBuffer<>(bufferSize50ms);
         buffer500ms = new CircularBuffer<>(bufferSize500ms);
     }
 
+    /**
+     * Loads buffer size properties from a configuration file.
+     * Sets default buffer sizes if properties file loading fails.
+     */
+    private void loadProperties() {
+        Properties properties = new Properties();
+        try {
+            InputStream inputStream = context.getAssets().open(bufferSizePropertyFile);
+            properties.load(inputStream);
+            bufferSize10ms = Integer.parseInt(properties.getProperty("bufferSize10ms"));
+            bufferSize50ms = Integer.parseInt(properties.getProperty("bufferSize50ms"));
+            bufferSize500ms = Integer.parseInt(properties.getProperty("bufferSize500ms"));
+        } catch (IOException ex) {
+            Log.e(TAG, "Error loading properties: " + ex.getMessage());
+            bufferSize10ms = 10;
+            bufferSize50ms = 50;
+            bufferSize500ms = 500;
+        }
+    }
     /**
      * Processes incoming CAN messages.
      * Determines the interval based on the CAN ID and delegates processing to the appropriate handler.
@@ -127,7 +146,7 @@ public class CanMapping {
             }
             buffer.add(receivedData);
         } catch (Exception e) {
-            Log.e(TAG, "Error in UpdateBuffer: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -160,6 +179,9 @@ public class CanMapping {
      */
     protected void executeBufferedData(CircularBuffer<CanFrames> buffer, Intervals interval) {
         try {
+            CanHandlerRegistry handlerRegistry = new CanHandlerRegistry(canDataProcessor, context);
+//            handlerRegistry.loadConverterInitialize();
+            handlerRegistry.initializeHandlers();
             for (int i = 0; i < buffer.size(); i++) {
                 CanFrames receivedData = buffer.get(i);
                 int receivedCanId = receivedData.CANId;
@@ -167,7 +189,9 @@ public class CanMapping {
                 Log.d("CanFramesHandler", "CanHandler");
                 try {
                     if (handler != null) {
-                        executorService.submit(() -> handler.handleCanData(receivedData, interval));
+                        executorService.submit(() ->
+                                handler.handleCanData(receivedData, interval)
+                        );
                         Log.d("CanFramesHandler", "Send Data to Deserialize");
                     } else {
                         Log.e("CanFramesHandler", "Invalid CanId");
