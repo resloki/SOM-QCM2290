@@ -1,0 +1,265 @@
+//
+// Created by lakshmi patel on 2023/6/12
+package com.quectel.uartservice;
+
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.os.Binder;
+import android.os.IBinder;
+import android.util.Log;
+
+import com.pojo.SignalPacket;
+import com.sibros.service.SibrosBroadcaster;
+import com.util.Utility;
+public class UARTService extends Service {
+
+
+    public UARTService() {
+
+    }
+    private static final String TAG = "uartservice-UARTService";
+
+    private static final String topicName = "com.royalenfield.telemetry.info.ACTION_SEND";
+    private static final String keyName = "packet";
+    private UART ttyHSLx;
+    SibrosBroadcaster sibrosBroadcaster;
+    boolean reDigitalBound = false;
+    boolean sibrosBound = false;
+
+    private UARTThread mUARTThread;
+    private int RING_BUFFER_SIZE = 100;
+    private int CAN_FRAME_SIZE = 10;
+    private int START_FRAME_SIZE = 4;
+    private char[]  speedData= new char[10];
+    private char[]  readData= new char[10];
+    private char[]  ringBuffer =  new char[RING_BUFFER_SIZE];
+
+    private long timeCounter = 0l;
+
+    private final IBinder binder = new UartServiceBinder();
+    private ServiceConnection digitalConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            reDigitalBound = true;
+        }
+
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            reDigitalBound = false;
+        }
+    };
+
+    private BroadcastReceiver autoStartReceiver=new AutoStartBroadcastReceiver();
+
+    @Override
+    public void onCreate(){
+        super.onCreate();
+
+        IntentFilter filter=new IntentFilter("com.re.mybroadcast");
+        registerReceiver(autoStartReceiver,filter);
+    }
+
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mUARTThread = new UARTThread();
+        mUARTThread.start();
+        return START_STICKY;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }
+
+    @Override
+    public void onDestroy() {
+        // Unregister the receiver when the service is destroyed
+        if (autoStartReceiver != null) {
+            unregisterReceiver(autoStartReceiver);
+        }
+
+        super.onDestroy();
+    }
+
+    int uart_init()
+    {
+        ttyHSLx=new UART();
+        int rt =ttyHSLx.uartOpen();
+        if (rt != 0) {
+            Log.e(TAG, "open port failed");
+            return -1;
+        }
+        Log.d(TAG, "open port succeeded");
+        return 0;
+    }
+
+    void uart_deinit()
+    {
+        ttyHSLx.uartClose();
+    }
+
+    char uart_read()
+    {
+        return ttyHSLx.uartRead();
+    }
+
+    void sendDataToSibrosService(char[] data){
+
+            final String topicName = "com.royalenfield.telemetry.can.message.ACTION_SEND";
+            final String keyName = "data";
+            final String VIN = "4Y1SL65848Z411439";
+            Log.d(TAG,"Prepering the data for SibroBoradcaster");
+            Intent intent = new Intent(topicName);
+            intent.setAction(topicName);
+            char[] vinPlusCanData = new char[30];
+            int len = VIN.length();
+            Log.d(TAG,"Copying... VIN for sibros");
+            for(int i = len-1, j = 19; i >=0 ; j--, i--){ vinPlusCanData[i] = VIN.charAt(i); }
+            Log.d(TAG,"Copying... actual data for sibros");
+            for(int i = 20, j = 0; i < 30; i++, j++){ vinPlusCanData[i] = data[j]; }
+            Log.d(TAG,"Publishing the data to sibros on topic"+topicName+": "+"with keyName:"+keyName);
+            intent.putExtra(keyName, vinPlusCanData);
+            sendBroadcast(intent);
+            Log.d(TAG,"Sibro broadcaster sent the data successfully");
+
+    }
+
+    public void broadcast(String topicName, String keyName, SignalPacket signalPacket){
+        try {
+            Intent intent = Utility.getIntent(topicName, keyName, signalPacket);;
+            sendBroadcast(intent);
+            Log.e(TAG, "SendBroadcast executed successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.e(TAG, "12e routine has been completed");
+    }
+
+    public void processAndBroadcast(String topicName,String keyName, char[] data){
+        int possibleCanID = Utility.getCanId(data);
+        Log.e(TAG, "Possible CAN-ID in dec: "+possibleCanID);
+
+        if( possibleCanID == 0x321){
+            broadcast(topicName, keyName, new SignalPacket("speed", possibleCanID, (double) Utility.getSpeed(data)));
+            return;
+        }
+
+        if( possibleCanID == 0x12E){
+            broadcast(topicName, keyName, new SignalPacket("soc", possibleCanID, (double ) Utility.getSoc(data)));
+            return;
+        }
+
+        if ( possibleCanID == 0x6BB){
+            broadcast(topicName, keyName, new SignalPacket("ignition", possibleCanID, (boolean ) Utility.getKeyIgnition(data)));
+            return;
+        }
+
+        if ( possibleCanID == 0x6BA){
+            broadcast(topicName, keyName, new SignalPacket("right_ttl", possibleCanID, (boolean) Utility.getRightIndicator(data)));
+            broadcast(topicName, keyName, new SignalPacket("left_ttl", possibleCanID, (boolean) Utility.getLeftIndIcator(data)));
+
+            boolean hazarTtl = (boolean) ((boolean) Utility.getLeftIndIcator(data)) && ((boolean) Utility.getRightIndicator(data)) ? true : false;
+            broadcast(topicName, keyName, new SignalPacket("hazard_ttl", possibleCanID, hazarTtl));
+
+            return;
+        }
+
+        if ( possibleCanID == 0x121) {
+            String calRidingMode = (String) Utility.getRidingMode(data);
+            broadcast(topicName, keyName, new SignalPacket("riding_mode", possibleCanID, calRidingMode));
+
+            if( calRidingMode == "REVERSE")
+                broadcast(topicName, keyName, new SignalPacket("reverse", possibleCanID, calRidingMode));
+
+            return;
+        }
+
+        if ( possibleCanID == 0xFFF) {
+            broadcast(topicName, keyName, new SignalPacket("riding_mode", possibleCanID, (boolean) Utility.getChargingStatus(data)));
+            return;
+        }
+
+    }
+
+    public void broadcastToDigital(char[] data){
+        String topicName = "com.royalenfield.digital.telemetry.info.ACTION_SEND";
+        String keyName = "packet";
+        processAndBroadcast(topicName, keyName, data);
+    }
+
+    public void broadcastToLocalApp(char[] data){
+        String topicName = "com.royalenfield.digital.telemetry.info.for.inhouse.ACTION_SEND";
+        String keyName = "packet";
+        processAndBroadcast(topicName, keyName, data);
+    }
+
+    int uart_write(char sendbyte)
+    {
+        return ttyHSLx.uartWrite(sendbyte);
+    }
+
+    char randomChar(int counter){
+        int x = (int) ((Math.random()*10 ) % 10);
+        char[] chars ={ '0','1','2','3','4', '5', '6', '7', '8', '9'};
+        if( counter % 11 == 0 ) return '\n';
+        return chars[x];
+    }
+
+    char[] dataPacket(){
+        char byteReceived;
+        char[] tempData = new char[10];
+        int counter = 0;
+        int charIntValue;
+        do {
+            byteReceived = uart_read();
+            charIntValue = ( int ) byteReceived;
+            Log.e(TAG, "Byte-Index: "+counter +" "+"Byte-Value: "+charIntValue);
+            counter++;
+        }while (counter < START_FRAME_SIZE || byteReceived == 0xFF || byteReceived == 0x00 );
+
+        Log.e(TAG, "Started collecting data packet-frame");
+        tempData[0] = byteReceived;
+        charIntValue = (int ) tempData[0];
+        Log.e(TAG, "Byte-Index: "+ 0 +" "+"Byte-Value: "+charIntValue);
+        for(int i = 1; i < 10; i++){
+            tempData[i] = uart_read();
+            charIntValue = (int ) tempData[i];
+            Log.e(TAG, "Byte-Index: "+ i +" "+"Byte-Value: "+charIntValue);
+        }
+
+        return tempData;
+    }
+
+    class UARTThread extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            uart_init();
+            while (true) {
+                Log.e(TAG, "Started reading of can-data...");
+                readData = dataPacket();
+                try{
+                    sendDataToSibrosService(readData);
+                    broadcastToDigital(readData);
+                    broadcastToLocalApp(readData);
+                }catch (Exception e){
+                    Log.e("UartService", "Exception found during broadcosting to digit via bytes"+e);
+                }
+
+
+            }
+        }
+    }
+
+    public class UartServiceBinder extends Binder {
+        UartServiceBinder getService() {
+            // Return this instance of LocalService so clients can call public methods.
+            return UartServiceBinder.this;
+        }
+    }
+}
